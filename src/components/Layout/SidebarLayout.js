@@ -3,7 +3,7 @@ import Drawer from "@mui/material/Drawer";
 import SvgIcon from "@mui/material/SvgIcon";
 import { ReactComponent as LyloIcon } from "../../assets/lylo-logo.svg";
 
-const drawerWidth = "20%";
+const drawerWidth = "15%";
 
 const SidebarLayout = (props) => {
 	return (
