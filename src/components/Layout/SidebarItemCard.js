@@ -1,15 +1,20 @@
-import Grid from "@mui/material/Grid";
+import React from "react";
+import { Row } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
 
 const SidebarItemCard = (props) => {
+	const customStyle = {
+		fontFamily: "Inter, sans-serif",
+	};
 	return (
-		<Grid container spacing={1}>
-			<Grid item sx={6} marginLeft="12%">
+		<Row className="d-flex ms-1">
+			<Col className="align-items-center">
 				{props.icon}
-			</Grid>
-			<Grid item sx={6}>
-				{props.text}
-			</Grid>
-		</Grid>
+				<span className="ms-3 fs-6 text-light" style={customStyle}>
+					{props.text}
+				</span>
+			</Col>
+		</Row>
 	);
 };
 

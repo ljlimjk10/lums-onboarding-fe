@@ -1,38 +1,22 @@
 import React from "react";
-import Drawer from "@mui/material/Drawer";
-import SvgIcon from "@mui/material/SvgIcon";
-import { ReactComponent as LyloIcon } from "../../assets/lylo-logo.svg";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Image from "react-bootstrap/Image";
 
-const drawerWidth = "15%";
+import LyloLogo from "../../assets/lylo-logo.svg";
 
 const SidebarLayout = (props) => {
 	return (
-		<React.Fragment>
-			<Drawer
-				variant="permanent"
-				anchor="left"
-				sx={{
-					flexShrink: 0,
-					display: "grid",
-					"& .MuiDrawer-paperAnchorLeft": {
-						width: drawerWidth,
-						backgroundColor: "#1F2B37",
-					},
-				}}
-			>
-				<SvgIcon
-					component={LyloIcon}
-					inheritViewBox
-					sx={{
-						fontSize: 60,
-						display: "flex",
-						marginLeft: "10%",
-					}}
+		<Col xs={2} className="bg-dark fs-5 min-vh-100">
+			<Row className="py-1 d-flex">
+				<Image
+					src={LyloLogo}
+					className="ms-3"
+					style={{ width: "50%" }}
 				/>
-				{props.children}
-				{/* <SidebarContent /> */}
-			</Drawer>
-		</React.Fragment>
+			</Row>
+			{props.children}
+		</Col>
 	);
 };
 

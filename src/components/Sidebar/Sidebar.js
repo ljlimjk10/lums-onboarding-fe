@@ -1,48 +1,43 @@
-import { createTheme, ThemeProvider, Typography } from "@mui/material";
-import AssessmentIcon from "@mui/icons-material/Assessment";
-import GroupAddIcon from "@mui/icons-material/GroupAdd";
-import PersonIcon from "@mui/icons-material/Person";
-
+import React from "react";
+import {
+	BarChartLineFill,
+	PersonFill,
+	PersonFillAdd,
+	FileTextFill,
+	FileEarmarkPlusFill,
+	ArrowLeftCircleFill,
+} from "react-bootstrap-icons";
 import SidebarLayout from "../Layout/SidebarLayout";
 import SidebarItemCard from "../Layout/SidebarItemCard";
 
-const DashboardIcon = AssessmentIcon;
-const ApproveUsersIcon = GroupAddIcon;
-
-const theme = createTheme({
-	typography: {
-		fontFamily: ["Inter", "sans-serif"].join(","),
-	},
-	palette: {
-		text: {
-			primary: "#FFFFFF",
-		},
-		primary: {
-			main: "#FFFFFF",
-		},
-	},
-});
-
 const Sidebar = () => {
 	return (
-		<ThemeProvider theme={theme}>
-			<SidebarLayout>
-				<SidebarItemCard
-					icon={<DashboardIcon color="primary" />}
-					text={<Typography color="primary">Dashboard</Typography>}
-				/>
-				<SidebarItemCard
-					icon={<ApproveUsersIcon color="primary" />}
-					text={
-						<Typography color="primary">Approve Users</Typography>
-					}
-				/>
-				<SidebarItemCard
-					icon={<PersonIcon color="primary" />}
-					text={<Typography color="primary">Users</Typography>}
-				/>
-			</SidebarLayout>
-		</ThemeProvider>
+		<SidebarLayout>
+			<SidebarItemCard
+				icon={<BarChartLineFill color="#FFFFFF" />}
+				text="Dashboard"
+			/>
+			<SidebarItemCard
+				icon={<PersonFill color="#FFFFFF" />}
+				text="Users"
+			/>
+			<SidebarItemCard
+				icon={<PersonFillAdd color="#FFFFFF" />}
+				text="Pending Users"
+			/>
+			<SidebarItemCard
+				icon={<FileTextFill color="#FFFFFF" />}
+				text="Posts"
+			/>
+			<SidebarItemCard
+				icon={<FileEarmarkPlusFill color="#FFFFFF" />}
+				text="Create Post"
+			/>
+			<SidebarItemCard
+				icon={<ArrowLeftCircleFill color="#FFFFFF" />}
+				text="Sign Out"
+			/>
+		</SidebarLayout>
 	);
 };
 
