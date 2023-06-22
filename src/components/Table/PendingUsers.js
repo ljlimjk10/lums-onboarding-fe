@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { data } from './data.js';
 import Col from "react-bootstrap/Col";
 import Button from 'react-bootstrap/Button';
+import User_Status from '../NavBar/User_Status.js';
 
 function PendingUsers() {
   const [contacts, setContacts] = useState(data);
@@ -15,11 +16,13 @@ function PendingUsers() {
   return (
     <Col xs={10}>
         <Container>
+          
             <h1 className='text-center mt-4'>Pending Users</h1>
             <Form>
               <InputGroup className='my-3'>
-
+              <User_Status />
                 {/* onChange for search */}
+                
                 <Form.Control
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder='Search users'
@@ -33,7 +36,6 @@ function PendingUsers() {
                   <th>NRIC</th>
                   <th>Contact</th>
                   <th></th>
-
                 </tr>
               </thead>
               <tbody>

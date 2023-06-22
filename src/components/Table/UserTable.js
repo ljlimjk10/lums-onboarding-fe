@@ -5,8 +5,8 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { data } from './data.js';
-import Col from "react-bootstrap/Col";
 import Button from 'react-bootstrap/Button';
+import Col from "react-bootstrap/Col";
 
 function UserTable() {
   const [contacts, setContacts] = useState(data);
@@ -18,7 +18,6 @@ function UserTable() {
             <h1 className='text-center mt-4'> Existing Users</h1>
             <Form>
               <InputGroup className='my-3'>
-
                 {/* onChange for search */}
                 <Form.Control
                   onChange={(e) => setSearch(e.target.value)}
