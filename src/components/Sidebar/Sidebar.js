@@ -2,7 +2,6 @@ import { createTheme, ThemeProvider, Typography } from "@mui/material";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import PersonIcon from "@mui/icons-material/Person";
-
 import SidebarLayout from "../Layout/SidebarLayout";
 import SidebarItemCard from "../Layout/SidebarItemCard";
 
@@ -42,7 +41,10 @@ const Sidebar = () => {
 					text={<Typography color="primary">Users</Typography>}
 				/>
 			</SidebarLayout>
+			
 		</ThemeProvider>
+		
+
 	);
 };
 
