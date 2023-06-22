@@ -1,22 +1,28 @@
+import "bootstrap/dist/css/bootstrap.min.css";
+import React from "react";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+
+import UserTable from "./components/Table/UserTable";
+import "./components/Table/index.css";
+
 import Sidebar from "./components/Sidebar/Sidebar";
 import LoginPage from "./components/Login/LoginPage";
-import Sidebar2 from "./components/Sidebar_2/Sidebar2"
 
 function App() {
 	return (
-    // <div>
-    //     <Sidebar />
-    // </div>
-    // Login page 
-    // <div>
-    //   <LoginPage /> 
-    // </div>
+		<Container fluid className="min-vh-100">
+			<Row>
+				<Sidebar />
+				<UserTable />
+			</Row>
+		</Container>
 
-    <div>
-      <Sidebar2 />
-    </div>
-    
-  ); 
+		// <div>
+		// 	<LoginPage />
+		// </div>
+	);
+
 }
 
 export default App;
