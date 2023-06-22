@@ -7,62 +7,102 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { data } from './data.js';
 import Col from "react-bootstrap/Col";
 import Button from 'react-bootstrap/Button';
-import User_Status from '../NavBar/User_Status.js';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 function PendingUsers() {
   const [contacts, setContacts] = useState(data);
   const [search, setSearch] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState('');
+
+  const clearFilters = () => {
+    setSearch('');
+    setSelectedStatus('');
+  };
 
   return (
     <Col xs={10}>
-        <Container>
-          
-            <h1 className='text-center mt-4'>Pending Users</h1>
-            <Form>
-              <InputGroup className='my-3'>
-              <User_Status />
-                {/* onChange for search */}
-                
-                <Form.Control
-                  onChange={(e) => setSearch(e.target.value)}
-                  placeholder='Search users'
-                />
-              </InputGroup>
-            </Form>
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>NRIC</th>
-                  <th>Contact</th>
-                  <th></th>
+      <Container>
+        <h1 className='text-center mt-4'>Pending Users</h1>
+        <Form>
+          <InputGroup className='my-3'>
+            <ButtonGroup aria-label="Basic example">
+              <Button
+                variant={selectedStatus === 'New' ? 'info' : 'primary'}
+                style={{ borderRadius: 0 }}
+                onClick={() => setSelectedStatus('New')}
+              >
+                New
+              </Button>
+              <Button
+                variant={selectedStatus === 'Pending' ? 'info' : 'primary'}
+                onClick={() => setSelectedStatus('Pending')}
+              >
+                Pending
+              </Button>
+              <Button
+                variant={selectedStatus === 'Modified' ? 'info' : 'primary'}
+                onClick={() => setSelectedStatus('Modified')}
+              >
+                Modified
+              </Button>
+              <Button
+                variant={selectedStatus === 'Rejected' ? 'info' : 'primary'}
+                style={{ borderRadius: 0 }}
+                onClick={() => setSelectedStatus('Rejected')}
+              >
+                Rejected
+              </Button>
+            </ButtonGroup>
+            <Form.Control
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder='Search users'
+            />
+            <Button
+              variant="primary"
+              onClick={clearFilters}
+            >
+              Clear Filters
+            </Button>
+          </InputGroup>
+        </Form>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>NRIC</th>
+              <th>Contact</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {data
+              .filter((item) => {
+                const Name = `${item.Name}`;
+                const NRIC = item.NRIC;
+                const Address = item.Address;
+                const Status = item.Status;
+                return (
+                  (search.toLowerCase() === '' ||
+                    Name.toLowerCase().includes(search.toLowerCase()) ||
+                    NRIC.toLowerCase().includes(search.toLowerCase()) ||
+                    Address.toLowerCase().includes(search.toLowerCase())) &&
+                  (selectedStatus === '' || Status === selectedStatus)
+                );
+              })
+              .map((item, index) => (
+                <tr key={index}>
+                  <td>{item.Name}</td>
+                  <td>{item.NRIC}</td>
+                  <td>{item.Address}</td>
+                  <td>{item.Status}</td>
+                  <td align="center"><Button>View User</Button></td>
                 </tr>
-              </thead>
-              <tbody>
-                {data
-                  .filter((item) => {
-                    const Name = `${item.Name}`;
-                    const NRIC = item.NRIC;
-                    const Address = item.Address;
-                    return (
-                      search.toLowerCase() === '' ||
-                      Name.toLowerCase().includes(search.toLowerCase()) ||
-                      NRIC.toLowerCase().includes(search.toLowerCase()) ||
-                      Address.toLowerCase().includes(search.toLowerCase())
-                    );
-                  })
-                  .map((item, index) => (
-                    <tr key={index}>
-                      <td>{item.Name}</td>
-                      <td>{item.NRIC}</td>
-                      <td>{item.Address}</td>
-                      <td align="center"><Button>View User</Button></td>
-                    </tr>
-                  ))}
-              </tbody>
-            </Table>
-        </Container>
-      </Col>    
+              ))}
+          </tbody>
+        </Table>
+      </Container>
+    </Col>
   );
 }
 
