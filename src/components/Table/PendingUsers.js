@@ -34,16 +34,10 @@ function PendingUsers() {
                 New
               </Button>
               <Button
-                variant={selectedStatus === 'Pending' ? 'info' : 'primary'}
-                onClick={() => setSelectedStatus('Pending')}
+                variant={selectedStatus === 'Editing' ? 'info' : 'primary'}
+                onClick={() => setSelectedStatus('Editing')}
               >
-                Pending
-              </Button>
-              <Button
-                variant={selectedStatus === 'Modified' ? 'info' : 'primary'}
-                onClick={() => setSelectedStatus('Modified')}
-              >
-                Modified
+                Editing
               </Button>
               <Button
                 variant={selectedStatus === 'Rejected' ? 'info' : 'primary'}
@@ -60,6 +54,7 @@ function PendingUsers() {
             <Button
               variant="primary"
               onClick={clearFilters}
+              style={{ borderRadius: 0 }}
             >
               Clear Filters
             </Button>

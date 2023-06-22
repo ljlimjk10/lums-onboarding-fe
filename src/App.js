@@ -18,9 +18,9 @@ function App() {
 		<Container fluid className="min-vh-100">
 			<Row>
 				<Sidebar />
-				<UserTable />
+				{/* <UserTable /> */}
 				
-				{/* <PendingUsers /> */}
+				<PendingUsers />
 				
 				
 
