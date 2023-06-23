@@ -171,31 +171,36 @@ import LabelText from "../Layout/Views/LabelText";
 import Row from "react-bootstrap/Row";
 import Form from 'react-bootstrap/Form';
 import TextBox from "../Layout/Views/TextBox";
+import Image from 'react-bootstrap/Image';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function UserView() {
     return (
-        <>
-            <Col xs={5}>
+        <>            
+            <Col xs={3} className="justify-content-center" style={{ marginLeft: "5%" }}>
+                <TextBox Label="Name" pholder="Jozef Rayhill" style={{marginTop:"100px"}} disabled={true}/>
+                <TextBox Label="NRIC" pholder="K8101852S" disabled={true}/>
+                <TextBox Label="Address" pholder="25 Dapin Center" disabled={true}/>
+                <TextBox Label="Contact" pholder="63837130" disabled={true}/>
+                <TextBox Label="Telegram" pholder="ulxymmp" disabled={true}/>
+                <TextBox Label="Affiliation" pholder="Lumens" disabled={true}/>
+            </Col>
+            <Col xs={6} className="justify-content-center" style={{marginTop:"100px"}}>
                 <Row>
-                    <Col xs={4} style={{outline:"5px solid"}}>
-                        asd
-                    </Col>
-                    <Col xs={8}  style={{outline:"5px solid"}}>
-                        <Form>
-                            <TextBox Label="Name" pholder="Jozef Rayhill" style={{marginTop:"20%"}} disabled={true}/>
-                            <TextBox Label="NRIC" pholder="K8101852S" disabled={true}/>
-                            <TextBox Label="Address" pholder="25 Dapin Center" disabled={true}/>
-                            <TextBox Label="Contact" pholder="63837130" disabled={true}/>
-                            <TextBox Label="Telegram" pholder="ulxymmp" disabled={true}/>
-                            <TextBox Label="Affiliation" pholder="Lumens" disabled={true}/>
-                        </Form>
-
+                    <Col>
+                        <Image src="https://picsum.photos/200" />
                     </Col>
                 </Row>
- 
-            </Col>
-            <Col xs={5} style={{outline:"5px solid"}}> 
-                asd
+                <Row>
+                    <Col>
+                        <Image src="https://picsum.photos/200" />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Image src="https://picsum.photos/200" />
+                    </Col>
+                </Row>
             </Col>
         </>
     )
