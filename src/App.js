@@ -8,6 +8,7 @@ import Sidebar from "./components/Sidebar/Sidebar";
 import LoginPage from "./components/Login/LoginPage";
 import ExistingUsersTable from "./components/Users/ExistingUsersTable";
 import PendingUsersTable from "./components/Users/PendingUsersTable";
+import UserView from "./components/Users/UserView";
 
 
 import Button from "./components/Layout/Views/Button";
@@ -20,11 +21,9 @@ function App() {
 		<Container fluid className="min-vh-100">
 			<Row>
 				<Sidebar />
-				<ExistingUsersTable />
+				<UserView />
+				{/* <ExistingUsersTable /> */}
 				{/* <PendingUsersTable /> */}
-				{/* <Col xs={10}>
-					asd
-				</Col> */}
 			</Row>
 		</Container>
 		

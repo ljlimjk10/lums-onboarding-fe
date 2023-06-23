@@ -18,14 +18,11 @@ function ExistingUsersTable() {
 	}
 	return (
 		<Col xs={10}>
-		
-			{selectedUserId ? <UserView userId={selectedUserId} /> : 
-			
+			{selectedUserId ? <UserView userId={selectedUserId} /> :
 			<Container>
 				<h1 className="text-center mt-4"> Existing Users</h1>
 				<Form>
 					<InputGroup className="my-3">
-						{/* onChange for search */}
 						<Form.Control
 							onChange={(e) => setSearch(e.target.value)}
 							placeholder="Search users"
@@ -39,6 +36,7 @@ function ExistingUsersTable() {
 							<th>NRIC</th>
 							<th>Contact</th>
 							<th>Address</th>
+							<th>Status</th>
 							<th>Select</th>
 							<th></th>
 						</tr>
@@ -50,20 +48,14 @@ function ExistingUsersTable() {
 								const NRIC = item.NRIC;
 								const Contact = item.Contact;
 								const Address = item.Address;
+								const Status = item.Status;
 								return (
-									search.toLowerCase() === "" ||
-									Name.toLowerCase().includes(
-										search.toLowerCase()
-									) ||
-									NRIC.toLowerCase().includes(
-										search.toLowerCase()
-									) ||
-									Contact.toLowerCase().includes(
-										search.toLowerCase()
-									) ||
-									Address.toLowerCase().includes(
-										search.toLowerCase()
-									)
+									(search.toLowerCase() === "" ||
+										Name.toLowerCase().includes(search.toLowerCase()) ||
+										NRIC.toLowerCase().includes(search.toLowerCase()) ||
+										Contact.toLowerCase().includes(search.toLowerCase()) ||
+										Address.toLowerCase().includes(search.toLowerCase())) &&
+									Status === "Accepted"
 								);
 							})
 							.map((item, index) => (
@@ -72,16 +64,19 @@ function ExistingUsersTable() {
 									<td>{item.NRIC}</td>
 									<td>{item.Contact}</td>
 									<td>{item.Address}</td>
-									<td>{<input type="checkbox"></input>}</td>
+									<td>{item.Status}</td>
+									<td>
+										<input type="checkbox" />
+									</td>
 									<td align="center">
-										<Button onClick={()=>handleViewUser(item.id)}>View User</Button>
+										<Button onClick={() => handleViewUser(item.id)}>View User</Button>
 									</td>
 								</tr>
 							))}
 					</tbody>
 				</Table>
 				<Button>Generate CSV</Button>
-				<Button style={{marginLeft:"10px"}}>Select All</Button>
+				<Button style={{ marginLeft: "10px" }}>Select All</Button>
 				<hr />
 			</Container>
 			}
