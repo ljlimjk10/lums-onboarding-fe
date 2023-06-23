@@ -7,13 +7,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { data } from "./data.js";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
+import UserView from "./UserView.js";
 
 function ExistingUsersTable() {
 	const [contacts, setContacts] = useState(data);
 	const [search, setSearch] = useState("");
-
+	const [selectedUserId, setSelectedUserId] = useState(null);
+	const handleViewUser = (userId) => {
+		setSelectedUserId(userId)
+	}
 	return (
 		<Col xs={10}>
+		
+			{selectedUserId ? <UserView userId={selectedUserId} /> : 
+			
 			<Container>
 				<h1 className="text-center mt-4"> Existing Users</h1>
 				<Form>
@@ -65,13 +72,14 @@ function ExistingUsersTable() {
 									<td>{item.Contact}</td>
 									<td>{item.Address}</td>
 									<td align="center">
-										<Button>View User</Button>
+										<Button onClick={()=>handleViewUser(item.id)}>View User</Button>
 									</td>
 								</tr>
 							))}
 					</tbody>
 				</Table>
 			</Container>
+			}
 		</Col>
 	);
 }

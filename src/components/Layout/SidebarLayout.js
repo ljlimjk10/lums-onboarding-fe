@@ -12,7 +12,7 @@ const SidebarLayout = (props) => {
 				<Image
 					src={LyloLogo}
 					className="ms-3"
-					style={{ width: "50%" }}
+					style={{ width: "40%" }}
 				/>
 			</Row>
 			{props.children}
