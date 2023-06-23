@@ -6,11 +6,13 @@ import Col from "react-bootstrap/Col";
 
 import Sidebar from "./components/Sidebar/Sidebar";
 import LoginPage from "./components/Login/LoginPage";
+import ExistingUsersTable from "./components/Users/ExistingUsersTable";
+import PendingUsersTable from "./components/Users/PendingUsersTable";
 
-import UserTable from "./components/Table/UserTable";
-import PendingUsers from "./components/Table/PendingUsers";
-import "./components/Table/index.css";
 
+import Button from "./components/Layout/Views/Button";
+import ContentCard from "./components/Layout/Views/ContentCard";
+import LabelText from "./components/Layout/Views/LabelText";
 
 
 function App() {
@@ -18,14 +20,11 @@ function App() {
 		<Container fluid className="min-vh-100">
 			<Row>
 				<Sidebar />
-				{/* <UserTable /> */}
-				
-				<PendingUsers />
-				
-				
-
-				
-
+				<ExistingUsersTable />
+				{/* <PendingUsersTable /> */}
+				{/* <Col xs={10}>
+					asd
+				</Col> */}
 			</Row>
 		</Container>
 		

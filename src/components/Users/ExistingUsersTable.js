@@ -8,7 +8,7 @@ import { data } from "./data.js";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 
-function UserTable() {
+function ExistingUsersTable() {
 	const [contacts, setContacts] = useState(data);
 	const [search, setSearch] = useState("");
 
@@ -76,4 +76,4 @@ function UserTable() {
 	);
 }
 
-export default UserTable;
+export default ExistingUsersTable;

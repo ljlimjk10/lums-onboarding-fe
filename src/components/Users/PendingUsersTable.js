@@ -9,7 +9,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 
-function PendingUsers() {
+function PendingUsersTable() {
 	const [contacts, setContacts] = useState(data);
 	const [search, setSearch] = useState("");
 	const [selectedStatus, setSelectedStatus] = useState("");
@@ -122,4 +122,4 @@ function PendingUsers() {
 	);
 }
 
-export default PendingUsers;
+export default PendingUsersTable;
