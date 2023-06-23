@@ -39,6 +39,7 @@ function ExistingUsersTable() {
 							<th>NRIC</th>
 							<th>Contact</th>
 							<th>Address</th>
+							<th>Select</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -71,6 +72,7 @@ function ExistingUsersTable() {
 									<td>{item.NRIC}</td>
 									<td>{item.Contact}</td>
 									<td>{item.Address}</td>
+									<td>{<input type="checkbox"></input>}</td>
 									<td align="center">
 										<Button onClick={()=>handleViewUser(item.id)}>View User</Button>
 									</td>
@@ -79,9 +81,9 @@ function ExistingUsersTable() {
 					</tbody>
 				</Table>
 				<Button>Generate CSV</Button>
-				<hr/>
+				<Button style={{marginLeft:"10px"}}>Select All</Button>
+				<hr />
 			</Container>
-			
 			}
 		</Col>
 	);
