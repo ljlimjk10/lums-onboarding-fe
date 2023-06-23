@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { data } from "./data.js";
-import Button from "react-bootstrap/Button";
+import Button from "../Layout/Views/Button";
 import Col from "react-bootstrap/Col";
 import UserView from "./UserView.js";
 
@@ -78,7 +78,10 @@ function ExistingUsersTable() {
 							))}
 					</tbody>
 				</Table>
+				<Button>Generate CSV</Button>
+				<hr/>
 			</Container>
+			
 			}
 		</Col>
 	);
