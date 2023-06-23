@@ -9,13 +9,18 @@ const SidebarItemCard = (props) => {
 	};
 
 	return (
-		<Row className="d-flex ms-1 h4">
-			<Col className="align-items-center">
-				<Button variant="dark">
-					{props.icon}
-					<span className="ms-3 fs-6 text-light" style={customStyle}>
-						{props.text}
-					</span>
+		<Row>
+			<Col>
+				<Button className="d-flex w-100" variant="dark">
+					<Col xs={2}>{props.icon}</Col>
+					<Col>
+						<span
+							className="d-flex fs-6 text-light px-2"
+							style={customStyle}
+						>
+							{props.text}
+						</span>
+					</Col>
 				</Button>
 			</Col>
 		</Row>
