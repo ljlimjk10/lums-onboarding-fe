@@ -15,7 +15,8 @@ const SidebarItemCard = (props) => {
 					<Col xs={2}>{props.icon}</Col>
 					<Col>
 						<span
-							className="d-flex fs-6 text-light px-2"
+							className="d-flex text-start
+							text-light px-2"
 							style={customStyle}
 						>
 							{props.text}
