@@ -3,12 +3,11 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 
-import "./components/Users/index.css";
 import Sidebar from "./components/Sidebar/Sidebar";
 // import LoginPage from "./components/Login/LoginPage";
 // import UserTable from "./components/Users/ExistingUsersTable";
 // import PendingUsers from "./components/Users/PendingUsersTable";
-import Post from "./components/Posts/Post";
+import Post from "./components/Posts/Post/Post";
 
 function App() {
 	const postData = {
