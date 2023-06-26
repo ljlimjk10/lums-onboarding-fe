@@ -33,7 +33,7 @@ function PendingUsersTable() {
 										? "info"
 										: "primary"
 								}
-								style={{ borderRadius: 0 }}
+								style={{ borderRadius: 0, zIndex: 0}}
 								onClick={() => setSelectedStatus("New")}
 							>
 								New
@@ -44,6 +44,7 @@ function PendingUsersTable() {
 										? "info"
 										: "primary"
 								}
+								style={{ zIndex: 0}}
 								onClick={() => setSelectedStatus("Editing")}
 							>
 								Editing
@@ -54,7 +55,7 @@ function PendingUsersTable() {
 										? "info"
 										: "primary"
 								}
-								style={{ borderRadius: 0 }}
+								style={{ borderRadius: 0,  zIndex: 0 }}
 								onClick={() => setSelectedStatus("Rejected")}
 							>
 								Rejected
