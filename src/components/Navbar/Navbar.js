@@ -6,6 +6,9 @@ import { SidebarData } from './SidebarData';
 import './Navbar.css';
 import { IconContext } from 'react-icons';
 
+import Image from "react-bootstrap/Image";
+import LyloLogo from "../../assets/lylo-logo.svg";
+
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
 
@@ -26,6 +29,11 @@ function Navbar() {
                 <AiIcons.AiOutlineClose />
               </Link>
             </li>
+            <Image
+              src={LyloLogo}
+              className="ms-3"
+              style={{ width: "40%" }}
+            />
             {SidebarData.map((item, index) => {
               return (
                 <li key={index} className={item.cName}>
