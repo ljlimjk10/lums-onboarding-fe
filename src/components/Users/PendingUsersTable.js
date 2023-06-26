@@ -21,7 +21,7 @@ function PendingUsersTable() {
 	};
 
 	return (
-		<Col xs={10}>
+		<Col>
 			<Container>
 				<h1 className="text-center mt-4">Pending Users</h1>
 				<Form>

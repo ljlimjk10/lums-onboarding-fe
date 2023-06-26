@@ -17,7 +17,7 @@ function ExistingUsersTable() {
 		setSelectedUserId(userId)
 	}
 	return (
-		<Col xs={10}>
+		<Col>
 			{selectedUserId ? <UserView userId={selectedUserId} /> :
 			<Container>
 				<h1 className="text-center mt-4"> Existing Users</h1>
