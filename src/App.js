@@ -24,8 +24,8 @@ function App() {
 		<Router>
 			<Navbar />	
 				{/* <ExistingUsersTable /> */}
-				<PendingUsersTable /> 
-				{/* <UserView />  */}
+				{/* <PendingUsersTable />  */}
+				<UserView /> 
 		</Router>
 
 
