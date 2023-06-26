@@ -11,7 +11,6 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 
 function PendingUsersTable() {
-	const [contacts, setContacts] = useState(data);
 	const [search, setSearch] = useState("");
 	const [selectedStatus, setSelectedStatus] = useState("");
 
@@ -79,7 +78,7 @@ function PendingUsersTable() {
 						<tr>
 							<th>Name</th>
 							<th>NRIC</th>
-							<th>Contact</th>
+							<th>Address</th>
 							<th>Status</th>
 							<th></th>
 						</tr>

@@ -7,25 +7,25 @@ export const SidebarData = [
   {
     title: 'Dashboard',
     path: '/',
-    icon: <AiIcons.AiFillHome />,
+    icon: <AiIcons.AiOutlineDashboard />,
     cName: 'nav-text'
   },
   {
     title: 'Users',
     path: '/ExistingUsersTable',
-    icon: <IoIcons.IoIosPaper />,
+    icon: <AiIcons.AiOutlineUser />,
     cName: 'nav-text'
   },
   {
     title: 'Pending Users',
     path: '/PendingUsersTable',
-    icon: <FaIcons.FaCartPlus />,
+    icon: <AiIcons.AiOutlineUsergroupAdd />,
     cName: 'nav-text'
   },
   {
     title: 'Posts',
     path: '/team',
-    icon: <IoIcons.IoMdPeople />,
+    icon: <FaIcons.FaNewspaper />,
     cName: 'nav-text'
   },
   {
@@ -43,7 +43,7 @@ export const SidebarData = [
   {
     title: 'Sign Out',
     path: '/LoginPage',
-    icon: <IoIcons.IoMdHelpCircle />,
+    icon: <AiIcons.AiFillBackward />,
     cName: 'nav-text'
   }
 ];
