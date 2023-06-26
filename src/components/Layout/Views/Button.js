@@ -8,7 +8,8 @@ const Button = (props) => {
 	return (
 		<BootstrapButton
 			variant={props.variant}
-			className={`text-center ${props.className}`}
+			style={props.style}
+			className="text-center"
 		>
 			{props.children}
 		</BootstrapButton>

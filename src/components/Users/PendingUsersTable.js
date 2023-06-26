@@ -9,6 +9,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 
+
 function PendingUsersTable() {
 	const [contacts, setContacts] = useState(data);
 	const [search, setSearch] = useState("");
@@ -20,7 +21,7 @@ function PendingUsersTable() {
 	};
 
 	return (
-		<Col xs={10}>
+		<Col>
 			<Container>
 				<h1 className="text-center mt-4">Pending Users</h1>
 				<Form>
@@ -104,6 +105,8 @@ function PendingUsersTable() {
 										Status === selectedStatus)
 								);
 							})
+              // Only display users with status other than "Accepted" when no filters are selected
+              .filter((item) => item.Status !== "Accepted")
 							.map((item, index) => (
 								<tr key={index}>
 									<td>{item.Name}</td>
