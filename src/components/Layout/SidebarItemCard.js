@@ -13,11 +13,7 @@ const SidebarItemCard = (props) => {
 
 	return (
 		<Row className="d-flex ms-1 h4">
-				<Image
-					src={LyloLogo}
-					className="ms-3"
-					style={{ width: "40%" }}
-				/>
+			<Image src={LyloLogo} className="ms-3" style={{ width: "40%" }} />
 			<Col className="align-items-center">
 				<Button variant="dark">
 					{props.icon}
@@ -25,7 +21,6 @@ const SidebarItemCard = (props) => {
 						{props.text}
 					</span>
 				</Button>
-
 			</Col>
 		</Row>
 	);

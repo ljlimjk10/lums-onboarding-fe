@@ -6,7 +6,11 @@ import BootstrapButton from "react-bootstrap/Button";
 
 const Button = (props) => {
 	return (
-		<BootstrapButton variant={props.variant} style={props.style} className="text-center">
+		<BootstrapButton
+			variant={props.variant}
+			style={props.style}
+			className="text-center"
+		>
 			{props.children}
 		</BootstrapButton>
 	);
