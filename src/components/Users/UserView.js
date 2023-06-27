@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from "react-bootstrap";
 import "../../index.css";
 import Heading from "../Layout/Views/Heading";
-import Cordion from "../Layout/Views/Accordion";
+import Cordion from "../Layout/Views/Cordion";
 
 
 function UserView(props) {
@@ -14,6 +14,7 @@ function UserView(props) {
         <Container>
             <Row>
                 <Heading status="Approved" page="User Information" vis={props.vis} vistwo={props.vistwo}/>
+                <hr />
                 <Col lg={6} md={6} xs={12}>
                     <TextBox Label="Name" disabled="true" pholder="Gabriel Loh Yee Xun"/>
                     <TextBox Label="NRIC" disabled="true" pholder="S1234567G"/>
@@ -30,6 +31,7 @@ function UserView(props) {
                 </Col>
                 <Col lg={12} md={12} xs={12}>
                     <Cordion source="https://picsum.photos/500/300"/>
+                    <hr />
                 </Col>
             </Row>
         </Container>

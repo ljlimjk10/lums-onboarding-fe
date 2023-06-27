@@ -10,12 +10,8 @@ function Heading(props) {
                     {props.page} <Badge bg="success">{props.status}</Badge>
                 </h4>
             </Col>
-            <Col style={{marginTop:"3%" }} className="d-flex flex-row-reverse" lg={2} md={4} xs={4}>
+            <Col style={{marginTop:"3%", marginBottom:"1%" }} className="d-flex flex-row-reverse" lg={2} md={4} xs={4}>
                 <Button className={props.vis}>Edit profile</Button>
-            </Col>
-
-            <Col lg={12} md={12} xs={12}>
-                <hr />
             </Col>
         </>        
     )
