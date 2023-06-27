@@ -29,7 +29,7 @@ function App() {
 			<Navbar />
 			<ExistingUsersTable />
 			{/* <PendingUsersTable />  */}
-			{/* <UserView />  */}
+			{/* <UserView vis="visible"/>  */}
 		</Router>
 	);
 }
