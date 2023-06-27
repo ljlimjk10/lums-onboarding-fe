@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -13,17 +13,6 @@ function ExistingUsersTable() {
   const [contacts, setContacts] = useState(data);
   const [search, setSearch] = useState("");
   const [selectedUserId, setSelectedUserId] = useState(null);
-  const [isMinimized, setIsMinimized] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMinimized(window.innerWidth <= 768); // Set the threshold width here
-    };
-
-    handleResize(); // Initial check
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   const handleViewUser = (userId) => {
     setSelectedUserId(userId);
@@ -48,10 +37,10 @@ function ExistingUsersTable() {
             <thead>
               <tr>
                 <th>Name</th>
-                {!isMinimized && <th>NRIC</th>}
-                {!isMinimized && <th>Contact</th>}
-                {!isMinimized && <th>Address</th>}
-                {!isMinimized && <th>Status</th>}
+                <th>NRIC</th>
+                <th>Contact</th>
+                <th>Address</th>
+                <th>Status</th>
                 <th>Select</th>
                 <th></th>
               </tr>
@@ -76,15 +65,13 @@ function ExistingUsersTable() {
                 .map((item, index) => (
                   <tr key={index}>
                     <td>{item.Name}</td>
-                    {!isMinimized && <td>{item.NRIC}</td>}
-                    {!isMinimized && <td>{item.Contact}</td>}
-                    {!isMinimized && <td>{item.Address}</td>}
-                    {!isMinimized && <td>{item.Status}</td>}
-                    
-                      <td>
-                        <input type="checkbox" />
-                      </td>
-                    
+                    <td>{item.NRIC}</td>
+                    <td>{item.Contact}</td>
+                    <td>{item.Address}</td>
+                    <td>{item.Status}</td>
+                    <td>
+                      <input type="checkbox" />
+                    </td>
                     <td align="center">
                       <Button onClick={() => handleViewUser(item.id)}>
                         View User
