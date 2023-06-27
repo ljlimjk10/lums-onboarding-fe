@@ -1,21 +1,76 @@
 import React, { useState } from "react";
+
 import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { data } from "./data.js";
-import Button from "../Layout/Views/Button";
+import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import UserView from "./UserView.js";
+import { saveAs } from "file-saver";
 
 function ExistingUsersTable() {
   const [contacts, setContacts] = useState(data);
   const [search, setSearch] = useState("");
+  const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(null);
+  const [isSelectAll, setIsSelectAll] = useState(false);
+  const [showPopUp, setShowPopUp] = useState(false);
 
   const handleViewUser = (userId) => {
+    console.log(userId);
     setSelectedUserId(userId);
+  };
+
+  const handleUserSelection = (userId) => {
+    setSelectedUsers((prevSelectedUsers) => {
+      if (prevSelectedUsers.includes(userId)) {
+        return prevSelectedUsers.filter((id) => id !== userId);
+      } else {
+        return [...prevSelectedUsers, userId];
+      }
+    });
+  };
+
+  const handleSelectAll = () => {
+    if (isSelectAll) {
+      setSelectedUsers([]);
+    } else {
+      const allUserIds = contacts.map((user) => user.id);
+      setSelectedUsers(allUserIds);
+    }
+    setIsSelectAll(!isSelectAll);
+  };
+
+  const handleGenerateCSV = () => {
+    if (selectedUsers.length === 0) {
+      setShowPopUp(true);
+    } else {
+      setShowPopUp(false);
+      // Implement CSV generation logic using selectedUsers array
+      const csvData = [];
+      csvData.push(["Name", "NRIC", "Contact", "Address", "Status"]);
+      // You can access the selected user details using the user id from the 'contacts' array
+      const selectedUserDetails = selectedUsers.map((userId)=>{
+        return contacts.find((user)=>user.id===userId)
+      });
+      // Iterate over selectedUserDetails array
+      selectedUserDetails.forEach((user) => {
+        const { Name, NRIC, Contact, Address, Status } = user;
+        // Push a row for each selected user
+        csvData.push([Name, NRIC, Contact, Address, Status]);
+      });
+      const csvString = csvData.map((row)=>row.join(",")).join("\n");
+      // Create a Blob object with the CSV data
+      const blob = new Blob([csvString], { type: "text/csv;charset=utf-8" });
+
+      // Save the CSV file using FileSaver.js
+      saveAs(blob, "selected_users.csv");
+      console.log("Selected User Details:", selectedUserDetails);
+      
+    }
   };
 
   return (
@@ -70,7 +125,11 @@ function ExistingUsersTable() {
                     <td>{item.Address}</td>
                     <td>{item.Status}</td>
                     <td>
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        checked={selectedUsers.includes(item.id)}
+                        onChange={() => handleUserSelection(item.id)}
+                      />
                     </td>
                     <td align="center">
                       <Button onClick={() => handleViewUser(item.id)}>
@@ -81,8 +140,18 @@ function ExistingUsersTable() {
                 ))}
             </tbody>
           </Table>
-          <Button>Generate CSV</Button>
-          <Button style={{ marginLeft: "10px" }}>Select All</Button>
+          <Button onClick={handleGenerateCSV}>Generate CSV</Button>
+          <Button
+            style={{ marginLeft: "10px" }}
+            onClick={handleSelectAll}
+          >
+            {isSelectAll ? "Deselect All" : "Select All"}
+          </Button>
+          {showPopUp && (
+            <div className="pop-up-message">
+              Please select at least one user to generate the CSV.
+            </div>
+          )}
           <hr />
         </Container>
       )}
