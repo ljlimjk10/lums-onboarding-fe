@@ -27,9 +27,9 @@ function App() {
 	return (
 		<Router>
 			<Navbar />
-			<ExistingUsersTable />
+			{/* <ExistingUsersTable /> */}
 			{/* <PendingUsersTable />  */}
-			{/* <UserView />  */}
+			<UserView /> 
 		</Router>
 	);
 }
