@@ -94,8 +94,10 @@ function ExistingUsersTable() {
                 <th>Name</th>
                 <th>NRIC</th>
                 <th>Contact</th>
-                <th>Address</th>
-                <th>Status</th>
+                <th>Region</th>
+                <th>Carplate</th>
+                <th>Model</th>
+                <th>Capacity</th>
                 <th>Select</th>
                 <th></th>
               </tr>
@@ -103,17 +105,25 @@ function ExistingUsersTable() {
             <tbody>
               {data
                 .filter((item) => {
+                  const Status = item.Status;
                   const Name = `${item.Name}`;
                   const NRIC = item.NRIC;
                   const Contact = item.Contact;
-                  const Address = item.Address;
-                  const Status = item.Status;
+                  const Region = item.Region;
+                  const Carplate = item.Carplate;
+                  const Model = item.Make_Model;
+                  const Capacity = item.Capacity;
+                  
                   return (
                     (search.toLowerCase() === "" ||
                       Name.toLowerCase().includes(search.toLowerCase()) ||
                       NRIC.toLowerCase().includes(search.toLowerCase()) ||
                       Contact.toLowerCase().includes(search.toLowerCase()) ||
-                      Address.toLowerCase().includes(search.toLowerCase())) &&
+                      Region.toLowerCase().includes(search.toLowerCase()) ||
+                      Carplate.toLowerCase().includes(search.toLowerCase()) ||
+                      Model.toLowerCase().includes(search.toLowerCase()) ||
+                      Capacity.toLowerCase().includes(search.toLowerCase())
+                      ) &&
                     Status === "Accepted"
                   );
                 })
@@ -122,8 +132,10 @@ function ExistingUsersTable() {
                     <td>{item.Name}</td>
                     <td>{item.NRIC}</td>
                     <td>{item.Contact}</td>
-                    <td>{item.Address}</td>
-                    <td>{item.Status}</td>
+                    <td>{item.Region}</td>
+                    <td>{item.Carplate}</td>
+                    <td>{item.Make_Model}</td>
+                    <td>{item.Capacity}</td>
                     <td>
                       <input
                         type="checkbox"
