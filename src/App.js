@@ -1,9 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import React from "react";
+import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route,Routes } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 
 import Sidebar from "./components/Sidebar/Sidebar";
@@ -18,7 +18,6 @@ import ContentCard from "./components/Layout/Views/ContentCard";
 import LabelText from "./components/Layout/Views/LabelText";
 import { Nav } from "react-bootstrap";
 
-
 function App() {
 	const postData = {
 		message:
@@ -26,14 +25,23 @@ function App() {
 		type: "Type (Use enum TODO)",
 		date: "test date (create new date obj with backend data)",
 	};
+	const [isLogin, setLogin] = useState(false)
+	
 	return (
+		<>
 		<Router>
-			<Navbar />
+			<Routes>
+			<Route path="/" element={<PendingUsersTable/>}/>
+			<Route path="/ExistingUsersTable" element={<ExistingUsersTable/>}/>
+			<Route path="/Posts" element={<Post postData={postData}/>}/>
+			<Route path="/LoginPage" element={<LoginPage/>}/>
+			</Routes>
 			{/* <ExistingUsersTable /> */}
 			{/* <PendingUsersTable />  */}
 			{/* <Post postData={postData} /> */}
-			<UserView vis="visible"/> 
+			{/* <UserView vis="visible"/>  */}			
 		</Router>
+		</>
 	);
 }
 

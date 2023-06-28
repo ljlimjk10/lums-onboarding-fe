@@ -24,7 +24,7 @@ export const SidebarData = [
   },
   {
     title: 'Posts',
-    path: '/team',
+    path: '/Posts',
     icon: <AiIcons.AiOutlineMail />,
     cName: 'nav-text'
   },

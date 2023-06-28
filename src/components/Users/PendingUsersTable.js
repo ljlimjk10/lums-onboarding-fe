@@ -83,7 +83,7 @@ function PendingUsersTable() {
                   <th>Status</th>
                 </>
               )}
-			  <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -113,9 +113,9 @@ function PendingUsersTable() {
                       <td>{item.Status}</td>
                     </>
                   )}
-				  <td align="center">
-                        <Button>View User</Button>
-                	</td>
+                  <td align="center">
+                    <Button>View User</Button>
+                  </td>
                 </tr>
               ))}
           </tbody>
