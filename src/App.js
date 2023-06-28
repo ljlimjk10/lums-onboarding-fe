@@ -11,11 +11,13 @@ import LoginPage from "./components/Login/LoginPage";
 import ExistingUsersTable from "./components/Users/ExistingUsersTable";
 import PendingUsersTable from "./components/Users/PendingUsersTable";
 import UserView from "./components/Users/UserView";
+import Post from "./components/Posts/Post/Post";
 
 import Button from "./components/Layout/Views/Button";
 import ContentCard from "./components/Layout/Views/ContentCard";
 import LabelText from "./components/Layout/Views/LabelText";
 import { Nav } from "react-bootstrap";
+
 
 function App() {
 	const postData = {
@@ -27,9 +29,10 @@ function App() {
 	return (
 		<Router>
 			<Navbar />
-			<ExistingUsersTable />
+			{/* <ExistingUsersTable /> */}
 			{/* <PendingUsersTable />  */}
-			{/* <UserView vis="visible"/>  */}
+			{/* <Post postData={postData} /> */}
+			<UserView vis="visible"/> 
 		</Router>
 	);
 }
