@@ -30,7 +30,7 @@ function UserView(props) {
                     <TextBox Label="Car plate" disabled="true" pholder="S123ABC"/>
                 </Col>
                 <Col lg={12} md={12} xs={12}>
-                    <Cordion source="https://picsum.photos/500/300"/>
+                    <Cordion source="https://picsum.photos/500/300" header_one="Driver's License" header_two="NRIC"/>
                     <hr />
                 </Col>
             </Row>
