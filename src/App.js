@@ -30,9 +30,9 @@ function App() {
 		<Router>
 			<Navbar />
 			{/* <ExistingUsersTable /> */}
-			{/* <PendingUsersTable />  */}
+			<PendingUsersTable /> 
 			{/* <Post postData={postData} /> */}
-			<UserView vis="visible"/> 
+			{/* <UserView vis="visible"/>  */}
 		</Router>
 	);
 }
