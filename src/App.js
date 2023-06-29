@@ -14,6 +14,7 @@ import UserView from "./components/Users/UserView";
 import Post from "./components/Posts/Post/Post";
 import { LoginContext } from "./components/Login/LoginContext";
 import { LoginProvider } from "./components/Login/LoginContext";
+import PostTable from "./components/Posts/Post/PostTable";
 
 import Button from "./components/Layout/Views/Button";
 import ContentCard from "./components/Layout/Views/ContentCard";

@@ -14,7 +14,6 @@ function BModal(props) {
       <Button variant="link" onClick={handleShow}>
         <Image src={props.source} rounded fluid />
       </Button>
-
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>{props.header}</Modal.Title>
