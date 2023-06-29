@@ -41,7 +41,7 @@ function LoginPage() {
 
     return (
         <div className="d-flex align-items-center justify-content-center" style={{ height: "100vh" }}>
-            {error && <p>{error}</p>}
+            
             <Form className="col-md-2 mx-auto text-center" onSubmit={handleLogin}>
                 <AppLogo />
                 <h3 className="py-3">Please sign in</h3>
@@ -67,6 +67,7 @@ function LoginPage() {
                     <Button type="submit" variant="primary">
                         Sign In
                     </Button>
+                    {error && <p>{error}</p>}
                 </div>
             </Form>
         </div>

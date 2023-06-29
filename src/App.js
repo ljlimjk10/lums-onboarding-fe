@@ -26,8 +26,8 @@ function App() {
 		<Router>
 			<LoginProvider>
 				<Routes>
-					<Route path="/LoginPage" element={<LoginPage />} />
-					<Route path="/" element={<MainContent />} />
+					<Route path="/login" element={<LoginPage />} />
+					<Route path="*" element={<MainContent />} />
 				</Routes>
 			</LoginProvider>
 		</Router>
@@ -42,33 +42,22 @@ function MainContent() {
 		type: "Type (Use enum TODO)",
 		date: "test date (create new date obj with backend data)",
 	};
-
 	return (
 		<>
 			{isLoggedIn && <Navbar />}
+			{console.log(isLoggedIn)}
 			<Routes>
-				<Route
-					path="/"
-					element={
-						isLoggedIn ? (
-							<ExistingUsersTable />
-						) : (
-							<LoginPage />
-						)
-					}
-				/>
-				<Route
-					path="/ExistingUsersTable"
-					element={<ExistingUsersTable />}
-				/>
-				<Route
-					path="/PendingUsersTable"
-					element={<PendingUsersTable />}
-				/>
-				<Route path="/Posts" element={<Post postData={postData} />} />
+				<Route path="/" element={isLoggedIn ? <ExistingUsersTable /> : <LoginPage />} />
+				<Route path="/users" element={isLoggedIn ? <ExistingUsersTable /> : <LoginPage />} />
+				<Route path="/pending-users-table" element={isLoggedIn ? <PendingUsersTable /> : <LoginPage />} />
+				<Route path="/Posts" element={isLoggedIn ? <Post postData={postData} /> : <LoginPage />} />
 			</Routes>
 		</>
 	);
 }
 
+
+
 export default App;
+
+
