@@ -50,7 +50,7 @@ function MainContent() {
 		<>
 			{/* <Navbar /> */}
 			{/* <UserView /> */}
-			{/* <Post_two postDate={postData}/> */}
+			{/* <Post_two /> */}
 			{/* <Post postData={postData} /> */}
 
 			{isLoggedIn && <Navbar />}
@@ -61,7 +61,7 @@ function MainContent() {
 				<Route path="/pending-users-table" element={isLoggedIn ? <PendingUsersTable /> : <LoginPage />} />
 				<Route path="/Posts" element={isLoggedIn ? <PostTable /> : <LoginPage />} />
 				<Route path="/support" element={isLoggedIn ? <QuestionTable /> : <LoginPage />} />
-			</Routes>
+			</Routes> 
 		</>
 	);
 }

@@ -14,10 +14,10 @@ function Cordion(props){
 
             <Row>
               <Col className='d-flex justify-content-center' lg={6} md={6} xs={12}>
-                <BModal source={props.source} header={`${props.header_one} Front`} />
+                <BModal source={props.front_license} header={`${props.header_one} Front`} />
               </Col>
               <Col className='d-flex justify-content-center' lg={6} md={6} xs={12}> 
-                <BModal source={props.source} header={`${props.header_one} Back`} />
+                <BModal source={props.back_license} header={`${props.header_one} Back`} />
               </Col>
             </Row>
             

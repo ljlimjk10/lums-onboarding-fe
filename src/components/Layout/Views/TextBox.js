@@ -9,7 +9,7 @@ function TextBox(props) {
                 {props.Label}
             </Form.Label>
             <Col sm="7">
-                <Form.Control placeholder={props.pholder} disabled={props.disabled} />
+                <Form.Control value={props.current} disabled={props.disabled} />
             </Col>
         </Form.Group>
     )

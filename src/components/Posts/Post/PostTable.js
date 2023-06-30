@@ -42,7 +42,7 @@ function PostTable() {
               </ButtonGroup>
               <Form.Control
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search posts"
+                placeholder="Search posts" value={search}
               />
               <Button
                 variant="primary"
