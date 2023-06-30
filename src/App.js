@@ -48,12 +48,12 @@ function MainContent() {
 	};
 	return (
 		<>
-			<Navbar />
+			{/* <Navbar /> */}
 			{/* <UserView /> */}
-			<Post_two postDate={postData}/>
+			{/* <Post_two postDate={postData}/> */}
 			{/* <Post postData={postData} /> */}
 
-			{/* {isLoggedIn && <Navbar />}
+			{isLoggedIn && <Navbar />}
 			{console.log(isLoggedIn)}
 			<Routes>
 				<Route path="/" element={isLoggedIn ? <Dashboard /> : <LoginPage />} />
@@ -61,7 +61,7 @@ function MainContent() {
 				<Route path="/pending-users-table" element={isLoggedIn ? <PendingUsersTable /> : <LoginPage />} />
 				<Route path="/Posts" element={isLoggedIn ? <PostTable /> : <LoginPage />} />
 				<Route path="/support" element={isLoggedIn ? <QuestionTable /> : <LoginPage />} />
-			</Routes> */}
+			</Routes>
 		</>
 	);
 }
