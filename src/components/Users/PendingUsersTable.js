@@ -8,30 +8,26 @@ import { data } from "./data.js";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
+import PendingUserView from "./PendingUserView.js";
 
 function PendingUsersTable() {
   const [search, setSearch] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
-  const [isMobile, setIsMobile] = useState(false);
-
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const handleViewUser = (userId) => {
+    console.log(userId);
+    setSelectedUserId(userId);
+  };
   const clearFilters = () => {
     setSearch("");
     setSelectedStatus("");
   };
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   return (
     <Col>
+      {selectedUserId ? ( 
+        <PendingUserView userId={selectedUserId}/>):
+      (
       <Container>
         <h1 className="text-center mt-4">Pending Users</h1>
         <Form>
@@ -62,6 +58,7 @@ function PendingUsersTable() {
             <Form.Control
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search users"
+              value={search}
             />
             <Button
               variant="primary"
@@ -77,12 +74,12 @@ function PendingUsersTable() {
             <tr>
               <th>Name</th>
               <th>NRIC</th>
-              {!isMobile && (
-                <>
-                  <th>Address</th>
-                  <th>Status</th>
-                </>
-              )}
+
+              <>
+                <th>Address</th>
+                <th>Status</th>
+              </>
+
               <th></th>
             </tr>
           </thead>
@@ -107,20 +104,21 @@ function PendingUsersTable() {
                 <tr key={index}>
                   <td>{item.Name}</td>
                   <td>{item.NRIC}</td>
-                  {!isMobile && (
-                    <>
-                      <td>{item.Address}</td>
-                      <td>{item.Status}</td>
-                    </>
-                  )}
+
+                  <>
+                    <td>{item.Address}</td>
+                    <td>{item.Status}</td>
+                  </>
+
                   <td align="center">
-                    <Button>View User</Button>
+                    <Button onClick={() => handleViewUser(item.id)}>View User</Button>
                   </td>
                 </tr>
               ))}
           </tbody>
         </Table>
       </Container>
+      )}
     </Col>
   );
 }

@@ -37,7 +37,7 @@ function ExistingUsersTable() {
     if (isSelectAll) {
       setSelectedUsers([]);
     } else {
-      const allUserIds = contacts.map((user) => user.id);
+      const allUserIds = contacts.filter((user) => user.Status==="Accepted").map(user=>user.id);
       setSelectedUsers(allUserIds);
     }
     setIsSelectAll(!isSelectAll);
