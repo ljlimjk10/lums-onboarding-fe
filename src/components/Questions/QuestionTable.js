@@ -9,6 +9,7 @@ import { data } from "./questionData";
 import React, { useState } from "react";
 import { saveAs } from "file-saver";
 import BModalTwo from "../Layout/Views/BModalTwo";
+import BModalThree from "../Layout/Views/BModalThree";
 
 function QuestionTable() {
     const [contacts, setContacts] = useState(data);
@@ -118,9 +119,7 @@ function QuestionTable() {
                         />
                       </td>
                       <td align="center">
-                        <Button onClick={() => handleViewUser(item.id)}>
-                          View Question
-                        </Button>
+                      <BModalThree bname="View Question" header="New Question" qn={item.question} ans={item.answer} dis="true"/>
                       </td>
                     </tr>
                   ))}
