@@ -11,8 +11,9 @@ function Heading(props) {
                 </h4>
             </Col>
             <Col style={{marginTop:"3%", marginBottom:"1%" }} className="d-flex flex-row-reverse" lg={2} md={4} xs={4}>
-                <Button className={props.vis}>Edit profile</Button>
+                <Button>{props.b_name}</Button>
             </Col>
+            <hr />
         </>        
     )
 }
