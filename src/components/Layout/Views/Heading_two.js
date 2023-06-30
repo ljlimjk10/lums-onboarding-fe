@@ -11,7 +11,8 @@ function Heading(props) {
                 </h4>
             </Col>
             <Col style={{marginTop:"3%", marginBottom:"1%" }} className="d-flex flex-row-reverse" lg={2} md={4} xs={4}>
-                <Button>{props.b_name}</Button>
+                <Button variant="danger" style={{marginLeft:"3%"}}>{props.b_name}</Button>
+                <Button variant="success">{props.b_name_two}</Button>
             </Col>
             <hr />
         </>        

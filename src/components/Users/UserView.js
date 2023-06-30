@@ -5,6 +5,8 @@ import { Container } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import TextBox from "../Layout/Views/TextBox";
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import Container from 'react-bootstrap/Container';
 import "../../index.css";
 import Heading from "../Layout/Views/Heading";
 import Cordion from "../Layout/Views/Cordion";
@@ -35,8 +37,7 @@ function UserView(props) {
     return (
         <Container>
             <Row>
-                <Heading status="Approved" page="User Information" vis={props.vis} vistwo={props.vistwo}/>
-                <hr />
+                <Heading status="Approved" page="User Information" b_name="Edit Profile"/>
                 <Col lg={6} md={6} xs={12}>
                     <TextBox Label="Name" disabled="true" current={Name}/>
                     <TextBox Label="NRIC" disabled="true" current={NRIC}/>

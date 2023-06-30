@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 
 const ContentCard = (props) => {
 	return (
-		<Col xs={10} className={`min-vh-100 ${props.className}`}>
+		<Col className={`min-vh-100 ${props.className}`}>
 			{props.children}
 		</Col>
 	);
