@@ -8,6 +8,7 @@ import Col from "react-bootstrap/Col";
 import { data } from "./questionData";
 import React, { useState } from "react";
 import { saveAs } from "file-saver";
+import BModalTwo from "../Layout/Views/BModalTwo";
 
 function QuestionTable() {
     const [contacts, setContacts] = useState(data);
@@ -125,7 +126,9 @@ function QuestionTable() {
                   ))}
               </tbody>
             </Table>
-            <Button onClick={handleGenerateCSV} >Generate CSV</Button>
+            <BModalTwo bname="New Question" header="New Question" />
+            <Button style={{ marginLeft: "10px" }} variant="danger">Delete</Button>
+            <Button onClick={handleGenerateCSV} style={{ marginLeft: "10px" }}>Generate CSV</Button>
             <Button
               style={{ marginLeft: "10px" }}
               onClick={handleSelectAll}

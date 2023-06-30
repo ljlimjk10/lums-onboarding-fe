@@ -52,6 +52,8 @@ function MainContent() {
 		<>
 			<Navbar />
 			<QuestionTable />
+			{/* <Post_two /> */}
+			{/* <PostTable /> */}
 
 
 		{/* {isLoggedIn && <Navbar />}
