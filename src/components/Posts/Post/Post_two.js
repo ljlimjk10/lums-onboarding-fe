@@ -1,13 +1,13 @@
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from 'react-bootstrap/Container';
-import Heading from "../../Layout/Views/Heading";
+import Heading_two from "../../Layout/Views/Heading_two";
 
 function Post_two() {
     return (
         <Container>
             <Row>
-                <Heading status="Approved" page="Question Information" b_name="Generate CSV"/>
+                <Heading_two status="Approved" page="Post" b_name="Back" b_name_two="Generate CSV"/>
             </Row>
 
         </Container>

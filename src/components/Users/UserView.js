@@ -13,7 +13,7 @@ function UserView(props) {
     return (
         <Container>
             <Row>
-                <Heading status="Approved" page="User Information" b_name="Edit Profile" vis={props.vis} vistwo={props.vistwo}/>
+                <Heading status="Approved" page="User Information" b_name="Edit Profile"/>
                 <Col lg={6} md={6} xs={12}>
                     <TextBox Label="Name" disabled="true" pholder="Gabriel Loh Yee Xun"/>
                     <TextBox Label="NRIC" disabled="true" pholder="S1234567G"/>

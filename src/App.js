@@ -48,8 +48,8 @@ function MainContent() {
 	return (
 		<>
 			<Navbar />
-			<UserView />
-			{/*<Post_two /> */}
+			{/* <UserView /> */}
+			<Post_two />
 			{/* <Post postData={postData} /> */}
 
 			{/* {isLoggedIn && <Navbar />}
