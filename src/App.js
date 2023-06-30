@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 
+
 import Sidebar from "./components/Sidebar/Sidebar";
 import LoginPage from "./components/Login/LoginPage";
 import ExistingUsersTable from "./components/Users/ExistingUsersTable";
@@ -49,7 +50,7 @@ function MainContent() {
 		<>
 			<Navbar />
 			{/* <UserView /> */}
-			<Post_two />
+			<Post_two postDate={postData}/>
 			{/* <Post postData={postData} /> */}
 
 			{/* {isLoggedIn && <Navbar />}
