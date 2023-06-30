@@ -118,7 +118,7 @@ function QuestionTable() {
                       </td>
                       <td align="center">
                         <Button onClick={() => handleViewUser(item.id)}>
-                          View User
+                          View Question
                         </Button>
                       </td>
                     </tr>

@@ -21,6 +21,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import QuestionTable from "./components/Questions/QuestionTable";
 import PendingUserView from "./components/Users/PendingUserView";
 
+
 import Button from "./components/Layout/Views/Button";
 import ContentCard from "./components/Layout/Views/ContentCard";
 import LabelText from "./components/Layout/Views/LabelText";
@@ -50,12 +51,10 @@ function MainContent() {
 	return (
 		<>
 			<Navbar />
-			<PendingUserView />
-			{/* <UserView /> */}
-			{/* <Post_two /> */}
-			{/* <Post postData={postData} /> */}
-{/* 
-			{isLoggedIn && <Navbar />}
+			<QuestionTable />
+
+
+		{/* {isLoggedIn && <Navbar />}
 			{console.log(isLoggedIn)}
 			<Routes>
 				<Route path="/" element={isLoggedIn ? <Dashboard /> : <LoginPage />} />
