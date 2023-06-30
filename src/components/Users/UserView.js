@@ -10,24 +10,26 @@ import Cordion from "../Layout/Views/Cordion";
 
 
 function UserView(props) {
+    
+
     return (
         <Container>
             <Row>
                 <Heading status="Approved" page="User Information" vis={props.vis} vistwo={props.vistwo}/>
                 <hr />
                 <Col lg={6} md={6} xs={12}>
-                    <TextBox Label="Name" disabled="true" pholder="Gabriel Loh Yee Xun"/>
-                    <TextBox Label="NRIC" disabled="true" pholder="S1234567G"/>
-                    <TextBox Label="Address" disabled="true" pholder="123456"/>
-                    <TextBox Label="Make/Model" disabled="true" pholder="Toyota xxx"/>
-                    <TextBox Label="Capacity" disabled="true" pholder="4"/>
+                    <TextBox Label="Name" disabled="true" current="Gabriel"/>
+                    <TextBox Label="NRIC" disabled="true" current="S1234567G"/>
+                    <TextBox Label="Address" disabled="true" current="123456"/>
+                    <TextBox Label="Make/Model" disabled="true" current="Toyota xxx"/>
+                    <TextBox Label="Capacity" disabled="true" current="4"/>
                 </Col>
                 <Col lg={6} md={6} xs={12}>
-                    <TextBox Label="Location" disabled="true" pholder="West"/>
-                    <TextBox Label="Contact" disabled="true" pholder="9123 4567"/>
-                    <TextBox Label="Telegram" disabled="true" pholder="@telehandle"/>
-                    <TextBox Label="Entity" disabled="true" pholder="Lumens"/>
-                    <TextBox Label="Car plate" disabled="true" pholder="S123ABC"/>
+                    <TextBox Label="Location" disabled="true" current="West"/>
+                    <TextBox Label="Contact" disabled="true" current="9123 4567"/>
+                    <TextBox Label="Telegram" disabled="true" current="@telehandle"/>
+                    <TextBox Label="Entity" disabled="true" current="Lumens"/>
+                    <TextBox Label="Car plate" disabled="true" current="S123ABC"/>
                 </Col>
                 <Col lg={12} md={12} xs={12}>
                     <Cordion source="https://picsum.photos/500/300" header_one="Driver's License" header_two="NRIC"/>

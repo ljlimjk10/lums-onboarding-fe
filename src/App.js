@@ -50,7 +50,7 @@ function MainContent() {
 				<Route path="/" element={isLoggedIn ? <ExistingUsersTable /> : <LoginPage />} />
 				<Route path="/users" element={isLoggedIn ? <ExistingUsersTable /> : <LoginPage />} />
 				<Route path="/pending-users-table" element={isLoggedIn ? <PendingUsersTable /> : <LoginPage />} />
-				<Route path="/Posts" element={isLoggedIn ? <Post postData={postData} /> : <LoginPage />} />
+				<Route path="/Posts" element={isLoggedIn ? <PostTable/> : <LoginPage />} />
 			</Routes>
 		</>
 	);

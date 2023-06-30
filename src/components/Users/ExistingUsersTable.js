@@ -51,25 +51,43 @@ function ExistingUsersTable() {
       setShowPopUp(false);
       // Implement CSV generation logic using selectedUsers array
       const csvData = [];
-      csvData.push(["Name", "NRIC", "Contact", "Address", "Status"]);
+      csvData.push(["Name", "NRIC", "Address", "Model", "Capacity", "Region", "Contact", "Telegram", "Entity", "Carplate", "Status", "Driver's License (Front)", "Driver License (Back)", "Identification Photo (Front)", "Identification Photo (Back)", "Certifications"]);
       // You can access the selected user details using the user id from the 'contacts' array
-      const selectedUserDetails = selectedUsers.map((userId)=>{
-        return contacts.find((user)=>user.id===userId)
+      const selectedUserDetails = selectedUsers.map((userId) => {
+        return contacts.find((user) => user.id === userId)
       });
       // Iterate over selectedUserDetails array
       selectedUserDetails.forEach((user) => {
-        const { Name, NRIC, Contact, Address, Status } = user;
+        const {
+          Name,
+          NRIC,
+          Address,
+          Make_Model,
+          Capacity,
+          Region,
+          Contact,
+          Telegram,
+          Entity,
+          Carplate,
+          Status,
+          "Driver License (Front)": LicenseFront,
+          "Driver License (Back)": LicenseBack,
+          "Identification Photo (Front)": IdentificationPhotoFront,
+          "Identification Photo (Back)": IdentificationPhotoBack,
+          Certifications
+        } = user;
+
         // Push a row for each selected user
-        csvData.push([Name, NRIC, Contact, Address, Status]);
+        csvData.push([Name, NRIC, Address, Make_Model, Capacity, Region, Contact, Telegram, Entity, Carplate, Status,LicenseFront, LicenseBack, IdentificationPhotoFront, IdentificationPhotoBack, Certifications]);
       });
-      const csvString = csvData.map((row)=>row.join(",")).join("\n");
+      const csvString = csvData.map((row) => row.join(",")).join("\n");
       // Create a Blob object with the CSV data
       const blob = new Blob([csvString], { type: "text/csv;charset=utf-8" });
 
       // Save the CSV file using FileSaver.js
       saveAs(blob, "selected_users.csv");
       console.log("Selected User Details:", selectedUserDetails);
-      
+
     }
   };
 
@@ -113,7 +131,7 @@ function ExistingUsersTable() {
                   const Carplate = item.Carplate;
                   const Model = item.Make_Model;
                   const Capacity = item.Capacity;
-                  
+
                   return (
                     (search.toLowerCase() === "" ||
                       Name.toLowerCase().includes(search.toLowerCase()) ||
@@ -123,7 +141,7 @@ function ExistingUsersTable() {
                       Carplate.toLowerCase().includes(search.toLowerCase()) ||
                       Model.toLowerCase().includes(search.toLowerCase()) ||
                       Capacity.toLowerCase().includes(search.toLowerCase())
-                      ) &&
+                    ) &&
                     Status === "Accepted"
                   );
                 })
