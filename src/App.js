@@ -15,6 +15,8 @@ import Post from "./components/Posts/Post/Post";
 import { LoginContext } from "./components/Login/LoginContext";
 import { LoginProvider } from "./components/Login/LoginContext";
 import PostTable from "./components/Posts/Post/PostTable";
+import Dashboard from "./components/Dashboard/Dashboard";
+import QuestionTable from "./components/Questions/QuestionTable";
 
 import Button from "./components/Layout/Views/Button";
 import ContentCard from "./components/Layout/Views/ContentCard";
@@ -47,16 +49,16 @@ function MainContent() {
 			{isLoggedIn && <Navbar />}
 			{console.log(isLoggedIn)}
 			<Routes>
-				<Route path="/" element={isLoggedIn ? <ExistingUsersTable /> : <LoginPage />} />
+				<Route path="/" element={isLoggedIn ? <Dashboard /> : <LoginPage />} />
 				<Route path="/users" element={isLoggedIn ? <ExistingUsersTable /> : <LoginPage />} />
 				<Route path="/pending-users-table" element={isLoggedIn ? <PendingUsersTable /> : <LoginPage />} />
-				<Route path="/Posts" element={isLoggedIn ? <PostTable/> : <LoginPage />} />
+				<Route path="/Posts" element={isLoggedIn ? <PostTable /> : <LoginPage />} />
+				<Route path="/support" element={isLoggedIn ? <QuestionTable /> : <LoginPage />} />
+
 			</Routes>
 		</>
 	);
 }
-
-
 
 export default App;
 
