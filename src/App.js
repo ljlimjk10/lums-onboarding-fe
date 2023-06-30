@@ -20,6 +20,7 @@ import PostTable from "./components/Posts/Post/PostTable";
 import Dashboard from "./components/Dashboard/Dashboard";
 import QuestionTable from "./components/Questions/QuestionTable";
 import PendingUserView from "./components/Users/PendingUserView";
+import CreatePost from "./components/CreatePost/CreatePost";
 
 
 import Button from "./components/Layout/Views/Button";
@@ -51,7 +52,8 @@ function MainContent() {
 	return (
 		<>
 			<Navbar />
-			<QuestionTable />
+			<CreatePost />
+			{/* <QuestionTable /> */}
 			{/* <Post_two /> */}
 			{/* <PostTable /> */}
 
