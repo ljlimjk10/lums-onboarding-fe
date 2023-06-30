@@ -19,6 +19,7 @@ import { LoginProvider } from "./components/Login/LoginContext";
 import PostTable from "./components/Posts/Post/PostTable";
 import Dashboard from "./components/Dashboard/Dashboard";
 import QuestionTable from "./components/Questions/QuestionTable";
+import PendingUserView from "./components/Users/PendingUserView";
 
 import Button from "./components/Layout/Views/Button";
 import ContentCard from "./components/Layout/Views/ContentCard";
@@ -48,11 +49,12 @@ function MainContent() {
 	};
 	return (
 		<>
-			{/* <Navbar /> */}
+			<Navbar />
+			<PendingUserView />
 			{/* <UserView /> */}
 			{/* <Post_two /> */}
 			{/* <Post postData={postData} /> */}
-
+{/* 
 			{isLoggedIn && <Navbar />}
 			{console.log(isLoggedIn)}
 			<Routes>
@@ -61,7 +63,7 @@ function MainContent() {
 				<Route path="/pending-users-table" element={isLoggedIn ? <PendingUsersTable /> : <LoginPage />} />
 				<Route path="/Posts" element={isLoggedIn ? <PostTable /> : <LoginPage />} />
 				<Route path="/support" element={isLoggedIn ? <QuestionTable /> : <LoginPage />} />
-			</Routes> 
+			</Routes>  */}
 		</>
 	);
 }
