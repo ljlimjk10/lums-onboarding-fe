@@ -15,21 +15,25 @@ function BModalFour(props) {
   return (
     <>
       <Form.Group>
-        <Button variant="primary" onClick={handleShow}>
-          {props.b_name}
+        <Button variant={props.var} onClick={handleShow}>
+          {props.name}
         </Button>
       </Form.Group>
+
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>{props.header}</Modal.Title>
         </Modal.Header>
+        <Modal.Body>
+          Are you sure?
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
           <Button variant="primary" onClick={handleClose}>
-            Proceed
+            Confirm
           </Button>
         </Modal.Footer>
       </Modal>

@@ -1,6 +1,4 @@
 import Accordion from 'react-bootstrap/Accordion';
-import Image from 'react-bootstrap/Image';
-import Button from '../Views/Button';
 import Col from "react-bootstrap/Col";
 import Row from 'react-bootstrap/Row';
 import BModal from './BModal';
