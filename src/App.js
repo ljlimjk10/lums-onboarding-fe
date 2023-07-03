@@ -53,16 +53,16 @@ function MainContent() {
 	};
 	return (
 		<>
-			<Navbar />
+			{/* <Navbar /> */}
 			{/* <CreatePost /> */}
 			{/* <CreatePostEvent /> */}
-			<CreatePostAdHoc />
+			{/* <CreatePostAdHoc /> */}
 			{/* <Post_two /> */}
 			{/* <PendingUserView /> */}
 			{/* <UserView /> */}
 			{/* <Post postData={postData} /> */}
 
-			{/* {isLoggedIn && <Navbar />}
+			{isLoggedIn && <Navbar />}
 			{console.log(isLoggedIn)}
 			<Routes>
 				<Route path="/" element={isLoggedIn ? <Dashboard /> : <LoginPage />} />
@@ -71,7 +71,7 @@ function MainContent() {
 				<Route path="/Posts" element={isLoggedIn ? <PostTable /> : <LoginPage />} />
 				<Route path="/support" element={isLoggedIn ? <QuestionTable /> : <LoginPage />} />
 				<Route path="/new-post" element={isLoggedIn ? <CreatePost /> : <LoginPage />} />
-			</Routes>  */}
+			</Routes> 
 		</>
 	);
 }
