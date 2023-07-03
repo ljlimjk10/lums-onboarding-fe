@@ -2,6 +2,7 @@ import Col from "react-bootstrap/Col";
 import Badge from 'react-bootstrap/Badge';
 import Button from "react-bootstrap/Button";
 import BModalFour from "./BModalFour";
+import ScheduleModal from "./ScheduleModal";
 
 function Heading(props) {
     return (
@@ -16,7 +17,7 @@ function Heading(props) {
                     <BModalFour name={props.b_name} var="danger" header={props.b_name} />
                 </div>
                 <div>
-                    <BModalFour name={props.b_name_two} var="success" header={props.b_name_two} />
+                    <ScheduleModal name={props.b_name_two} var="success" header={props.b_name_two} />
                 </div>
             </Col>
             <hr />
