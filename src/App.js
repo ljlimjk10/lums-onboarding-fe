@@ -52,10 +52,10 @@ function MainContent() {
 	return (
 		<>
 			<Navbar />
-			<Post_two />
+			{/* <Post_two /> */}
 			{/* <PendingUserView /> */}
 			{/* <UserView /> */}
-			{/* <CreatePost /> */}
+			<CreatePost />
 			{/* <Post postData={postData} /> */}
 
 			{/* {isLoggedIn && <Navbar />}

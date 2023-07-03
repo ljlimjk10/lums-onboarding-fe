@@ -21,7 +21,7 @@ function CreatePost() {
                     <TextBox Label="Drop-off Time" />
                 </Col>
                 <Col lg={6} md={6} xs={12}>
-                    <Textarea Label="Template" />
+                    <Textarea Label="Template" rows="13"/>
                 </Col>
 
             </Row>

@@ -32,8 +32,8 @@ function BModalTwo(props) {
         </Modal.Header>
 
         <Modal.Body>
-          <Textarea content={props.qn} dis={!isEditMode} />
-          <Textarea content={props.ans} dis={!isEditMode} />
+          <Textarea content={props.qn} dis={!isEditMode} rows="5"/>
+          <Textarea content={props.ans} dis={!isEditMode} rows="5"/>
         </Modal.Body>
 
         <Modal.Footer>
