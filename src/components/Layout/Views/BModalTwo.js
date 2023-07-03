@@ -20,8 +20,8 @@ function BModalTwo(props) {
         </Modal.Header>
 
         <Modal.Body>
-         <Textarea pholder="Please enter your question" />
-         <Textarea pholder="Please enter your answer" />
+         <Textarea pholder="Please enter your question" rows="5" />
+         <Textarea pholder="Please enter your answer" rows="5" />
 
         </Modal.Body>
 
