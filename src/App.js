@@ -20,6 +20,7 @@ import PostTable from "./components/Posts/Post/PostTable";
 import Dashboard from "./components/Dashboard/Dashboard";
 import QuestionTable from "./components/Questions/QuestionTable";
 import PendingUserView from "./components/Users/PendingUserView";
+import CreatePostAdHoc from "./components/CreatePost/CreatePostAdHoc";
 import CreatePost from "./components/CreatePost/CreatePost";
 
 
@@ -52,10 +53,11 @@ function MainContent() {
 	return (
 		<>
 			<Navbar />
+			<CreatePost />
 			{/* <Post_two /> */}
 			{/* <PendingUserView /> */}
 			{/* <UserView /> */}
-			<CreatePost />
+			{/* <CreatePostAdHoc /> */}
 			{/* <Post postData={postData} /> */}
 
 			{/* {isLoggedIn && <Navbar />}
