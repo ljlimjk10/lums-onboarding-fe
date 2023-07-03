@@ -1,4 +1,4 @@
-import Heading_two from "../Layout/Views/Heading_two";
+import Heading_Three from "../Layout/Views/Heading_Three";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { Container } from "react-bootstrap";
@@ -8,7 +8,7 @@ function CreatePost() {
     return (
         <Container>
             <Row>
-                <Heading_two page="Create Post" b_name="Post" b_name_two="Schedule"/>
+                <Heading_Three page="Create Post" b_name="Post" b_name_two="Schedule" vis="invisible"/>
                 <Col lg={6} md={6} xs={12}>
                     <DropDownList Label="Job Type" />
                 </Col>

@@ -5,6 +5,7 @@ import Heading_two from "../Layout/Views/Heading_two";
 import DropDownList from "../Layout/Views/Dropdown";
 import Textarea from "../Layout/Views/Textarea";
 import BModal from "../Layout/Views/BModal";
+import Figure from 'react-bootstrap/Figure';
 
 function CreatePostEvent(){
     return (
