@@ -2,10 +2,14 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Textarea from './Textarea';
+import axios from 'axios';
 
-function BModalTwo(props) {
+function BModalThree(props) {
+  const id = props.id;
   const [show, setShow] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [question,setQuestion] = useState(props.qn);
+  const [answer,setAnswer] = useState(props.ans);
 
   const handleClose = () => {
     setShow(false);
@@ -16,9 +20,24 @@ function BModalTwo(props) {
 
   const handleEdit = () => setIsEditMode(true);
 
-  const handleSaveChanges = () => {
+  const handleQnsChange = (e) => {
+    setQuestion(e.target.value)
+  }
+
+  const handleAnsChange = (e) => {
+    setAnswer(e.target.value)
+  }
+
+
+  const handleSaveChanges = async () => {
     // Handle saving changes logic here
     setIsEditMode(false);
+    try {
+      await axios.put(`http://localhost:3001/api/faq/update/${id}`,{question,answer})
+      props.refreshData();
+    }catch (error){
+      console.error('Error updating FAQ data:', error);
+    }
   };
 
   return (
@@ -32,8 +51,8 @@ function BModalTwo(props) {
         </Modal.Header>
 
         <Modal.Body>
-          <Textarea content={props.qn} dis={!isEditMode} />
-          <Textarea content={props.ans} dis={!isEditMode} />
+          <Textarea onChange={handleQnsChange} content={props.qn} dis={!isEditMode} />
+          <Textarea onChange={handleAnsChange} content={props.ans} dis={!isEditMode} />
         </Modal.Body>
 
         <Modal.Footer>
@@ -55,4 +74,4 @@ function BModalTwo(props) {
   );
 }
 
-export default BModalTwo;
+export default BModalThree;

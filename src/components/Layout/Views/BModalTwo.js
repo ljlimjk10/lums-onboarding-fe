@@ -2,12 +2,40 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Textarea from './Textarea';
+import axios from "axios";
 
 function BModalTwo(props) {
+  const {onRefreshData} = props
   const [show, setShow] = useState(false);
+  const [question,setQuestion] = useState("");
+  const [answer,setAnswer] = useState("");
+  
+  const handleAddQuestionClick = () => {
+    createQuestionAndAnswer({question,answer});
+    handleClose();
 
+  }
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleQnsChange = (e) => {
+    setQuestion(e.target.value);
+    // console.log(question);
+  }
+  const handleAnsChange = (e) => {
+    setAnswer(e.target.value);
+    // console.log(answer);
+
+  }
+  const createQuestionAndAnswer = () => {
+    axios.post('http://localhost:3001/api/faq/create',{question,answer})
+    .then(response=>{
+      console.log('Question and answer created successfully');
+      onRefreshData();
+    })
+    .catch(error=>{
+      console.log("Error:",error);
+    })
+  }
 
   return (
     <>
@@ -20,8 +48,8 @@ function BModalTwo(props) {
         </Modal.Header>
 
         <Modal.Body>
-         <Textarea pholder="Please enter your question" />
-         <Textarea pholder="Please enter your answer" />
+          <Textarea pholder="Please enter your question" name="question" onChange={handleQnsChange} />
+          <Textarea pholder="Please enter your answer" name="answer" onChange={handleAnsChange} />
 
         </Modal.Body>
 
@@ -29,8 +57,8 @@ function BModalTwo(props) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
+          <Button variant="primary" onClick={handleAddQuestionClick}>
+            Add Question
           </Button>
         </Modal.Footer>
 

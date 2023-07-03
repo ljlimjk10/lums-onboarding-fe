@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 // import { data } from "./questionData";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { saveAs } from "file-saver";
 import BModalTwo from "../Layout/Views/BModalTwo";
 import BModalThree from "../Layout/Views/BModalThree";
@@ -18,21 +18,44 @@ function QuestionTable() {
   const [selectedQuestions, setSelectedQuestions] = useState([]);
   const [selectedQuestionId, setSelectedQuestionId] = useState(null);
   const [isSelectAll, setIsSelectAll] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
   const [showPopUp, setShowPopUp] = useState(false);
   useEffect(() => {
     fetchData();
   }, []);
-
+  // Fetching Data
   const fetchData = async () => {
     try {
       const response = await axios.get('http://localhost:3001/api/faq/retrieve');
-      // console.log(response);
       const faqData = response.data.FAQs;
-      // console.log(faqData);
       setContacts(faqData);
     } catch (error) {
       console.error('Error retrieving FAQ data:', error);
     }
+  };
+
+  const deleteData = async () => {
+    if (selectedQuestions.length === 0) {
+      setIsDelete(true);
+      setShowPopUp(true);
+      return;
+    }
+    setShowPopUp(false);
+    try {
+      await Promise.all(selectedQuestions.map((questionId) => axios.delete(`http://localhost:3001/api/faq/delete/${questionId}`)));
+      refreshData();
+      setSelectedQuestions([]);
+    } catch (err) {
+      console.error('Error deleting FAQ data:', err);
+    }
+  };
+
+
+
+
+  const refreshData = () => {
+    // Implement the logic to refresh the data in the parent component
+    fetchData();
   };
 
   const handleViewQuestion = (questionId) => {
@@ -62,6 +85,7 @@ function QuestionTable() {
 
   const handleGenerateCSV = () => {
     if (selectedQuestions.length === 0) {
+      setIsDelete(false);
       setShowPopUp(true);
     } else {
       setShowPopUp(false);
@@ -81,7 +105,7 @@ function QuestionTable() {
       });
 
       const csvString = csvData.map((row) => row.join(",")).join("\n");
-      console.log(csvString);
+      // console.log(csvString);
       // Create a Blob object with the CSV data
       const blob = new Blob([csvString], { type: "text/csv;charset=utf-8" });
 
@@ -140,14 +164,14 @@ function QuestionTable() {
                     />
                   </td>
                   <td align="center">
-                    <BModalThree bname="View Question" header="New Question" qn={item.question} ans={item.answer} dis="true" />
+                    <BModalThree refreshData= {refreshData} bname="View Question" header="New Question" qn={item.question} ans={item.answer} id={item.id} dis="true" />
                   </td>
                 </tr>
               ))}
           </tbody>
         </Table>
-        <BModalTwo bname="New Question" header="New Question" />
-        <Button style={{ marginLeft: "10px" }} variant="danger">Delete</Button>
+        <BModalTwo bname="New Question" header="New Question" onRefreshData={refreshData} />
+        <Button onClick={deleteData} style={{ marginLeft: "10px" }} variant="danger">Delete</Button>
         <Button onClick={handleGenerateCSV} style={{ marginLeft: "10px" }}>Generate CSV</Button>
         <Button
           style={{ marginLeft: "10px" }}
@@ -157,7 +181,7 @@ function QuestionTable() {
         </Button>
         {showPopUp && (
           <div className="pop-up-message">
-            Please select at least one user to generate the CSV.
+            Please select {isDelete ? "a question to delete": "at least one user to generate the CSV"}.
           </div>
         )}
         <hr />

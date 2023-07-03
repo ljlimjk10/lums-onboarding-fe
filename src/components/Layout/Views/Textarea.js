@@ -5,7 +5,7 @@ function Textarea(props) {
     return (
         <Form.Group className="mb-3">
             <Col sm="12">
-                <Form.Control as="textarea" rows={5} placeholder={props.pholder} disabled={props.dis}>
+                <Form.Control as="textarea" rows={5} placeholder={props.pholder} disabled={props.dis} onChange={props.onChange}>
                     {props.content}
                 </Form.Control>
             </Col>
