@@ -54,6 +54,7 @@ function MainContent() {
 	return (
 		<>
 			{/* <Navbar /> */}
+			{/* <PendingUserView /> */}
 			{/* <CreatePost /> */}
 			{/* <CreatePostEvent /> */}
 			{/* <CreatePostAdHoc /> */}
