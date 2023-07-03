@@ -2,6 +2,9 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Image from 'react-bootstrap/Image';
+import Col from "react-bootstrap/Col";
+import Row from 'react-bootstrap/Row';
+import Form from 'react-bootstrap/Form';
 
 function BModal(props) {
   const [show, setShow] = useState(false);
@@ -11,9 +14,17 @@ function BModal(props) {
 
   return (
     <>
-      <Button variant="link" onClick={handleShow}>
-        <Image src={props.source} rounded fluid />
-      </Button>
+      <Form.Group>
+        <Col>
+          <Form.Label column>
+            {props.Label}
+          </Form.Label>
+        </Col>
+        <Button variant="link" onClick={handleShow}>
+          <Image src={props.source} rounded fluid />
+        </Button>
+      </Form.Group>
+
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>{props.header}</Modal.Title>

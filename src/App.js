@@ -22,6 +22,7 @@ import QuestionTable from "./components/Questions/QuestionTable";
 import PendingUserView from "./components/Users/PendingUserView";
 import CreatePostAdHoc from "./components/CreatePost/CreatePostAdHoc";
 import CreatePost from "./components/CreatePost/CreatePost";
+import CreatePostEvent from "./components/CreatePost/CreatePostEvent";
 
 
 import Button from "./components/Layout/Views/Button";
@@ -53,7 +54,8 @@ function MainContent() {
 	return (
 		<>
 			<Navbar />
-			<CreatePost />
+			<CreatePostEvent />
+			{/* <CreatePost /> */}
 			{/* <Post_two /> */}
 			{/* <PendingUserView /> */}
 			{/* <UserView /> */}
