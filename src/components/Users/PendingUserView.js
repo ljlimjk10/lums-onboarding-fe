@@ -22,12 +22,12 @@ function PendingUserView(props) {
         setUserData(filteredData[0]);
     };
 
-    const { Name, NRIC, Address, Make_Model, Capacity, Region, Contact, Telegram, Entity, Carplate, "Identification Photo (Front)": IdentificationPhotoFront, "Identification Photo (Back)": IdentificationPhotoBack, Certifications } = userData || {};
+    const { Name, NRIC, Address, Make_Model, Capacity, Region, Contact, Telegram, Entity, Carplate, "Identification Photo (Front)": IdentificationPhotoFront, "Identification Photo (Back)": IdentificationPhotoBack, Certifications, Status} = userData || {};
 
     return (
         <Container>
             <Row>
-                <Heading_two status="Pending" page="Pending User" b_name="Reject" b_name_two="Approve" />
+                <Heading_two status={Status} page="Pending User" b_name="Reject" b_name_two="Approve" />
                 <Col lg={6} md={6} xs={12}>
                     <TextBox Label="Name" disabled="true" current={Name} />
                     <TextBox Label="NRIC" disabled="true" current={NRIC} />
