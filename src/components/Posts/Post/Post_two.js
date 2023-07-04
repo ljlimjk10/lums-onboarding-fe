@@ -1,13 +1,13 @@
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from 'react-bootstrap/Container';
-import Heading_two from "../../Layout/Views/Heading_two";
 import TextBox from "../../Layout/Views/TextBox";
 import Textarea from "../../Layout/Views/Textarea";
 import PostResponses from "./PostResponses";
 import { postdata } from "./postdata";
 import ContentCard from "../../Layout/Views/ContentCard";
 import { useState, useEffect } from "react";
+import ViewPostHeading from "../../Layout/Views/ViewPostHeading";
 
 import Cordion_Two from "../../Layout/Views/Cordion_Two";
 
@@ -27,7 +27,7 @@ function Post_two(props) {
     return (
         <Container>
             <Row>
-                <Heading_two postData={postData} status={status} page="Post" b_name="Back" b_name_two="Generate CSV" />
+                <ViewPostHeading postData={postData} status={status} page="Post" b_name="Back" b_name_two="Generate CSV" />
                 <Col lg={6} md={6} xs={12}>
                     <TextBox Label="Type" disabled="true" pholder="Job Post" current={type} />
                     <TextBox Label="Creation D/T" disabled="true" pholder="" current={createdAt} />
