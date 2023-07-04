@@ -188,8 +188,8 @@ function ExistingUsersTable() {
       )}
       {selectedUserId && (
         <Container>
-          <Button onClick={handleGoBack}>Back</Button>
-          <UserView userId={selectedUserId} />
+          
+          <UserView handleGoBack={handleGoBack} userId={selectedUserId} />
         </Container>
       )}
     </Col>

@@ -3,6 +3,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { Container } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from "react-bootstrap/Button";
 
 import TextBox from "../Layout/Views/TextBox";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -37,7 +38,7 @@ function UserView(props) {
     return (
         <Container>
             <Row>
-                <Heading status="Approved" page="User Information" name="Edit Profile" />
+                <Heading onClick={props.handleGoBack} status="Approved" page="User Information" name="Edit Profile" />
                 <Col lg={6} md={6} xs={12}>
                     <TextBox Label="Name" disabled="true" current={Name}/>
                     <TextBox Label="NRIC" disabled="true" current={NRIC}/>
@@ -53,7 +54,7 @@ function UserView(props) {
                     <TextBox Label="Car plate" disabled="true" current={Carplate}/>
                 </Col>
                 <Col lg={12} md={12} xs={12}>
-                    <Cordion source="https://picsum.photos/500/300" front_license={IdentificationPhotoFront} back_license={IdentificationPhotoBack} certifications={Certifications} header_one="Driver's License" header_two="NRIC"/>
+                    <Cordion source="https://picsum.photos/500/300" front_license={IdentificationPhotoFront} back_license={IdentificationPhotoBack} certifications={Certifications} header_one="Driver's License" header_two="NRIC" disabled="true" />
                     <hr />
                 </Col>
             </Row>
