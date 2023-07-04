@@ -37,7 +37,7 @@ function ExistingUsersTable() {
     if (isSelectAll) {
       setSelectedUsers([]);
     } else {
-      const allUserIds = contacts.filter((user) => user.Status==="Accepted").map(user=>user.id);
+      const allUserIds = contacts.filter((user) => user.Status === "Accepted").map((user) => user.id);
       setSelectedUsers(allUserIds);
     }
     setIsSelectAll(!isSelectAll);
@@ -77,7 +77,7 @@ function ExistingUsersTable() {
         } = user;
 
         // Push a row for each selected user
-        csvData.push([Name, NRIC, Address, Make_Model, Capacity, Region, Contact, Telegram, Entity, Carplate, Status,LicenseFront, LicenseBack, IdentificationPhotoFront, IdentificationPhotoBack, Certifications]);
+        csvData.push([Name, NRIC, Address, Make_Model, Capacity, Region, Contact, Telegram, Entity, Carplate, Status, LicenseFront, LicenseBack, IdentificationPhotoFront, IdentificationPhotoBack, Certifications]);
       });
       const csvString = csvData.map((row) => row.join(",")).join("\n");
       // Create a Blob object with the CSV data
@@ -90,11 +90,13 @@ function ExistingUsersTable() {
     }
   };
 
+  const handleGoBack = () => {
+    setSelectedUserId(null);
+  };
+
   return (
     <Col>
-      {selectedUserId ? (
-        <UserView userId={selectedUserId} />
-      ) : (
+      {!selectedUserId && (
         <Container>
           <h1 className="text-center mt-4">Existing Users</h1>
           <Form>
@@ -182,6 +184,12 @@ function ExistingUsersTable() {
             </div>
           )}
           <hr />
+        </Container>
+      )}
+      {selectedUserId && (
+        <Container>
+          <Button onClick={handleGoBack}>Back</Button>
+          <UserView userId={selectedUserId} />
         </Container>
       )}
     </Col>

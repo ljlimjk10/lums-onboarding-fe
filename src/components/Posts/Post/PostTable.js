@@ -8,10 +8,16 @@ import {postdata} from "./postdata";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Post_two from "./Post_two";
 
 function PostTable() {
     const [search, setSearch] = useState("");
     const [selectedStatus, setSelectedStatus] = useState("");
+    const [selectedPost, setSelectedPost] = useState(null);
+
+    const handleViewPost = (postId) => {
+      setSelectedPost(postId)
+    }
   
     const clearFilters = () => {
       setSearch("");
@@ -20,6 +26,7 @@ function PostTable() {
   
     return (
       <Col>
+      {selectedPost ? (<Post_two postId={selectedPost} />) : (
         <Container>
           <h1 className="text-center mt-4">Post Table</h1>
           <Form>
@@ -85,13 +92,14 @@ function PostTable() {
                     <td>{item.type}</td>
                     <td>{item.createdAt}</td>
                     <td align="center">
-                          <Button>View Post</Button>
+                          <Button onClick={()=>handleViewPost(item.id)}>View Post</Button>
                       </td>
                   </tr>
                 ))}
             </tbody>
           </Table>
         </Container>
+        )}
       </Col>
     );
   }
