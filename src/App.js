@@ -56,11 +56,11 @@ function MainContent() {
 	};
 	return (
 		<>
-			<Navbar />
+			{/* <Navbar /> */}
 			{/* <CreatePostEvent /> */}
-			<CreatePostAdHoc />
+			{/* <CreatePostAdHoc /> */}
 
-			{/* {isLoggedIn && <Navbar />}
+			{isLoggedIn && <Navbar />}
 			
 			<Routes>
 				<Route path="/" element={isLoggedIn ? <Dashboard /> : <LoginPage />} />
@@ -71,7 +71,7 @@ function MainContent() {
 				<Route path="/new-post" element={isLoggedIn ? <CreatePost /> : <LoginPage />} />
 				<Route path="/new-post/adhoc" element={isLoggedIn ? <CreatePostAdHoc /> : <LoginPage />} />
 				<Route path="/new-post/event" element={isLoggedIn ? <CreatePostEvent /> : <LoginPage />} />
-			</Routes>  */}
+			</Routes>
 		</>
 	);
 }
