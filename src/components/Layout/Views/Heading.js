@@ -12,7 +12,7 @@ function Heading(props) {
                 </h4>
             </Col>
             <Col style={{marginTop:"3%", marginBottom:"1%" }} className="d-flex flex-row-reverse" lg={2} md={4} xs={4}>
-                <BModalFour b_name={props.b_name} header="Confirm Edit?" />
+                <BModalFour name={props.name} header="Confirm Edit?" />
             </Col>
             <hr />
         </>        
