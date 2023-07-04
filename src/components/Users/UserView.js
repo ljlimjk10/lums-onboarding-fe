@@ -18,6 +18,8 @@ function UserView(props) {
     // console.log(data);
     const id = props.userId;
     const [userData,setUserData] = useState(null);
+    const [isEditMode, setIsEditMode] = useState(false);
+
     useEffect(()=>{
         fetchUserData(id);
     },[id]);
@@ -32,29 +34,36 @@ function UserView(props) {
         setUserData(filteredData[0]);
         // console.log(userData);
     }
+    const [formData, setFormData] = useState({});
+    const handleInputChange = (fieldName, value) => {
+        setFormData(prevData => ({
+            ...prevData,
+            [fieldName]: value
+        }));
+    };
 
     const {Name, NRIC, Address, Make_Model, Capacity, Region, Contact, Telegram, Entity, Carplate,"Identification Photo (Front)": IdentificationPhotoFront,"Identification Photo (Back)": IdentificationPhotoBack,Certifications } = userData||{};
 
     return (
         <Container>
             <Row>
-                <Heading onClick={props.handleGoBack} status="Approved" page="User Information" name="Edit Profile" />
+                <Heading onClick={props.handleGoBack} isEditMode={isEditMode} setIsEditMode={setIsEditMode} status="Approved" page="User Information" name="Edit Profile" />
                 <Col lg={6} md={6} xs={12}>
-                    <TextBox Label="Name" disabled="true" current={Name}/>
-                    <TextBox Label="NRIC" disabled="true" current={NRIC}/>
-                    <TextBox Label="Address" disabled="true" current={Address}/>
-                    <TextBox Label="Make/Model" disabled="true" current={Make_Model}/>
-                    <TextBox Label="Capacity" disabled="true" current={Capacity}/>
+                    <TextBox Label="Name" disabled={!isEditMode} current={Name}/>
+                    <TextBox Label="NRIC" disabled={!isEditMode} current={NRIC}/>
+                    <TextBox Label="Address" disabled={!isEditMode} current={Address}/>
+                    <TextBox Label="Make/Model" disabled={!isEditMode} current={Make_Model}/>
+                    <TextBox Label="Capacity" disabled={!isEditMode} current={Capacity}/>
                 </Col>
                 <Col lg={6} md={6} xs={12}>
-                    <TextBox Label="Location" disabled="true" current={Region}/>
-                    <TextBox Label="Contact" disabled="true" current={Contact}/>
-                    <TextBox Label="Telegram" disabled="true" current={Telegram}/>
-                    <TextBox Label="Entity" disabled="true" current={Entity}/>
-                    <TextBox Label="Car plate" disabled="true" current={Carplate}/>
+                    <TextBox Label="Location" disabled={!isEditMode} current={Region}/>
+                    <TextBox Label="Contact" disabled={!isEditMode} current={Contact}/>
+                    <TextBox Label="Telegram" disabled={!isEditMode} current={Telegram}/>
+                    <TextBox Label="Entity" disabled={!isEditMode} current={Entity}/>
+                    <TextBox Label="Car plate" disabled={!isEditMode} current={Carplate}/>
                 </Col>
                 <Col lg={12} md={12} xs={12}>
-                    <Cordion source="https://picsum.photos/500/300" front_license={IdentificationPhotoFront} back_license={IdentificationPhotoBack} certifications={Certifications} header_one="Driver's License" header_two="NRIC" disabled="true" />
+                    <Cordion source="https://picsum.photos/500/300" front_license={IdentificationPhotoFront} back_license={IdentificationPhotoBack} certifications={Certifications} header_one="Driver's License" header_two="NRIC" disabled={!isEditMode} />
                     <hr />
                 </Col>
             </Row>
