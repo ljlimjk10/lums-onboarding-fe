@@ -23,12 +23,15 @@ import PendingUserView from "./components/Users/PendingUserView";
 import CreatePostAdHoc from "./components/CreatePost/CreatePostAdHoc";
 import CreatePost from "./components/CreatePost/CreatePost";
 import CreatePostEvent from "./components/CreatePost/CreatePostEvent";
-
+import TimePicker from "./components/Layout/Views/TimePicker";
+import DateTimePicker from "./components/Layout/Views/DateTimePicker";
+import Datepicker from "./components/Layout/Views/DatePicker";
 
 import Button from "./components/Layout/Views/Button";
 import ContentCard from "./components/Layout/Views/ContentCard";
 import LabelText from "./components/Layout/Views/LabelText";
 import { Nav } from "react-bootstrap";
+
 
 function App() {
 	return (
@@ -53,16 +56,11 @@ function MainContent() {
 	};
 	return (
 		<>
-			{/* <Navbar /> */}
-			{/* <PendingUserView /> */}
-			{/* <CreatePost /> */}
+			<Navbar />
 			{/* <CreatePostEvent /> */}
-			{/* <CreatePostAdHoc /> */}
-			{/* <Post_two /> */}
-			{/* <UserView /> */}
-			{/* <Post postData={postData} /> */}
+			<CreatePostAdHoc />
 
-			{isLoggedIn && <Navbar />}
+			{/* {isLoggedIn && <Navbar />}
 			
 			<Routes>
 				<Route path="/" element={isLoggedIn ? <Dashboard /> : <LoginPage />} />
@@ -73,7 +71,7 @@ function MainContent() {
 				<Route path="/new-post" element={isLoggedIn ? <CreatePost /> : <LoginPage />} />
 				<Route path="/new-post/adhoc" element={isLoggedIn ? <CreatePostAdHoc /> : <LoginPage />} />
 				<Route path="/new-post/event" element={isLoggedIn ? <CreatePostEvent /> : <LoginPage />} />
-			</Routes> 
+			</Routes>  */}
 		</>
 	);
 }

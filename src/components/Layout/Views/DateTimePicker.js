@@ -1,28 +1,21 @@
-import React, { useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import React from 'react';
+import DateTime from 'react-datetime';
+import 'react-datetime/css/react-datetime.css';
+import moment from 'moment';
 
 const DateTimePicker = () => {
-  const [selectedDateTime, setSelectedDateTime] = useState(null);
+  const defaultDate = moment().startOf('day'); // Get the current date
 
-  const handleDateTimeChange = (date) => {
-    setSelectedDateTime(date);
-  };
+  const dateFormat = "YYYY/MM/DD";
 
   return (
     <div className="container">
-      <div className="row">
-        <div className="col-sm-6">
-          <div className="form-group">
-            <DatePicker
-              selected={selectedDateTime}
-              onChange={handleDateTimeChange}
-              showTimeSelect
-              dateFormat="Pp"
-              className="form-control"
-            />
-          </div>
-        </div>
+      <div className="form-group">
+        <DateTime
+          inputProps={{ className: 'form-control' }}
+          dateFormat={dateFormat}
+          defaultValue={defaultDate} // Set the default value to the current date
+        />
       </div>
     </div>
   );
