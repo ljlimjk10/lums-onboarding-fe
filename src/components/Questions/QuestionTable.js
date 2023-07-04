@@ -111,10 +111,7 @@ function QuestionTable() {
 
       // Save the CSV file using FileSaver.js
       saveAs(blob, "selected_questions.csv");
-
-
       // console.log("Selected User Details:", selectedUserDetails);
-
     }
   };
 
@@ -126,7 +123,7 @@ function QuestionTable() {
           <InputGroup className="my-3">
             <Form.Control
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search users"
+              placeholder="Search questions & answers"
             />
           </InputGroup>
         </Form>
