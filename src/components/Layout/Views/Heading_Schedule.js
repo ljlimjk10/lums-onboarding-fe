@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import BModalFour from "./BModalFour";
 import ScheduleModal from "./ScheduleModal";
 
-function Heading_two(props) {
+function Heading_Schedule(props) {
     return (
         <>      
             <Col style={{marginTop:"3%"}} lg={10} md={8} xs={8}>
@@ -25,4 +25,4 @@ function Heading_two(props) {
     )
 }
 
-export default Heading_two;
+export default Heading_Schedule;

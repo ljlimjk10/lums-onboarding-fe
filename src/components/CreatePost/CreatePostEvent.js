@@ -3,18 +3,17 @@ import { Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Heading_two from '../Layout/Views/Heading_two';
 import DropDownList from '../Layout/Views/Dropdown';
 import Textarea from '../Layout/Views/Textarea';
 import BModal from '../Layout/Views/BModal';
-import Figure from 'react-bootstrap/Figure';
+import Heading_Schedule from '../Layout/Views/Heading_Schedule';
 
 function CreatePostEvent() {
 
     return (
         <Container>
             <Row>
-                <Heading_two page="Create Post" b_name="Post" b_name_two="Schedule" />
+                <Heading_Schedule page="Create Post" b_name="Post" b_name_two="Schedule" />
                 <Col lg={6} md={10} xs={12}>
                     <DropDownList Label="Job Type" post="2"/>
                     <Textarea Label="Template" rows="13" />

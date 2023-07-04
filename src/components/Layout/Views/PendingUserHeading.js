@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import BModalFour from "./BModalFour";
 import ScheduleModal from "./ScheduleModal";
 
-function Heading_two(props) {
+function PendingUserHeading(props) {
     return (
         <>      
             <Col style={{marginTop:"3%"}} lg={10} md={8} xs={8}>
@@ -16,8 +16,11 @@ function Heading_two(props) {
                 <div style={{marginLeft:"3%"}}>
                     <BModalFour name={props.b_name} var="danger" header={props.b_name} />
                 </div>
+                <div style={{marginLeft:"3%"}}>
+                    <BModalFour name={props.b_name_two} var="success" header={props.b_name_two} />
+                </div>
                 <div>
-                    <ScheduleModal name={props.b_name_two} var="success" header={props.b_name_two} />
+                    <Button onClick={props.onClick}>Back</Button>
                 </div>
             </Col>
             <hr />
@@ -25,4 +28,4 @@ function Heading_two(props) {
     )
 }
 
-export default Heading_two;
+export default PendingUserHeading;
