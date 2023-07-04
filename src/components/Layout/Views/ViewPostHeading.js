@@ -5,6 +5,7 @@ import BModalFour from "./BModalFour";
 import ScheduleModal from "./ScheduleModal";
 
 function ViewPostHeading(props) {
+    
     return (
         <>      
             <Col style={{marginTop:"3%"}} lg={10} md={8} xs={8}>
@@ -13,7 +14,7 @@ function ViewPostHeading(props) {
                 </h4>
             </Col>
             <Col style={{marginTop:"3%", marginBottom:"1%" }} className="d-flex flex-row-reverse" lg={2} md={4} xs={4}>
-                    <Button style={{marginLeft:"3%"}} variant="primary">{props.b_name}</Button>
+                    <Button onClick={props.onClick} style={{marginLeft:"3%"}} variant="primary">{props.b_name}</Button>
                     <Button variant="success">{props.b_name_two}</Button>
             </Col>
             <hr />

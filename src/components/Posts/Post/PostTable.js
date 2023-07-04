@@ -23,10 +23,14 @@ function PostTable() {
       setSearch("");
       setSelectedStatus("");
     };
+
+    const handleGoBack = () => {
+      setSelectedPost(null);
+    };
   
     return (
       <Col>
-      {selectedPost ? (<Post_two postId={selectedPost} />) : (
+      {selectedPost ? (<Post_two onClick={handleGoBack} postId={selectedPost} />) : (
         <Container>
           <h1 className="text-center mt-4">Post Table</h1>
           <Form>
