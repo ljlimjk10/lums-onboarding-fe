@@ -27,7 +27,7 @@ function Post_two(props) {
     return (
         <Container>
             <Row>
-                <Heading_two postData={postData} status="Approved" page="Post" b_name="Back" b_name_two="Generate CSV" />
+                <Heading_two postData={postData} status={status} page="Post" b_name="Back" b_name_two="Generate CSV" />
                 <Col lg={6} md={6} xs={12}>
                     <TextBox Label="Type" disabled="true" pholder="Job Post" current={type} />
                     <TextBox Label="Creation D/T" disabled="true" pholder="" current={createdAt} />
