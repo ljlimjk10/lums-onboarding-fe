@@ -188,7 +188,6 @@ function ExistingUsersTable() {
       )}
       {selectedUserId && (
         <Container>
-          
           <UserView handleGoBack={handleGoBack} userId={selectedUserId} />
         </Container>
       )}
