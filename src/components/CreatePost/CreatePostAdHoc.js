@@ -7,6 +7,8 @@ import Row from 'react-bootstrap/Row';
 import DropDownList from '../Layout/Views/Dropdown';
 import TextBox from '../Layout/Views/TextBox';
 import Textarea from '../Layout/Views/Textarea';
+import TimePicker from '../Layout/Views/TimePicker';
+import DatePicker from '../Layout/Views/DatePicker';
 
 function CreatePostAdHoc() {
 
@@ -16,12 +18,15 @@ function CreatePostAdHoc() {
                 <Heading_two page="Create Post" b_name="Post" b_name_two="Schedule" />
                 <Col lg={6} md={6} xs={12}>
                     <DropDownList Label="Job Type" adhoc="1" />
-                    <TextBox Label="Pickup Time" />
+                    <TimePicker Label="Pickup Time"/>
+                    <DatePicker Label="Pickup Date"/>
                     <TextBox Label="Location" />
                     <TextBox Label="Destination" />
+                    <TimePicker Label="Drop-off Time"/>
+                    <DatePicker Label="Drop-off Date" />
                     <TextBox Label="Price" />
                     <TextBox Label="Payout" />
-                    <TextBox Label="Drop-off Time" />
+                    
                 </Col>
                 <Col lg={6} md={6} xs={12}>
                     <Textarea Label="Template" rows="13" />

@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
 const TimePicker = (props) => {
-  const defaultTime = moment().format('HH:mm'); // Get the current time
+  const defaultTime = moment().format('HH:mm'); 
 
   return (
 
@@ -18,9 +18,9 @@ const TimePicker = (props) => {
       <Col sm="7">
         <DateTime
             inputProps={{ className: 'form-control' }}
-            dateFormat={false} // Remove the dateFormat prop to disable date selection
+            dateFormat={false} 
             timeFormat="HH:mm"
-            defaultValue={defaultTime} // Set the default value to the current time
+            defaultValue={defaultTime} 
           />
       </Col>
     </Form.Group>
