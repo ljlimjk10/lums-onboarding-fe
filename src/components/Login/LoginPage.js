@@ -34,8 +34,8 @@ function LoginPage() {
         } catch (error) {
             setError("Invalid username or password");
             console.error("Login error:", error);
-        }
-    };
+    }
+};
     
     
 

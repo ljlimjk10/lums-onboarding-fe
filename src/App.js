@@ -54,16 +54,16 @@ function MainContent() {
 	return (
 		<>
 			{/* <Navbar /> */}
+			{/* <PendingUserView /> */}
 			{/* <CreatePost /> */}
 			{/* <CreatePostEvent /> */}
 			{/* <CreatePostAdHoc /> */}
 			{/* <Post_two /> */}
-			{/* <PendingUserView /> */}
 			{/* <UserView /> */}
 			{/* <Post postData={postData} /> */}
 
 			{isLoggedIn && <Navbar />}
-			{console.log(isLoggedIn)}
+			
 			<Routes>
 				<Route path="/" element={isLoggedIn ? <Dashboard /> : <LoginPage />} />
 				<Route path="/users" element={isLoggedIn ? <ExistingUsersTable /> : <LoginPage />} />
