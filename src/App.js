@@ -61,7 +61,6 @@ function MainContent() {
 			{/* <CreatePostAdHoc /> */}
 
 			{isLoggedIn && <Navbar />}
-			
 			<Routes>
 				<Route path="/" element={isLoggedIn ? <Dashboard /> : <LoginPage />} />
 				<Route path="/users" element={isLoggedIn ? <ExistingUsersTable /> : <LoginPage />} />

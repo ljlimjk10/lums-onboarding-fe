@@ -20,7 +20,7 @@ function BModal(props) {
             {props.Label}
           </Form.Label>
         </Col>
-        <Button variant="link" onClick={handleShow}>
+        <Button variant="link" onClick={handleShow} disabled={props.disabled}>
           <Image src={props.source} rounded fluid  alt="No Image Atttached! Click here to upload!"/>
         </Button>
       </Form.Group>

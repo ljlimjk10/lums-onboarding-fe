@@ -12,7 +12,8 @@ function Heading(props) {
                 </h4>
             </Col>
             <Col style={{marginTop:"3%", marginBottom:"1%" }} className="d-flex flex-row-reverse" lg={2} md={4} xs={4}>
-                <BModalFour name={props.name} header="Confirm Edit?" />
+                <Button>Edit</Button>
+                <Button onClick={props.onClick} style={{marginRight:"3%"}}>Back</Button>
             </Col>
             <hr />
         </>        
