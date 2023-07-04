@@ -2,7 +2,8 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import DateTimePicker from './DateTimePicker';
+import TimePicker from './TimePicker';
+import DatePicker from './DatePicker';
 
 function ScheduleModal(props) {
   const [show, setShow] = useState(false);
@@ -24,7 +25,8 @@ function ScheduleModal(props) {
           <Modal.Title>{props.header}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <DateTimePicker />
+          <DatePicker Label="Date" />
+          <TimePicker Label="Time" />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
