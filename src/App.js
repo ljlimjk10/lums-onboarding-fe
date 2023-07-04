@@ -20,7 +20,9 @@ import PostTable from "./components/Posts/Post/PostTable";
 import Dashboard from "./components/Dashboard/Dashboard";
 import QuestionTable from "./components/Questions/QuestionTable";
 import PendingUserView from "./components/Users/PendingUserView";
+import CreatePostAdHoc from "./components/CreatePost/CreatePostAdHoc";
 import CreatePost from "./components/CreatePost/CreatePost";
+import CreatePostEvent from "./components/CreatePost/CreatePostEvent";
 
 
 import Button from "./components/Layout/Views/Button";
@@ -52,9 +54,12 @@ function MainContent() {
 	return (
 		<>
 			{/* <Navbar /> */}
+			{/* <CreatePost /> */}
+			{/* <CreatePostEvent /> */}
+			{/* <CreatePostAdHoc /> */}
+			{/* <Post_two /> */}
 			{/* <PendingUserView /> */}
 			{/* <UserView /> */}
-			{/* <Post_two /> */}
 			{/* <Post postData={postData} /> */}
 
 			{isLoggedIn && <Navbar />}
@@ -65,6 +70,9 @@ function MainContent() {
 				<Route path="/pending-users-table" element={isLoggedIn ? <PendingUsersTable /> : <LoginPage />} />
 				<Route path="/Posts" element={isLoggedIn ? <PostTable /> : <LoginPage />} />
 				<Route path="/support" element={isLoggedIn ? <QuestionTable /> : <LoginPage />} />
+				<Route path="/new-post" element={isLoggedIn ? <CreatePost /> : <LoginPage />} />
+				<Route path="/new-post/adhoc" element={isLoggedIn ? <CreatePostAdHoc /> : <LoginPage />} />
+				<Route path="/new-post/event" element={isLoggedIn ? <CreatePostEvent /> : <LoginPage />} />
 			</Routes> 
 		</>
 	);
