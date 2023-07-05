@@ -21,7 +21,8 @@ function Heading(props) {
                 </div>
             </Col>
             <hr />
-        </>        
+        </>
+        
     )
 }
 

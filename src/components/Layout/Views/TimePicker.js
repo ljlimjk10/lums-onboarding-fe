@@ -7,7 +7,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
 const TimePicker = (props) => {
-  const defaultTime = moment().format('HH:mm'); 
+  const defaultTime = moment().format('HH:mm');
 
   return (
 
@@ -17,6 +17,7 @@ const TimePicker = (props) => {
       </Form.Label>
       <Col sm="7">
         <DateTime
+        
             inputProps={{ className: 'form-control' }}
             dateFormat={false} 
             timeFormat="HH:mm"
