@@ -43,7 +43,7 @@ function PendingUserView(props) {
                     <TextBox Label="Car plate" disabled="true" current={Carplate} />
                 </Col>
                 <Col lg={12} md={12} xs={12}>
-                    <Cordion source="https://picsum.photos/500/300" front_license={IdentificationPhotoFront} back_license={IdentificationPhotoBack} certifications={Certifications} header_one="Driver's License" header_two="NRIC" />
+                    <Cordion source="https://picsum.photos/500/300" front_license={IdentificationPhotoFront} back_license={IdentificationPhotoBack} certifications={Certifications} header_one="Driver's License" header_two="NRIC" disabled="true" />
                     <hr />
                 </Col>
             </Row>
