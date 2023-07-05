@@ -7,9 +7,6 @@ import Button from "../../Layout/Views/Button";
 import PostResponses from "./PostResponses";
 
 const Post = (props) => {
-	const handleGoBack = () =>{
-		
-	}
 	return (
 		<ContentCard>
 			<LabelText
@@ -38,7 +35,7 @@ const Post = (props) => {
 			<Row>
 				<Col xs={{ span: 3, offset: 1 }}>
 					<Button className="m-1">Generate CSV</Button>
-					<Button onClick={handleGoBack} className="m-1">Back</Button>
+					{/* <Button onClick={handleGoBack} className="m-1">Back</Button> */}
 				</Col>
 			</Row>
 		</ContentCard>

@@ -4,33 +4,85 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {postdata} from "./postdata";
+import { postdata } from "./postdata";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Post_two from "./Post_two";
+import saveAs from "file-saver";
 
 function PostTable() {
-    const [search, setSearch] = useState("");
-    const [selectedStatus, setSelectedStatus] = useState("");
-    const [selectedPost, setSelectedPost] = useState(null);
+  const [search, setSearch] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("");
+  const [selectedPost, setSelectedPost] = useState(null);
 
-    const handleViewPost = (postId) => {
-      setSelectedPost(postId)
-    }
-  
-    const clearFilters = () => {
-      setSearch("");
-      setSelectedStatus("");
-    };
+  const handleViewPost = (postId) => {
+    setSelectedPost(postId)
+  }
 
-    const handleGoBack = () => {
-      setSelectedPost(null);
-    };
-  
-    return (
-      <Col>
-      {selectedPost ? (<Post_two onClick={handleGoBack} postId={selectedPost} />) : (
+  const clearFilters = () => {
+    setSearch("");
+    setSelectedStatus("");
+  };
+
+  const handleGoBack = () => {
+    setSelectedPost(null);
+  };
+
+  const handleGenerateCSV = (postData) => {
+    const csvData = [];
+    csvData.push([
+      "Message",
+      "Image",
+      "Type",
+      "Location",
+      "Destination",
+      "Pickup Time",
+      "Drop-off Time",
+      "Price",
+      "Payout",
+      "Status",
+      "Created At",
+      "Scheduled For"
+    ]);
+    const {
+      message,
+      image,
+      type,
+      location,
+      destination,
+      pickupTime,
+      dropofftime,
+      price,
+      payout,
+      status,
+      createdAt,
+      scheduledfor
+    } = postData;
+    const sanitizedMessage = message ? `"${message.replace(/"/g, '""')}"` : "";
+    csvData.push([
+      sanitizedMessage,
+      image || "",
+      type || "",
+      location || "",
+      destination || "",
+      pickupTime || "",
+      dropofftime || "",
+      price || "",
+      payout || "",
+      status || "",
+      createdAt || "",
+      scheduledfor || ""
+    ]);
+
+    const csvString = csvData.map((row) => row.join(",")).join("\n");
+    const blob = new Blob([csvString], { type: "text/csv;charset=utf-8" });
+    saveAs(blob, "post_data.csv");
+  }
+
+  return (
+    <Col>
+      {selectedPost ? (<Post_two onClick={handleGoBack} postId={selectedPost} handleGenerateCSV={handleGenerateCSV} />) : (
         <Container>
           <h1 className="text-center mt-4">Post Table</h1>
           <Form>
@@ -92,20 +144,20 @@ function PostTable() {
                 .filter((item) => item.status !== "Accepted")
                 .map((item, index) => (
                   <tr key={index}>
-                    <td style={{maxWidth:"300px"}}>{item.message}</td>
+                    <td style={{ maxWidth: "300px" }}>{item.message}</td>
                     <td>{item.type}</td>
                     <td>{item.createdAt}</td>
                     <td align="center">
-                          <Button onClick={()=>handleViewPost(item.id)}>View Post</Button>
-                      </td>
+                      <Button onClick={() => handleViewPost(item.id)}>View Post</Button>
+                    </td>
                   </tr>
                 ))}
             </tbody>
           </Table>
         </Container>
-        )}
-      </Col>
-    );
-  }
-  
-  export default PostTable;
+      )}
+    </Col>
+  );
+}
+
+export default PostTable;
