@@ -6,6 +6,8 @@ import TimePicker from './TimePicker';
 import DatePicker from './DatePicker';
 
 function ScheduleModal(props) {
+
+  const {handleValueChange} = props;
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -25,8 +27,8 @@ function ScheduleModal(props) {
           <Modal.Title>{props.header}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <DatePicker Label="Date" />
-          <TimePicker Label="Time" />
+          <DatePicker Label="Date" onChange={handleValueChange}/>
+          <TimePicker Label="Time" onChange={handleValueChange} />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

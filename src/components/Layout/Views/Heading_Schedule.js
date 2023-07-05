@@ -17,7 +17,7 @@ function Heading_Schedule(props) {
                     <BModalFour name={props.b_name} var="danger" header={props.b_name} />
                 </div>
                 <div>
-                    <ScheduleModal name={props.b_name_two} var="success" header={props.b_name_two} />
+                    <ScheduleModal handleValueChange={props.handleValueChange} name={props.b_name_two} var="success" header={props.b_name_two} />
                 </div>
             </Col>
             <hr />

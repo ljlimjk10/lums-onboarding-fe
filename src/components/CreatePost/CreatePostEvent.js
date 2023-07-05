@@ -9,7 +9,6 @@ import BModal from '../Layout/Views/BModal';
 import Heading_Schedule from '../Layout/Views/Heading_Schedule';
 
 function CreatePostEvent() {
-
     return (
         <Container>
             <Row>
