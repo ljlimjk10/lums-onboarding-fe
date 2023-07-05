@@ -118,8 +118,7 @@ function PendingUsersTable() {
         </Container>
       ) : (
         <Container>
-          <Button onClick={handleGoBack}>Back</Button>
-          <PendingUserView userId={selectedUserId} />
+          <PendingUserView onClick={handleGoBack} userId={selectedUserId} />
         </Container>
       )}
     </Col>
