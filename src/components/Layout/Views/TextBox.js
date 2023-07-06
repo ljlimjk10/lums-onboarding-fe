@@ -9,7 +9,7 @@ function TextBox(props) {
     
     return (
         <Form.Group as={Row} className="mb-3" style={props.style}>
-            <Form.Label column sm="3">
+            <Form.Label style={props.style} column sm="3">
                 {props.Label}
             </Form.Label>
             <Col sm="7">

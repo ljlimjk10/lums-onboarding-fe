@@ -28,7 +28,7 @@ function BModalFour(props) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button type="submit" variant="primary">
+          <Button type="submit" variant="primary" onClick={handleClose}>
             Confirm
           </Button>
         </Modal.Footer>

@@ -80,6 +80,7 @@ function PendingUsersTable() {
                 <th>NRIC</th>
                 <th>Address</th>
                 <th>Status</th>
+                <th>Select</th>
                 <th></th>
               </tr>
             </thead>
@@ -106,6 +107,7 @@ function PendingUsersTable() {
                     <td>{item.NRIC}</td>
                     <td>{item.Address}</td>
                     <td>{item.Status}</td>
+                    <td><input type="checkbox"></input></td>
                     <td align="center">
                       <Button onClick={() => handleViewUser(item.id)}>
                         View User
@@ -115,6 +117,8 @@ function PendingUsersTable() {
                 ))}
             </tbody>
           </Table>
+          <Button>Delete</Button>
+          <hr />
         </Container>
       ) : (
         <Container>

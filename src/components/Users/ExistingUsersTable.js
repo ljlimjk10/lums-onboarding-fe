@@ -171,7 +171,8 @@ function ExistingUsersTable() {
                 ))}
             </tbody>
           </Table>
-          <Button onClick={handleGenerateCSV}>Generate CSV</Button>
+          <Button>Deactivate</Button>
+          <Button onClick={handleGenerateCSV} style={{ marginLeft: "10px" }}>Generate CSV</Button>
           <Button
             style={{ marginLeft: "10px" }}
             onClick={handleSelectAll}
