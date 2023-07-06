@@ -20,12 +20,12 @@ function BModalThree(props) {
 
   const handleEdit = () => setIsEditMode(true);
 
-  const handleQnsChange = (e) => {
-    setQuestion(e.target.value)
+  const handleQnsChange = (value) => {
+    setQuestion(value)
   }
 
-  const handleAnsChange = (e) => {
-    setAnswer(e.target.value)
+  const handleAnsChange = (value) => {
+    setAnswer(value)
   }
 
 
@@ -51,8 +51,9 @@ function BModalThree(props) {
         </Modal.Header>
 
         <Modal.Body>
-          <Textarea onChange={handleQnsChange} content={props.qn} dis={!isEditMode} />
-          <Textarea onChange={handleAnsChange} content={props.ans} dis={!isEditMode} />
+        
+          <Textarea onChange={(e)=> handleQnsChange(e.target.value)} value={question} dis={!isEditMode} />
+          <Textarea onChange={(e)=>handleAnsChange(e.target.value)} value={answer} dis={!isEditMode} />
         </Modal.Body>
 
         <Modal.Footer>

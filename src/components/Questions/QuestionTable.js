@@ -59,7 +59,7 @@ function QuestionTable() {
   };
 
   const handleViewQuestion = (questionId) => {
-    console.log(questionId);
+    // console.log(questionId);
     setSelectedQuestionId(questionId);
   };
 
