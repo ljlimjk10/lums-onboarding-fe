@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -9,6 +9,7 @@ import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import UserView from "./UserView.js";
 import { saveAs } from "file-saver";
+import axios from "axios";
 
 function ExistingUsersTable() {
   const [contacts, setContacts] = useState(data);
@@ -18,8 +19,9 @@ function ExistingUsersTable() {
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [showPopUp, setShowPopUp] = useState(false);
 
+
+
   const handleViewUser = (userId) => {
-    console.log(userId);
     setSelectedUserId(userId);
   };
 
@@ -122,7 +124,8 @@ function ExistingUsersTable() {
               </tr>
             </thead>
             <tbody>
-              {data
+            {console.log(contacts)}
+              {contacts
                 .filter((item) => {
                   const Status = item.Status;
                   const Name = `${item.Name}`;
@@ -171,8 +174,7 @@ function ExistingUsersTable() {
                 ))}
             </tbody>
           </Table>
-          <Button>Deactivate</Button>
-          <Button onClick={handleGenerateCSV} style={{ marginLeft: "10px" }}>Generate CSV</Button>
+          <Button onClick={handleGenerateCSV}>Generate CSV</Button>
           <Button
             style={{ marginLeft: "10px" }}
             onClick={handleSelectAll}
