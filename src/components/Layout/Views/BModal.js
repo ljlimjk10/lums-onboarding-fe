@@ -13,8 +13,9 @@ function BModal(props) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const handleImgSelect = (img) => {
-    setSelectedImg(img);
+  const handleImgSelect = (event) => {
+    const file = event.target.files[0];
+    setSelectedImg(URL.createObjectURL(file));
   };
 
   const handleUploadImage = () => {
@@ -42,19 +43,19 @@ function BModal(props) {
           <Modal.Title>{props.header}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Image src={props.source} rounded fluid />
+          {selectedImg && <Image src={selectedImg} alt="Uploaded Image" rounded fluid />}
         </Modal.Body>
         <Modal.Footer>
-        <Row>
-          <Col lg={8} md={6} xs={6}>
-            <Form.Control type="file"  accept=".jpg, .jpeg, .png" onChange={handleImgSelect}/>
-          </Col>
-          <Col lg={4} md={6} xs={6}>
-            <Button variant="primary" onClick={handleClose}>
-              Save Changes
-            </Button>
-          </Col>
-        </Row>
+          <Row>
+            <Col lg={8} md={6} xs={6}>
+              <Form.Control type="file" accept=".jpg, .jpeg, .png" onChange={handleImgSelect} />
+            </Col>
+            <Col lg={4} md={6} xs={6}>
+              <Button variant="primary" onClick={handleClose}>
+                Save Changes
+              </Button>
+            </Col>
+          </Row>
         </Modal.Footer>
       </Modal>
     </>
