@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container } from 'react-bootstrap';
+import { Container, FormControl } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -9,6 +9,7 @@ import Textarea from '../Layout/Views/Textarea';
 import TimePicker from '../Layout/Views/TimePicker';
 import DatePicker from '../Layout/Views/DatePicker';
 import Heading_Schedule from '../Layout/Views/Heading_Schedule';
+import Form from 'react-bootstrap/Form';
 
 function CreatePostAdHoc() {
     const [pickupTime, setPickupTime] = useState('');
@@ -81,16 +82,16 @@ function CreatePostAdHoc() {
                 <Heading_Schedule handleValueChange={handleValueChange} page="Create Post" b_name="Post" b_name_two="Schedule" />
                 <Col lg={6} md={6} xs={12}>
                     <DropDownList Label="Job Type" adhoc="1" />
-                    <TimePicker Label="Pickup Time" onChange={handleValueChange} />
-                    <DatePicker Label="Pickup Date" onChange={handleValueChange} />
+                    <TextBox Label="Pickup Time" type="time" value={location} onChange={handleValueChange} />
+                    <TextBox Label="Pickup Date" type="date" value={destination} onChange={handleValueChange} />
                     <TextBox Label="Location" value={location} onChange={handleValueChange} />
                     <TextBox Label="Destination" value={destination} onChange={handleValueChange} />
-                    <TimePicker Label="Drop-off Time" onChange={handleValueChange} />
-                    <DatePicker Label="Drop-off Date" onChange={handleValueChange} />
-                    <TextBox Label="Price" value={price} onChange={handleValueChange} />
-                    <TextBox Label="Payout" value={payout} onChange={handleValueChange} />
-                    <TimePicker value={postTime} Label="Post Time" onChange={handleValueChange}/>
-                    <DatePicker value={postDate} Label="Post Date" onChange={handleValueChange} />
+                    <TextBox Label="Drop-off Time" type="time" value={postTime} onChange={handleValueChange} />
+                    <TextBox Label="Drop-off Date" type="date" value={postDate} onChange={handleValueChange} />
+                    <TextBox Label="Price" type="number" value={price} onChange={handleValueChange} />
+                    <TextBox Label="Payout" type="number" value={payout} onChange={handleValueChange} />
+                    <TextBox Label="Post Time" current={postTime} onChange={handleValueChange} />
+                    <TextBox Label="Post Date" current={postDate} onChange={handleValueChange} />
                 </Col>
                 <Col lg={6} md={6} xs={12}>
                     <Textarea Label="Template" rows="13" value={template} onChange={(e) => setTemplate(e.target.value)} />

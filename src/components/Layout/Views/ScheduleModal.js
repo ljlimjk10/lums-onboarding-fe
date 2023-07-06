@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import TimePicker from './TimePicker';
 import DatePicker from './DatePicker';
+import TextBox from './TextBox';
 
 function ScheduleModal(props) {
 
@@ -27,8 +28,8 @@ function ScheduleModal(props) {
           <Modal.Title>{props.header}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <DatePicker Label="Date" onChange={handleValueChange}/>
-          <TimePicker Label="Time" onChange={handleValueChange} />
+          <TextBox Label="Date" type="date" onChange={handleValueChange} />
+          <TextBox Label="Time" type="time" onChange={handleValueChange} />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

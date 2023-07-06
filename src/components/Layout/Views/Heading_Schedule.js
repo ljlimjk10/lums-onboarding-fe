@@ -22,7 +22,6 @@ function Heading_Schedule(props) {
             </Col>
             <hr />
         </>
-        
     )
 }
 
