@@ -27,7 +27,8 @@ function Heading(props) {
                 </Button>) : (<Button variant="danger" onClick={handleEdit}>
                     Edit
                 </Button>)}
-                <Button onClick={props.onClick} style={{ marginRight: "3%" }}>Back</Button>
+                {!isEditMode
+                ? (<Button onClick={props.onClick} style={{ marginRight: "3%" }}>Back</Button>) : null}
             </Col>
             <hr />
         </>
