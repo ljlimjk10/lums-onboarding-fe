@@ -49,13 +49,10 @@ function BModalThree(props) {
         <Modal.Header closeButton>
           <Modal.Title>{props.header}</Modal.Title>
         </Modal.Header>
-
         <Modal.Body>
-        
           <Textarea onChange={(e)=> handleQnsChange(e.target.value)} value={question} dis={!isEditMode} />
           <Textarea onChange={(e)=>handleAnsChange(e.target.value)} value={answer} dis={!isEditMode} />
         </Modal.Body>
-
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
@@ -74,5 +71,5 @@ function BModalThree(props) {
     </>
   );
 }
-
+  
 export default BModalThree;

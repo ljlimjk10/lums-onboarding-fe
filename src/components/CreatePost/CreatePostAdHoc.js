@@ -40,9 +40,9 @@ function CreatePostAdHoc() {
             setPickupDate(value);
         } else if (label === "Drop-off Date") {
             setDropoffDate(value);
-        } else if (label ==="Date"){
+        } else if (label === "Date") {
             setPostDate(value)
-        }else if (label==="Time"){
+        } else if (label === "Time") {
             setPostTime(value);
         }
         updateTemplate();
@@ -89,7 +89,7 @@ function CreatePostAdHoc() {
                     <DatePicker Label="Drop-off Date" onChange={handleValueChange} />
                     <TextBox Label="Price" value={price} onChange={handleValueChange} />
                     <TextBox Label="Payout" value={payout} onChange={handleValueChange} />
-                    <TimePicker value={postTime} Label="Post Time" onChange={handleValueChange}/>
+                    <TimePicker value={postTime} Label="Post Time" onChange={handleValueChange} />
                     <DatePicker value={postDate} Label="Post Date" onChange={handleValueChange} />
                 </Col>
                 <Col lg={6} md={6} xs={12}>
