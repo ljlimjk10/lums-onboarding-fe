@@ -1,9 +1,6 @@
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import Image from 'react-bootstrap/Image';
-import Col from "react-bootstrap/Col";
-import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 
 function BModalFour(props) {
@@ -20,7 +17,6 @@ function BModalFour(props) {
         </Button>
       </Form.Group>
 
-
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>{props.header}</Modal.Title>
@@ -32,7 +28,7 @@ function BModalFour(props) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button type="submit" variant="primary">
             Confirm
           </Button>
         </Modal.Footer>

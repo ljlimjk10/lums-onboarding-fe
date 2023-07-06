@@ -2,8 +2,6 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import TimePicker from './TimePicker';
-import DatePicker from './DatePicker';
 import TextBox from './TextBox';
 
 function ScheduleModal(props) {
