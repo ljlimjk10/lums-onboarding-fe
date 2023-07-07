@@ -16,6 +16,9 @@ import CreatePostAdHoc from "./components/CreatePost/CreatePostAdHoc";
 import CreatePost from "./components/CreatePost/CreatePost";
 import CreatePostEvent from "./components/CreatePost/CreatePostEvent";
 
+import CreatePostEventTest from "./components/CreatePost/CreatePostEventTest";
+
+
 function App() {
 	return (
 		<Router>
@@ -39,7 +42,8 @@ function MainContent() {
 	};
 	return (
 		<>
-			{isLoggedIn && <Navbar />}
+			<CreatePostAdHoc />
+			{/* {isLoggedIn && <Navbar />}
 			<Routes>
 				<Route path="/" element={isLoggedIn ? <Dashboard /> : <LoginPage />} />
 				<Route path="/users" element={isLoggedIn ? <ExistingUsersTable /> : <LoginPage />} />
@@ -49,7 +53,7 @@ function MainContent() {
 				<Route path="/new-post" element={isLoggedIn ? <CreatePost /> : <LoginPage />} />
 				<Route path="/new-post/adhoc" element={isLoggedIn ? <CreatePostAdHoc /> : <LoginPage />} />
 				<Route path="/new-post/event" element={isLoggedIn ? <CreatePostEvent /> : <LoginPage />} />
-			</Routes>
+			</Routes> */}
 		</>
 	);
 }

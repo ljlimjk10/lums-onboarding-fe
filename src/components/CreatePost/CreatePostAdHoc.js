@@ -8,7 +8,21 @@ import Textarea from '../Layout/Views/Textarea';
 import Heading_Schedule from '../Layout/Views/Heading_Schedule';
 import Form from 'react-bootstrap/Form';
 
+
 function CreatePostAdHoc() {
+    const [validated, setValidated] = useState(false);
+  
+    const handleSubmit = (event) => {
+      const form = event.currentTarget;
+      if (form.checkValidity() === false) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+  
+      setValidated(true);
+    };
+
+
     const [pickupTime, setPickupTime] = useState('');
     const [pickupDate, setPickupDate] = useState('');
     const [location, setLocation] = useState('');
@@ -83,7 +97,7 @@ function CreatePostAdHoc() {
 
     return (
         <Container>
-            <Form>
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Row>
                     <Heading_Schedule handleValueChange={handleValueChange} page="Create Post" b_name="Post" b_name_two="Schedule" />
                     <Col lg={6} md={6} xs={12}>

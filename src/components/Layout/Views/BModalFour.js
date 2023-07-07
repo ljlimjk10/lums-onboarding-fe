@@ -8,30 +8,33 @@ function BModalFour(props) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Prevent the default form submission behavior
+    // Additional logic or actions you want to perform on form submission
+    handleClose();
+  };
 
   return (
     <>
-      <Form.Group>
-        <Button variant={props.var} onClick={handleShow}>
-          {props.name}
-        </Button>
-      </Form.Group>
+      <Button variant={props.var} onClick={handleShow}>
+        {props.name}
+      </Button>
 
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>{props.header}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Are you sure?
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button type="submit" variant="primary" onClick={handleClose}>
-            Confirm
-          </Button>
-        </Modal.Footer>
+        <Form onSubmit={handleSubmit}>
+          <Modal.Header closeButton>
+            <Modal.Title>{props.header}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Are you sure?</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button type="submit" variant="primary">
+              Confirm
+            </Button>
+          </Modal.Footer>
+        </Form>
       </Modal>
     </>
   );
