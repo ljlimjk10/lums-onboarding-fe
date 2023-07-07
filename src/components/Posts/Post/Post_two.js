@@ -23,22 +23,26 @@ function Post_two(props) {
         setPostData(filteredData[0]);
     }
 
-    const { message, image, type, location, destination, pickupTime, dropofftime, price, payout, responses, status, createdAt, scheduledfor } = postData || {};
+    const { message, image, type, location, destination, dropofftime, price, payout, responses, status, createdAt, scheduledfor, pickupDateTime, riders} = postData || {};
     return (
         <Container>
             <Row>
-                <ViewPostHeading handleGenerateCSV={handleGenerateCSV} onClick={handleGoBack} postData={postData} status={status} page="Post" b_name="Back" b_name_two="Generate CSV" />
+                <ViewPostHeading type={type} handleGenerateCSV={handleGenerateCSV} onClick={handleGoBack} postData={postData} status={status} page="Post" b_name="Back" b_name_two="Generate CSV" />
                 <Col lg={6} md={6} xs={12}>
-                    <TextBox Label="Type" disabled="true" pholder="Job Post" current={type} />
-                    <TextBox Label="Creation D/T" disabled="true" pholder="" current={createdAt} />
-                    <TextBox Label="Posted D/T" disabled="true" pholder="" current={scheduledfor} />
+                    <TextBox Label="Pickup Date/Time" disabled="true" pholder="PickupDateTime" current={pickupDateTime} />
+                    <TextBox Label="Dropoff Time" disabled="true" pholder="dropofftime Date" current={dropofftime} />
                     <TextBox Label="Location" disabled="true" pholder="ABC Street" current={location} />
+                    <TextBox Label="Destination" disabled="true" pholder="DEF Road" current={destination} />
+                    <TextBox Label="Model" disabled="true" pholder="Toyota" current={destination} />
+                    
                 </Col>
                 <Col lg={6} md={6} xs={12}>
-                    <TextBox Label="Destination" disabled="true" pholder="DEF Road" current={destination} />
+                    <TextBox Label="Creation D/T" disabled="true" pholder="" current={createdAt} />
+                    <TextBox Label="Posted D/T" disabled="true" pholder="" current={scheduledfor} />
                     <TextBox Label="Price" disabled="true" pholder="$20" current={price} />
                     <TextBox Label="Payout" disabled="true" pholder="$15" current={payout} />
-                    <TextBox Label="Drop Off Time" disabled="true" pholder="" current={dropofftime} />
+                    <TextBox Label="Riders" disabled="true" pholder="5" current={riders} />
+                    
                 </Col>
                 <hr/>
                 <Cordion_Two header_1="Message" header_2="Response Order" r_order={<PostResponses />} message={message} />
