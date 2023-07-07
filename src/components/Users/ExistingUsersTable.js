@@ -44,6 +44,8 @@ function ExistingUsersTable() {
     }
   };
 
+
+
   const handleViewUser = (userId) => {
     setSelectedUserId(userId);
   };
