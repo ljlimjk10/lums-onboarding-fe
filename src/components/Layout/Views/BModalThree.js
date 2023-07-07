@@ -4,6 +4,8 @@ import Modal from 'react-bootstrap/Modal';
 import Textarea from './Textarea';
 import axios from 'axios';
 
+import authHeader from '../../../services/auth-header';
+
 function BModalThree(props) {
   const id = props.id;
   const [show, setShow] = useState(false);
@@ -33,7 +35,7 @@ function BModalThree(props) {
     // Handle saving changes logic here
     setIsEditMode(false);
     try {
-      await axios.put(`http://localhost:3001/api/faq/update/${id}`,{question,answer})
+      await axios.put(`http://localhost:3001/api/faq/update/${id}`,{question,answer},{headers:authHeader()})
       props.refreshData();
     }catch (error){
       console.error('Error updating FAQ data:', error);

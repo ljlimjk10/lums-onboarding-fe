@@ -11,6 +11,7 @@ import { saveAs } from "file-saver";
 import BModalTwo from "../Layout/Views/BModalTwo";
 import BModalThree from "../Layout/Views/BModalThree";
 import axios from "axios";
+import authHeader from "../../services/auth-header";
 
 function QuestionTable() {
   const [contacts, setContacts] = useState([]);
@@ -20,13 +21,16 @@ function QuestionTable() {
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [showPopUp, setShowPopUp] = useState(false);
+  const BASE_URL = "http://localhost:3001";
+
+
   useEffect(() => {
     fetchData();
   }, []);
   // Fetching Data
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/faq/retrieve');
+      const response = await axios.get(`${BASE_URL}/api/faq/retrieve`,{headers:authHeader()});
       const faqData = response.data.FAQs;
       setContacts(faqData);
     } catch (error) {

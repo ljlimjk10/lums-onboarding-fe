@@ -4,6 +4,7 @@ import Row from "react-bootstrap/Row";
 import { Container } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from "react-bootstrap/Button";
+import axios from "axios";
 
 import TextBox from "../Layout/Views/TextBox";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,27 +12,35 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "../../index.css";
 import Heading from "../Layout/Views/Heading";
 import Cordion from "../Layout/Views/Cordion";
-import {data} from "./data"
+import authHeader from "../../services/auth-header.js";
 
 
 function UserView(props) {
     // console.log(data);
     const id = props.userId;
-    const [userData,setUserData] = useState(null);
+    const [userData, setUserData] = useState(null);
     const [isEditMode, setIsEditMode] = useState(false);
+    const BASE_URL = "http://localhost:3001"
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchUserData(id);
-    },[id]);
+    }, [id]);
     // const { Name = '', NRIC = '', Address = '', Model = '', Capacity = '', Location = '', Contact = '', Telegram = '', Entity = '', Carplate = '' } = userData || {};
 
     const fetchUserData = (userId) => { // async
-        //try{ const response = await fetch('API_ENDPOINT')
-        // const data = await response.json();}
-        // catch(error) {log(e)}
-        const filteredData = data.filter((item)=>item.id===userId)
+        const endpoint = `${BASE_URL}/api/user/profile/${userId}`;
+
+        axios.get(endpoint,{headers:authHeader()})
+            .then((response) => {
+                const userData = response.data;
+                setUserData(userData);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        // const filteredData = data.filter((item) => item.id === userId)
         // console.log(filteredData);
-        setUserData(filteredData[0]);
+        // setUserData(filteredData[0]);
         // console.log(userData);
     }
     const [formData, setFormData] = useState({});
@@ -42,28 +51,33 @@ function UserView(props) {
         }));
     };
 
-    const {Name, NRIC, Address, Make_Model, Capacity, Region, Contact, Telegram, Entity, Carplate,"Identification Photo (Front)": IdentificationPhotoFront,"Identification Photo (Back)": IdentificationPhotoBack,Certifications } = userData||{};
+    const onChange = () =>{
+
+    }
+
+
+    const { name, nricId, address, car_model, car_capacity, region, contact, telehandle, affiliation, car_plate, nric_front, nric_back, certificate } = userData || {};
 
     return (
         <Container>
             <Row>
                 <Heading onClick={props.handleGoBack} isEditMode={isEditMode} setIsEditMode={setIsEditMode} status="Approved" page="User Information" name="Edit Profile" />
                 <Col lg={6} md={6} xs={12}>
-                    <TextBox Label="Name" disabled={!isEditMode} current={Name}/>
-                    <TextBox Label="NRIC" disabled={!isEditMode} current={NRIC}/>
-                    <TextBox Label="Address" disabled={!isEditMode} current={Address}/>
-                    <TextBox Label="Make/Model" disabled={!isEditMode} current={Make_Model}/>
-                    <TextBox Label="Capacity" disabled={!isEditMode} current={Capacity}/>
+                    <TextBox Label="Name" disabled={!isEditMode} current={name} />
+                    <TextBox Label="NRIC" disabled={!isEditMode} current={nricId} />
+                    <TextBox Label="Address" disabled={!isEditMode} current={address} />
+                    <TextBox Label="Make/Model" disabled={!isEditMode} current={car_model} />
+                    <TextBox Label="Capacity" disabled={!isEditMode} current={car_capacity} />
                 </Col>
                 <Col lg={6} md={6} xs={12}>
-                    <TextBox Label="Location" disabled={!isEditMode} current={Region}/>
-                    <TextBox Label="Contact" disabled={!isEditMode} current={Contact}/>
-                    <TextBox Label="Telegram" disabled={!isEditMode} current={Telegram}/>
-                    <TextBox Label="Entity" disabled={!isEditMode} current={Entity}/>
-                    <TextBox Label="Car plate" disabled={!isEditMode} current={Carplate}/>
+                    <TextBox Label="Location" disabled={!isEditMode} current={region} />
+                    <TextBox Label="Contact" disabled={!isEditMode} current={contact} />
+                    <TextBox Label="Telegram" disabled={!isEditMode} current={telehandle} />
+                    <TextBox Label="Entity" disabled={!isEditMode} current={affiliation} />
+                    <TextBox Label="Car plate" disabled={!isEditMode} current={car_plate} />
                 </Col>
                 <Col lg={12} md={12} xs={12}>
-                    <Cordion source="https://picsum.photos/500/300" front_license={IdentificationPhotoFront} back_license={IdentificationPhotoBack} certifications={Certifications} header_one="Driver's License" header_two="NRIC" disabled={!isEditMode} />
+                    <Cordion source="https://picsum.photos/500/300" front_license={nric_front} back_license={nric_back} certifications={certificate} header_one="Driver's License" header_two="NRIC" disabled={!isEditMode} />
                     <hr />
                 </Col>
             </Row>
