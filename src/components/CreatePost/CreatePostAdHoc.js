@@ -9,6 +9,18 @@ import Heading_Schedule from '../Layout/Views/Heading_Schedule';
 import Form from 'react-bootstrap/Form';
 
 function CreatePostAdHoc() {
+    const [validated, setValidated] = useState(false);
+
+    const handleSubmit = (event) => {
+      const form = event.currentTarget;
+      if (form.checkValidity() === false) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+  
+      setValidated(true);
+    };
+
     const [pickupTime, setPickupTime] = useState('');
     const [pickupDate, setPickupDate] = useState('');
     const [location, setLocation] = useState('');
@@ -83,23 +95,23 @@ function CreatePostAdHoc() {
 
     return (
         <Container>
-            <Form>
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Row>
                     <Heading_Schedule handleValueChange={handleValueChange} page="Create Post" b_name="Post" b_name_two="Schedule" />
                     <Col lg={6} md={6} xs={12}>
                         <DropDownList Label="Job Type" adhoc="1" />
-                        <TextBox style={{ fontWeight: 'bold' }} Label="Pickup Time*" type="time" value={pickupTime} onChange={handleValueChange} />
-                        <TextBox style={{ fontWeight: 'bold' }} Label="Pickup Date*" type="date" value={pickupDate} onChange={handleValueChange} />
-                        <TextBox style={{ fontWeight: 'bold' }} Label="Location*" value={location} onChange={handleValueChange} />
+                        <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Pickup Time*" type="time" value={pickupTime} onChange={handleValueChange} />
+                        <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Pickup Date*" type="date" value={pickupDate} onChange={handleValueChange} />
+                        <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Location*" value={location} onChange={handleValueChange} />
                         <TextBox Label="Destination" value={destination} onChange={handleValueChange} />
                         <TextBox Label="Drop-off Time" type="time" value={dropoffTime} onChange={handleValueChange} />
                         <TextBox style={{ fontWeight: 'bold' }} Label="Drop-off Date*" type="date" value={dropoffDate} onChange={handleValueChange} />
                         <TextBox Label="Price" type="number" value={price} onChange={handleValueChange} />
                         <TextBox Label="Payout" type="number" value={payout} onChange={handleValueChange} />
                         <TextBox Label="Riders" type="number" value={riders} onChange={handleValueChange} />
-                        <TextBox style={{ fontWeight: 'bold' }} Label="Model*" type="text" value={model} onChange={handleValueChange} />
-                        <TextBox Label="Post Time" current={postTime} onChange={handleValueChange} disabled="true" />
-                        <TextBox Label="Post Date" current={postDate} onChange={handleValueChange} disabled="true" />
+                        <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Model*" type="text" value={model} onChange={handleValueChange} />
+                        <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Post Time*" current={postTime} onChange={handleValueChange} placeholder="Please schedule (Top Right)" />
+                        <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Post Date*" current={postDate} onChange={handleValueChange} placeholder="Please schedule (Top Right)" />
                     </Col>
                     <Col lg={6} md={6} xs={12}>
                         <Textarea Label="Template" rows="26" value={template} onChange={(e) => setTemplate(e.target.value)} />

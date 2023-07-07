@@ -13,7 +13,10 @@ function TextBox(props) {
                 {props.Label}
             </Form.Label>
             <Col sm="7">
-                <Form.Control type={props.type} placeholder={props.placeholder} value={props.current} disabled={props.disabled} onChange={(e)=>handleChange(e.target.value)}/>
+                <Form.Control required={props.r} type={props.type} placeholder={props.placeholder} value={props.current} disabled={props.disabled} onChange={(e)=>handleChange(e.target.value)}/>
+                <Form.Control.Feedback type="invalid">
+                    Please enter a {props.Label}
+                </Form.Control.Feedback>
             </Col>
         </Form.Group>
     )
