@@ -43,6 +43,7 @@ function MainContent() {
 	return (
 		<>
 			<CreatePostAdHoc />
+			
 			{/* {isLoggedIn && <Navbar />}
 			<Routes>
 				<Route path="/" element={isLoggedIn ? <Dashboard /> : <LoginPage />} />

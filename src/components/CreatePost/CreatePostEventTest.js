@@ -34,8 +34,7 @@ function CreatePostEventTest() {
           <Col lg={6} md={10} xs={12}>
                     <DropDownList Label="Job Type" post="2"/>
                     <Form.Group>
-                      <Form.Control required as="textarea" rows="13" />
-                      <Textarea required Label="Template" rows="13" />
+                      <Textarea r="true" rows={13} Label="Message"/>
                     </Form.Group>
           </Col>
           <Col lg={12} md={12} xs={12}>
@@ -95,6 +94,7 @@ function CreatePostEventTest() {
               Please provide a valid city.
             </Form.Control.Feedback>
           </Form.Group>
+
           <Form.Group as={Col} md="3" controlId="validationCustom04">
             <Form.Label>State</Form.Label>
             <Form.Control type="text" placeholder="State" required />
@@ -102,6 +102,7 @@ function CreatePostEventTest() {
               Please provide a valid state.
             </Form.Control.Feedback>
           </Form.Group>
+          
           <Form.Group as={Col} md="3" controlId="validationCustom05">
             <Form.Label>Zip</Form.Label>
             <Form.Control type="text" placeholder="Zip" required />

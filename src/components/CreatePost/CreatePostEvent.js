@@ -10,7 +10,7 @@ import Heading_Schedule from '../Layout/Views/Heading_Schedule';
 
 function CreatePostEvent() {
     const [validated, setValidated] = useState(false);
-  
+
     const handleSubmit = (event) => {
       const form = event.currentTarget;
       if (form.checkValidity() === false) {
@@ -27,8 +27,8 @@ function CreatePostEvent() {
           <Row>
             <Heading_Schedule page="Create Post" b_name="Post" b_name_two="Schedule" />
             <Col lg={6} md={10} xs={12}>
-                      <DropDownList Label="Job Type" post="2"/>
-                      <Textarea Label="Message"/>
+              <DropDownList Label="Job Type" post="2"/>
+              <Textarea r="true" rows={13} Label="Message"/>
             </Col>
             <Col lg={12} md={12} xs={12}>
                 <BModal source="https://picsum.photos/625/300" header="Attach Image" Label="Attach Image" />

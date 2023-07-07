@@ -11,9 +11,12 @@ function Textarea(props) {
                 <Form.Label column>
                     {props.Label}
                 </Form.Label>
-                <Form.Control as="textarea" rows={props.rows} placeholder={props.pholder} disabled={props.dis} onChange={props.onChange} value={value}>
+                <Form.Control required={props.r} as="textarea" rows={props.rows} placeholder={props.pholder} disabled={props.dis} onChange={props.onChange} value={value}>
                     {value}
                 </Form.Control>
+                <Form.Control.Feedback type="invalid">
+                    Please enter a message.
+                </Form.Control.Feedback>
             </Col>
         </Form.Group>
     )
