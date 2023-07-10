@@ -31,7 +31,7 @@ function ExistingUsersTable() {
       setIsLoading(true);
       const response = await axios.get(`${API_BASE_URL}${API_ENDPOINT}`, { headers: authHeader() });
       if (response.status === 200) {
-        setContacts(response.data);
+        setContacts(response.data.data);
       } else if (response.status === 304) {
         console.log("The data has not been modified since the last request.");
       } else {
@@ -112,6 +112,7 @@ function ExistingUsersTable() {
           telehandle,
           affiliation,
           car_plate,
+          status,
           license_front,
           license_back,
           nric_front,
@@ -130,6 +131,7 @@ function ExistingUsersTable() {
           telehandle,
           affiliation,
           car_plate,
+          status,
           license_front,
           license_back,
           nric_front,

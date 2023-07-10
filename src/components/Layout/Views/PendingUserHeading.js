@@ -17,7 +17,7 @@ function PendingUserHeading(props) {
                     <BModalFour name={props.b_name} var="danger" header={props.b_name} />
                 </div>
                 <div style={{marginLeft:"3%"}}>
-                    <BModalFour name={props.b_name_two} var="success" header={props.b_name_two} />
+                    <BModalFour id={props.id} name={props.b_name_two} var="success" header={props.b_name_two} />
                 </div>
                 <div>
                     <Button onClick={props.onClick}>Back</Button>

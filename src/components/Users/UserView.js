@@ -8,7 +8,9 @@ import axios from "axios";
 
 import TextBox from "../Layout/Views/TextBox";
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 // import Container from 'react-bootstrap/Container';
+
 import "../../index.css";
 import Heading from "../Layout/Views/Heading";
 import Cordion from "../Layout/Views/Cordion";
@@ -32,7 +34,7 @@ function UserView(props) {
 
         axios.get(endpoint,{headers:authHeader()})
             .then((response) => {
-                const userData = response.data;
+                const userData = response.data.data;
                 setUserData(userData);
             })
             .catch((error) => {

@@ -27,7 +27,7 @@ function PendingUserView(props) {
         const endpoint = `${API_BASE_URL}${API_ENDPOINT}${userId}`;
         axios.get(endpoint,{headers:authHeader()})
         .then((response)=>{
-            const pendingUserData = response.data;
+            const pendingUserData = response.data.data;
             setUserData(pendingUserData);
         })
         .catch((error)=>{
@@ -40,7 +40,7 @@ function PendingUserView(props) {
     return (
         <Container>
             <Row>
-                <PendingUserHeading  page="Pending User" b_name="Reject" b_name_two="Approve" onClick={props.onClick} />
+                <PendingUserHeading id={props.userId}  page="Pending User" b_name="Reject" b_name_two="Approve" onClick={props.onClick} />
                 <Col lg={6} md={6} xs={12}>
                     <TextBox Label="Name" disabled="true" current={name} />
                     <TextBox Label="NRIC" disabled="true" current={nricId} />

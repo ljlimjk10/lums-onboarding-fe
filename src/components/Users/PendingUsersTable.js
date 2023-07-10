@@ -12,7 +12,11 @@ import PendingUserView from "./PendingUserView.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const API_BASE_URL = "http://localhost:3001";
-const API_ENDPOINT = "/api/user/all/pending";
+const API_ENDPOINTS = [
+  "/api/user/all/pending",
+  "/api/user/all/new",
+  "/api/user/all/rejected"
+];
 
 function PendingUsersTable() {
   const [contacts, setContacts] = useState([]);
@@ -28,21 +32,18 @@ function PendingUsersTable() {
   const fetchPendingUserData = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get(`${API_BASE_URL}${API_ENDPOINT}`, { headers: authHeader() });
-      if (response.status === 200) {
-        setContacts(response.data);
-      } else if (response.status === 304) {
-        console.log("The data has not been modified since the last request.");
-      } else {
-        console.log("An error occurred.");
-      }
+      const requests = API_ENDPOINTS.map(endpoint=>axios.get(`${API_BASE_URL}${endpoint}`,{headers:authHeader()}))
+      const responses = await Promise.all(requests);
+      const data = responses.map(response=>response.data.data);
+      const consolidatedData = data.flat();
+      setContacts(consolidatedData)
     } catch (error) {
       console.error(error);
     } finally {
       setIsLoading(false);
     }
   };
-
+  
   const handleViewUser = (userId) => {
     setSelectedUserId(userId);
   };
