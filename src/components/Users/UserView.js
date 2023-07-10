@@ -63,7 +63,7 @@ function UserView(props) {
     return (
         <Container>
             <Row>
-                <Heading onClick={props.handleGoBack} isEditMode={isEditMode} setIsEditMode={setIsEditMode} status="Approved" page="User Information" name="Edit Profile" />
+                <Heading id={id} onClick={props.handleGoBack} isEditMode={isEditMode} setIsEditMode={setIsEditMode} status="Approved" page="User Information" name="Edit Profile" />
                 <Col lg={6} md={6} xs={12}>
                     <TextBox Label="Name" disabled={!isEditMode} current={name} />
                     <TextBox Label="NRIC" disabled={!isEditMode} current={nricId} />
