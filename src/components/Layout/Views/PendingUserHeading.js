@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import BModalFour from "./BModalFour";
 import ScheduleModal from "./ScheduleModal";
 
+
 function PendingUserHeading(props) {
     return (
         <>      
@@ -14,10 +15,10 @@ function PendingUserHeading(props) {
             </Col>
             <Col style={{marginTop:"3%", marginBottom:"1%" }} className="d-flex flex-row-reverse" lg={2} md={4} xs={4}>
                 <div style={{marginLeft:"3%"}}>
-                    <BModalFour name={props.b_name} var="danger" header={props.b_name} />
+                    <BModalFour name={props.b_name} var="danger" header={props.b_name} value="You have been rejected due to ..." />
                 </div>
                 <div style={{marginLeft:"3%"}}>
-                    <BModalFour name={props.b_name_two} var="success" header={props.b_name_two} />
+                    <BModalFour name={props.b_name_two} var="success" header={props.b_name_two} value="You have been accepted." />
                 </div>
                 <div>
                     <Button onClick={props.onClick}>Back</Button>

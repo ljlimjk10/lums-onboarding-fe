@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Textarea from './Textarea';
 
-function BModalFour(props) {
+function BModal_Post(props) {
   const [show, setShow] = useState(false);
   const {value} = props;
   const handleClose = () => setShow(false);
@@ -27,7 +27,7 @@ function BModalFour(props) {
             <Modal.Title>{props.header}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Textarea Label="Comments" value={value}/>
+            Are you sure?
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -43,4 +43,4 @@ function BModalFour(props) {
   );
 }
 
-export default BModalFour;
+export default BModal_Post;
