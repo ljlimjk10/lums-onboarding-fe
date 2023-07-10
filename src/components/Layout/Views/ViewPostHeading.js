@@ -11,7 +11,7 @@ function ViewPostHeading(props) {
         <>
             <Col style={{ marginTop: '3%' }} lg={10} md={8} xs={8}>
                 <h4>
-                    {props.page} <Badge bg="success">{props.status}</Badge>
+                    {props.page} <Badge bg="success">{props.type}</Badge>
                 </h4>
             </Col>
             <Col style={{ marginTop: '3%', marginBottom: '1%' }} className="d-flex flex-row-reverse" lg={2} md={4} xs={4}>

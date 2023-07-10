@@ -8,7 +8,7 @@ import { postdata } from "./postdata";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
-import Post_two from "./Post_two";
+import Post_Job from "./Post_Job";
 import saveAs from "file-saver";
 
 function PostTable() {
@@ -82,7 +82,7 @@ function PostTable() {
 
   return (
     <Col>
-      {selectedPost ? (<Post_two onClick={handleGoBack} postId={selectedPost} handleGenerateCSV={handleGenerateCSV} />) : (
+      {selectedPost ? (<Post_Job onClick={handleGoBack} postId={selectedPost} handleGenerateCSV={handleGenerateCSV} />) : (
         <Container>
           <h1 className="text-center mt-4">Post Table</h1>
           <Form>
