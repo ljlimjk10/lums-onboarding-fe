@@ -1,49 +1,26 @@
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from 'react-bootstrap/Container';
-import { Button } from "react-bootstrap";
+import Dashboard_element from "../Layout/Views/Dashboard_element";
 
 function Dashboard() {
     return (
         <Container>
             <Row>
+
                 <Col lg={12} md={12} xs={12}>
                     <div style={{ fontSize: "60px" }} className="d-flex justify-content-center align-items-center h-100">
                         Dashboard
                     </div>
                 </Col>
-                <Col lg={6} md={6} xs={12} style={{ height: "400px" }}>
-                    <Row style={{marginLeft:"1px"}}>test</Row>
-                    <div className="d-flex justify-content-center align-items-center h-100">
-                        <Button variant="danger" style={{width:"100%", height:"100%"}}>asdasas</Button>
-                    </div>
 
-                </Col>
-                <Col lg={6} md={5} xs={12} style={{ height: "400px" }}>
-                    <Row style={{marginLeft:"1px"}}>test</Row>
-                    <div className="d-flex justify-content-center align-items-center h-100">
-                        <Button variant="danger" style={{width:"100%", height:"100%"}}>asdasas</Button>
-                    </div>
-                </Col>
-                
-                <Col lg={4} md={4} xs={12} style={{ height: "400px", marginTop:"20px"}}>
-                    <Row style={{marginLeft:"1px"}}>test5</Row>
-                    <div className="d-flex justify-content-center align-items-center h-100">
-                        <Button variant="danger" style={{width:"100%", height:"100%"}}>asdasas</Button>
-                    </div>
-                </Col>
-                <Col lg={4} md={3} xs={12} style={{ height: "400px", marginTop:"20px" }}>
-                    <Row style={{marginLeft:"1px"}}>test</Row>
-                    <div className="d-flex justify-content-center align-items-center h-100">
-                        <Button variant="danger" style={{width:"100%", height:"100%"}}>asdasas</Button>
-                    </div>
-                </Col>
-                <Col lg={4} md={4} xs={12} style={{ height: "400px", marginTop:"20px" }}>
-                    <Row style={{marginLeft:"1px"}}>test</Row>
-                    <div className="d-flex justify-content-center align-items-center h-100">
-                        <Button variant="danger" style={{width:"100%", height:"100%"}}>asdasas</Button>
-                    </div>
-                </Col>
+                <Dashboard_element lg="6" md="6" xs="12" mBottom="10px" content="asdasas"/>
+                <Dashboard_element lg="6" md="5" xs="12" content="adasdasd"/>
+                <Dashboard_element lg="4" md="4" xs="12" mTop="20px" mBottom="50px" content="asdasd" />
+                <Dashboard_element lg="4" md="3" xs="12" mTop="20px" mBottom="20px" content="asdasd" />
+                <Dashboard_element lg="4" md="4" xs="12" mTop="20px" mBottom="20px" content="asdadads" />
+            
+
             </Row>
         </Container>
     );
