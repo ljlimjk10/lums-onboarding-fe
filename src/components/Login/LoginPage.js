@@ -1,7 +1,8 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { LoginContext } from "./LoginContext";
+import authService from "../../services/auth-service";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -11,7 +12,7 @@ function LoginPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
-    
+
     const { setLoggedIn } = useContext(LoginContext);
     const navigate = useNavigate();
     const handleLogin = async (e) => {
@@ -22,26 +23,31 @@ function LoginPage() {
                 setError("Please provide both username and password");
                 return;
             }
+            await authService.login(username, password).then(
+                () => {
+                    setLoggedIn(true);
+                    navigate("/");
+                    // window.location.reload();
+                },
+                (error)=>{
+                    console.log(error);
+                }
+            )
+            // const response = await axios.post(
+            //     "http://localhost:3001/api/auth/admin/login",
+            //     { username, password }
+            // );
+            // console.log("Login successful", response.data.access_token);
 
-            const response = await axios.post(
-                "http://localhost:3001/api/auth/admin/login",
-                { username, password }
-            );
-
-            console.log("Login successful", response.data);
-            setLoggedIn(true);
-            navigate("/");
         } catch (error) {
             setError("Invalid username or password");
             console.error("Login error:", error);
-    }
-};
-    
-    
+        }
+    };
 
     return (
         <div className="d-flex align-items-center justify-content-center" style={{ height: "100vh" }}>
-            
+
             <Form className="col-md-2 mx-auto text-center" onSubmit={handleLogin}>
                 <AppLogo />
                 <h3 className="py-3">Please sign in</h3>

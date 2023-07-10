@@ -10,7 +10,6 @@ function Heading(props) {
     const [values,setValues] = useState({});
     const handleSaveChanges = () => {
         setIsEditMode(false);
-
     }
 
     const handleEdit = () => setIsEditMode(true);
@@ -24,7 +23,7 @@ function Heading(props) {
             <Col style={{ marginTop: "3%", marginBottom: "1%" }} className="d-flex flex-row-reverse" lg={2} md={4} xs={4}>
                 {isEditMode ? (<Button variant="success" onClick={handleSaveChanges}>
                     Save Changes
-                </Button>) : (<BModal_Edit var="danger" name="Edit" header="Edit" onClick={handleEdit} />)}
+                </Button>) : (<BModal_Edit id={props.id} var="danger" name="Edit" header="Edit" onClick={handleEdit} />)}
                 {!isEditMode
                 ? (<Button onClick={props.onClick} style={{ marginRight: "3%" }}>Back</Button>) : null}
             </Col>

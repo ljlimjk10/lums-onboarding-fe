@@ -6,19 +6,19 @@ import DropDownList from '../Layout/Views/Dropdown';
 import TextBox from '../Layout/Views/TextBox';
 import Textarea from '../Layout/Views/Textarea';
 import Heading_Schedule from '../Layout/Views/Heading_Schedule';
-import Form from 'react-bootstrap/Form';
+import Form from "react-bootstrap/Form"
 
 function CreatePostAdHoc() {
     const [validated, setValidated] = useState(false);
 
     const handleSubmit = (event) => {
-      const form = event.currentTarget;
-      if (form.checkValidity() === false) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-  
-      setValidated(true);
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        setValidated(true);
     };
 
     const [pickupTime, setPickupTime] = useState('');
@@ -59,9 +59,9 @@ function CreatePostAdHoc() {
             setPickupDate(value);
         } else if (label === "Drop-off Date*") {
             setDropoffDate(value);
-        } else if (label ==="Date"){
+        } else if (label === "Date") {
             setPostDate(value)
-        }else if (label==="Time"){
+        } else if (label === "Time") {
             setPostTime(value);
         }
         updateTemplate();
@@ -129,3 +129,7 @@ function CreatePostAdHoc() {
 }
 
 export default CreatePostAdHoc;
+
+
+
+

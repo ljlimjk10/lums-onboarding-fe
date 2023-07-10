@@ -18,7 +18,7 @@ function PendingUserHeading(props) {
                     <BModalFour name={props.b_name} var="danger" header={props.b_name} value="You have been rejected due to ..." />
                 </div>
                 <div style={{marginLeft:"3%"}}>
-                    <BModalFour name={props.b_name_two} var="success" header={props.b_name_two} value="You have been accepted." />
+                    <BModalFour id={props.id} name={props.b_name_two} var="success" header={props.b_name_two} value="You have been accepted." />
                 </div>
                 <div>
                     <Button onClick={props.onClick}>Back</Button>

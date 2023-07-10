@@ -3,7 +3,7 @@ import Col from "react-bootstrap/Col";
 
 function Textarea(props) {
     const {value} = props;
-    console.log(props);
+    // console.log(props);
 
     return (
         <Form.Group className="mb-3">

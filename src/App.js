@@ -31,12 +31,6 @@ function App() {
 
 function MainContent() {
 	const { isLoggedIn } = useContext(LoginContext);
-	const postData = {
-		message:
-			"This message is a message. It has a ivoefndjnvoin fdbfjffnfjfjfjjfjjfj fjfjjfjdejjdjfjcjvbdhh fhfhghfhffoijfcjefjiefvdsnbjkv  eojfoejfiejfijfnknviobvionvksbvobgi. long para long para long para long paralong para long para long para long para v long para v ",
-		type: "Type (Use enum TODO)",
-		date: "test date (create new date obj with backend data)",
-	};
 	return (
 		<>
 			{isLoggedIn && <Navbar />}

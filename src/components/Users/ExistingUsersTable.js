@@ -3,21 +3,46 @@ import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { data } from "./data.js";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import UserView from "./UserView.js";
 import { saveAs } from "file-saver";
 import axios from "axios";
+import authHeader from "../../services/auth-header.js";
+
+const API_BASE_URL = "http://localhost:3001";
+const API_ENDPOINT = "/api/user/all/verified";
 
 function ExistingUsersTable() {
-  const [contacts, setContacts] = useState(data);
+  const [contacts, setContacts] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [showPopUp, setShowPopUp] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const fetchUserData = async () => {
+    try {
+      setIsLoading(true);
+      const response = await axios.get(`${API_BASE_URL}${API_ENDPOINT}`, { headers: authHeader() });
+      if (response.status === 200) {
+        setContacts(response.data.data);
+      } else if (response.status === 304) {
+        console.log("The data has not been modified since the last request.");
+      } else {
+        console.log("An error occurred.");
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
 
 
@@ -39,7 +64,7 @@ function ExistingUsersTable() {
     if (isSelectAll) {
       setSelectedUsers([]);
     } else {
-      const allUserIds = contacts.filter((user) => user.Status === "Accepted").map((user) => user.id);
+      const allUserIds = contacts.map((user) => user.id);
       setSelectedUsers(allUserIds);
     }
     setIsSelectAll(!isSelectAll);
@@ -50,45 +75,81 @@ function ExistingUsersTable() {
       setShowPopUp(true);
     } else {
       setShowPopUp(false);
-      // Implement CSV generation logic using selectedUsers array
+
       const csvData = [];
-      csvData.push(["Name", "NRIC", "Address", "Model", "Capacity", "Region", "Contact", "Telegram", "Entity", "Carplate", "Status", "Driver's License (Front)", "Driver License (Back)", "Identification Photo (Front)", "Identification Photo (Back)", "Certifications"]);
-      // You can access the selected user details using the user id from the 'contacts' array
-      const selectedUserDetails = selectedUsers.map((userId) => {
-        return contacts.find((user) => user.id === userId)
-      });
-      // Iterate over selectedUserDetails array
+      csvData.push([
+        "Name",
+        "NRIC",
+        "Address",
+        "Model",
+        "Capacity",
+        "Region",
+        "Contact",
+        "Telegram",
+        "Entity",
+        "Carplate",
+        "Status",
+        "Driver's License (Front)",
+        "Driver License (Back)",
+        "Identification Photo (Front)",
+        "Identification Photo (Back)",
+        "Certifications"
+      ]);
+
+      const selectedUserDetails = selectedUsers.map((userId) =>
+        contacts.find((user) => user.id === userId)
+      );
+
       selectedUserDetails.forEach((user) => {
         const {
-          Name,
-          NRIC,
-          Address,
-          Make_Model,
-          Capacity,
-          Region,
-          Contact,
-          Telegram,
-          Entity,
-          Carplate,
-          Status,
-          "Driver License (Front)": LicenseFront,
-          "Driver License (Back)": LicenseBack,
-          "Identification Photo (Front)": IdentificationPhotoFront,
-          "Identification Photo (Back)": IdentificationPhotoBack,
-          Certifications
+          name,
+          nricId,
+          address,
+          car_model,
+          car_capacity,
+          region,
+          contact,
+          telehandle,
+          affiliation,
+          car_plate,
+          status,
+          license_front,
+          license_back,
+          nric_front,
+          nric_back,
+          certificate
         } = user;
 
-        // Push a row for each selected user
-        csvData.push([Name, NRIC, Address, Make_Model, Capacity, Region, Contact, Telegram, Entity, Carplate, Status, LicenseFront, LicenseBack, IdentificationPhotoFront, IdentificationPhotoBack, Certifications]);
+        csvData.push([
+          name,
+          nricId,
+          address,
+          car_model,
+          car_capacity,
+          region,
+          contact,
+          telehandle,
+          affiliation,
+          car_plate,
+          status,
+          license_front,
+          license_back,
+          nric_front,
+          nric_back,
+          certificate
+        ]);
       });
-      const csvString = csvData.map((row) => row.join(",")).join("\n");
-      // Create a Blob object with the CSV data
-      const blob = new Blob([csvString], { type: "text/csv;charset=utf-8" });
 
-      // Save the CSV file using FileSaver.js
-      saveAs(blob, "selected_users.csv");
+      const csvContent = csvData.map((row) => row.join(",")).join("\n");
+      const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
+
+      const downloadLink = document.createElement("a");
+      downloadLink.href = URL.createObjectURL(blob);
+      downloadLink.download = "selected_users.csv";
+      downloadLink.click();
+      URL.revokeObjectURL(downloadLink.href);
+
       console.log("Selected User Details:", selectedUserDetails);
-
     }
   };
 
@@ -98,7 +159,7 @@ function ExistingUsersTable() {
 
   return (
     <Col>
-      {!selectedUserId && (
+      {!selectedUserId ? (
         <Container>
           <h1 className="text-center mt-4">Existing Users</h1>
           <Form>
@@ -109,87 +170,83 @@ function ExistingUsersTable() {
               />
             </InputGroup>
           </Form>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>NRIC</th>
-                <th>Contact</th>
-                <th>Region</th>
-                <th>Carplate</th>
-                <th>Model</th>
-                <th>Capacity</th>
-                <th>Select</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-            {console.log(contacts)}
-              {contacts
-                .filter((item) => {
-                  const Status = item.Status;
-                  const Name = `${item.Name}`;
-                  const NRIC = item.NRIC;
-                  const Contact = item.Contact;
-                  const Region = item.Region;
-                  const Carplate = item.Carplate;
-                  const Model = item.Make_Model;
-                  const Capacity = item.Capacity;
-
-                  return (
-                    (search.toLowerCase() === "" ||
-                      Name.toLowerCase().includes(search.toLowerCase()) ||
-                      NRIC.toLowerCase().includes(search.toLowerCase()) ||
-                      Contact.toLowerCase().includes(search.toLowerCase()) ||
-                      Region.toLowerCase().includes(search.toLowerCase()) ||
-                      Carplate.toLowerCase().includes(search.toLowerCase()) ||
-                      Model.toLowerCase().includes(search.toLowerCase()) ||
-                      Capacity.toLowerCase().includes(search.toLowerCase())
-                    ) &&
-                    Status === "Accepted"
-                  );
-                })
-                .map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.Name}</td>
-                    <td>{item.NRIC}</td>
-                    <td>{item.Contact}</td>
-                    <td>{item.Region}</td>
-                    <td>{item.Carplate}</td>
-                    <td>{item.Make_Model}</td>
-                    <td>{item.Capacity}</td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        checked={selectedUsers.includes(item.id)}
-                        onChange={() => handleUserSelection(item.id)}
-                      />
-                    </td>
-                    <td align="center">
-                      <Button onClick={() => handleViewUser(item.id)}>
-                        View User
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </Table>
+          {isLoading ? (
+            <div className="text-center">Loading...</div>
+          ) : Array.isArray(contacts) && contacts.length > 0 ? (
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>NRIC</th>
+                  <th>Contact</th>
+                  <th>Region</th>
+                  <th>Carplate</th>
+                  <th>Model</th>
+                  <th>Capacity</th>
+                  <th>Select</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {contacts
+                  .filter((item) => {
+                    const name = item.name.toLowerCase();
+                    const nricId = item.nricId.toLowerCase();
+                    const contact = item.contact.toLowerCase();
+                    const region = item.region.toLowerCase();
+                    const car_plate = item.car_plate.toLowerCase();
+                    const car_model = item.car_model.toLowerCase();
+                    const car_capacity = item.car_capacity.toLowerCase();
+                    return (
+                      name.includes(search.toLowerCase()) ||
+                      nricId.includes(search.toLowerCase()) ||
+                      contact.includes(search.toLowerCase()) ||
+                      region.includes(search.toLowerCase()) ||
+                      car_plate.includes(search.toLowerCase()) ||
+                      car_model.includes(search.toLowerCase()) ||
+                      car_capacity.includes(search.toLowerCase())
+                    );
+                  })
+                  .map((item) => (
+                    <tr key={item.id}>
+                      <td>{item.name}</td>
+                      <td>{item.nricId}</td>
+                      <td>{item.contact}</td>
+                      <td>{item.region}</td>
+                      <td>{item.car_plate}</td>
+                      <td>{item.car_model}</td>
+                      <td>{item.car_capacity}</td>
+                      <td>
+                        <input
+                          type="checkbox"
+                          checked={selectedUsers.includes(item.id)}
+                          onChange={() => handleUserSelection(item.id)}
+                        />
+                      </td>
+                      <td align="center">
+                        <Button onClick={() => handleViewUser(item.id)}>
+                          View User
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </Table>
+          ) : (
+            <div>No existing users found.</div>
+          )}
           <Button onClick={handleGenerateCSV}>Generate CSV</Button>
-          <Button
-            style={{ marginLeft: "10px" }}
-            onClick={handleSelectAll}
-          >
+          <Button style={{ marginLeft: "10px" }} onClick={handleSelectAll}>
             {isSelectAll ? "Deselect All" : "Select All"}
           </Button>
           {showPopUp && (
             <div className="pop-up-message">
-              Please select at least one user to generate the CSV.
+              Please select at least one user to generate the CSV
             </div>
           )}
           <hr />
         </Container>
-      )}
-      {selectedUserId && (
+      ) : (
         <Container>
           <UserView handleGoBack={handleGoBack} userId={selectedUserId} />
         </Container>
