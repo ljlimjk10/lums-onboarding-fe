@@ -1,8 +1,7 @@
 import Col from "react-bootstrap/Col";
 import Badge from 'react-bootstrap/Badge';
-import BModalFour from "./BModalFour";
 import ScheduleModal from "./ScheduleModal";
-import Button from 'react-bootstrap/Button';
+import BModal_Post from "./BModal_Post";
 
 function Heading_Schedule(props) {
     return (
@@ -14,7 +13,7 @@ function Heading_Schedule(props) {
             </Col>
             <Col style={{marginTop:"3%", marginBottom:"1%" }} className="d-flex flex-row-reverse" lg={2} md={4} xs={4}>
                 <div style={{marginLeft:"3%"}}>
-                    <BModalFour name={props.b_name} var="danger" header={props.b_name} />
+                    <BModal_Post name={props.b_name} var="danger" header={props.b_name} />
                 </div>
                 <div>
                     <ScheduleModal handleValueChange={props.handleValueChange} name={props.b_name_two} var="success" header={props.b_name_two} />

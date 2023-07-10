@@ -17,10 +17,15 @@ function BModal_Edit(props) {
   const handleShow = () => setShow(true);
   const handleSubmit = async (event) => {
     event.preventDefault();
+    props.onClick();
     setLoading(true);
     if (changeTo === "Edit") {
       try {
-        const response = await axios.put(`${API_BASE_URL}${API_ENDPOINT}${props.id}`, { status: "PENDING" }, { headers: authHeader() });
+        const response = await axios.put(
+          `${API_BASE_URL}${API_ENDPOINT}${props.id}`,
+          { status: "PENDING" },
+          { headers: authHeader() }
+        );
         console.log(response.data);
         // Provide appropriate feedback to the user, e.g., show a success message
       } catch (error) {
@@ -49,7 +54,7 @@ function BModal_Edit(props) {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button disabled={loading} variant="primary" onClick={handleSubmit}>
+            <Button type="submit" disabled={loading} variant="primary">
               {loading ? "Loading..." : "Confirm"}
             </Button>
           </Modal.Footer>
@@ -58,5 +63,6 @@ function BModal_Edit(props) {
     </>
   );
 }
+
 
 export default BModal_Edit;
