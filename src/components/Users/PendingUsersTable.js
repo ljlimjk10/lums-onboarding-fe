@@ -82,7 +82,7 @@ function PendingUsersTable() {
                 <Button
                   variant={selectedStatus === "REJECTED" ? "info" : "primary"}
                   style={{ borderRadius: 0, zIndex: 0 }}
-                  onClick={() => setSelectedStatus("RECEJTED")}
+                  onClick={() => setSelectedStatus("REJECTED")}
                 >
                   Rejected
                 </Button>

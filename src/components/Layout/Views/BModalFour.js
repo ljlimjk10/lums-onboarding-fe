@@ -31,6 +31,18 @@ function BModalFour(props) {
         // Handle the error and display an appropriate message to the user
       }
     }
+    else if (changeTo === "Reject"){
+      try {
+        
+        const response = await axios.put(`${API_BASE_URL}${API_ENDPOINT}${props.id}`, { status: "REJECTED" },{headers:authHeader()});
+        console.log(response.data);
+        // Perform any additional logic or actions you want after successfully updating the status
+        navigate('/pending-users-table');
+      } catch (error) {
+        console.error(error);
+        // Handle the error and display an appropriate message to the user
+      }
+    }
     // Additional logic or actions you want to perform on form submission
     handleClose();
   };
