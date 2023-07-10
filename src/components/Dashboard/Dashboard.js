@@ -13,14 +13,13 @@ function Dashboard() {
                         Dashboard
                     </div>
                 </Col>
-
-                <Dashboard_element lg="6" md="6" xs="12" mBottom="10px" content="asdasas"/>
-                <Dashboard_element lg="6" md="5" xs="12" content="adasdasd"/>
-                <Dashboard_element lg="4" md="4" xs="12" mTop="20px" mBottom="50px" content="asdasd" />
-                <Dashboard_element lg="4" md="3" xs="12" mTop="20px" mBottom="20px" content="asdasd" />
-                <Dashboard_element lg="4" md="4" xs="12" mTop="20px" mBottom="20px" content="asdadads" />
-            
-
+                
+                <Dashboard_element title="title1" lg="6" md="6" xs="12" mBottom="10px" content="asdasas"/>
+                <Dashboard_element title="title2" lg="6" md="5" xs="12" content="adasdasd"/>
+                <Dashboard_element title="title3" lg="4" md="4" xs="12" mTop="20px" mBottom="50px" content="asdasd" />
+                <Dashboard_element title="title4" lg="4" md="3" xs="12" mTop="20px" mBottom="20px" content="asdasd" />
+                <Dashboard_element title="title5" lg="4" md="4" xs="12" mTop="20px" mBottom="20px" content="asdadads" />
+                
             </Row>
         </Container>
     );
