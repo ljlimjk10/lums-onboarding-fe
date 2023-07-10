@@ -2,16 +2,14 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from 'react-bootstrap/Container';
 import TextBox from "../../Layout/Views/TextBox";
-import Textarea from "../../Layout/Views/Textarea";
 import PostResponses from "./PostResponses";
 import { postdata } from "./postdata";
-import ContentCard from "../../Layout/Views/ContentCard";
 import { useState, useEffect } from "react";
 import ViewPostHeading from "../../Layout/Views/ViewPostHeading";
 
 import Cordion_Two from "../../Layout/Views/Cordion_Two";
 
-function Post_two(props) {
+function Post_Job(props) {
     const {onClick:handleGoBack,postId,handleGenerateCSV} = props;
     
     const [postData, setPostData] = useState(null);
@@ -23,7 +21,7 @@ function Post_two(props) {
         setPostData(filteredData[0]);
     }
 
-    const { message, image, type, location, destination, dropofftime, price, payout, responses, status, createdAt, scheduledfor, pickupDateTime, riders} = postData || {};
+    const { message, type, location, destination, dropofftime, price, payout, responses, status, createdAt, scheduledfor, pickupDateTime, riders, model, region} = postData || {};
     return (
         <Container>
             <Row>
@@ -33,8 +31,8 @@ function Post_two(props) {
                     <TextBox Label="Dropoff Time" disabled="true" pholder="dropofftime Date" current={dropofftime} />
                     <TextBox Label="Location" disabled="true" pholder="ABC Street" current={location} />
                     <TextBox Label="Destination" disabled="true" pholder="DEF Road" current={destination} />
-                    <TextBox Label="Model" disabled="true" pholder="Toyota" current={destination} />
-                    
+                    <TextBox Label="Region" disabled="true" pholder="North" current={region} />
+                    <TextBox Label="Model" disabled="true" pholder="Toyota" current={model} />
                 </Col>
                 <Col lg={6} md={6} xs={12}>
                     <TextBox Label="Creation D/T" disabled="true" pholder="" current={createdAt} />
@@ -42,7 +40,6 @@ function Post_two(props) {
                     <TextBox Label="Price" disabled="true" pholder="$20" current={price} />
                     <TextBox Label="Payout" disabled="true" pholder="$15" current={payout} />
                     <TextBox Label="Riders" disabled="true" pholder="5" current={riders} />
-                    
                 </Col>
                 <hr/>
                 <Cordion_Two header_1="Message" header_2="Response Order" r_order={<PostResponses />} message={message} />
@@ -51,4 +48,4 @@ function Post_two(props) {
     )
 }
 
-export default Post_two;
+export default Post_Job;

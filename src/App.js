@@ -15,7 +15,7 @@ import QuestionTable from "./components/Questions/QuestionTable";
 import CreatePostAdHoc from "./components/CreatePost/CreatePostAdHoc";
 import CreatePost from "./components/CreatePost/CreatePost";
 import CreatePostEvent from "./components/CreatePost/CreatePostEvent";
-import Post_two from "./components/Posts/Post/Post_two";
+import { Nav } from "react-bootstrap";
 
 
 function App() {
@@ -41,8 +41,7 @@ function MainContent() {
 	};
 	return (
 		<>
-			<Post_two />
-			{/* {isLoggedIn && <Navbar />}
+			{isLoggedIn && <Navbar />}
 			<Routes>
 				<Route path="/" element={isLoggedIn ? <Dashboard /> : <LoginPage />} />
 				<Route path="/users" element={isLoggedIn ? <ExistingUsersTable /> : <LoginPage />} />
@@ -52,11 +51,10 @@ function MainContent() {
 				<Route path="/new-post" element={isLoggedIn ? <CreatePost /> : <LoginPage />} />
 				<Route path="/new-post/adhoc" element={isLoggedIn ? <CreatePostAdHoc /> : <LoginPage />} />
 				<Route path="/new-post/event" element={isLoggedIn ? <CreatePostEvent /> : <LoginPage />} />
-			</Routes> */}
+			</Routes>
 		</>
 	);
 }
 
 export default App;
-
 
