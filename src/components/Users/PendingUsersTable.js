@@ -10,7 +10,7 @@ import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import PendingUserView from "./PendingUserView.js";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const API_BASE_URL = "http://localhost:3001";
 const API_ENDPOINTS = [
@@ -34,20 +34,23 @@ function PendingUsersTable() {
   const fetchPendingUserData = async () => {
     try {
       setIsLoading(true);
-      const requests = API_ENDPOINTS.map(endpoint=>axios.get(`${API_BASE_URL}${endpoint}`,{headers:authHeader()}))
+      const requests = API_ENDPOINTS.map(endpoint =>
+        axios.get(`${API_BASE_URL}${endpoint}`, { headers: authHeader() })
+      );
       const responses = await Promise.all(requests);
-      const data = responses.map(response=>response.data.data);
+      const data = responses.map((response) => response.data.data);
       const consolidatedData = data.flat();
-      setContacts(consolidatedData)
+      setContacts(consolidatedData);
     } catch (error) {
       console.error(error);
     } finally {
       setIsLoading(false);
     }
   };
-  
+
   const handleViewUser = (userId) => {
     setSelectedUserId(userId);
+    navigate(`/pending-users-table/pending-user-view/${userId}`);
   };
 
   const clearFilters = () => {
@@ -57,6 +60,7 @@ function PendingUsersTable() {
 
   const handleGoBack = () => {
     setSelectedUserId(null);
+    navigate("/pending-users-table");
   };
 
   return (
@@ -139,11 +143,13 @@ function PendingUsersTable() {
                       <td>{item.address}</td>
                       <td>{item.status}</td>
                       <td align="center">
-                      <Link to={`/pending-users-table/pending-user-view/${item.id}`}>
-                        <Button onClick={() => handleViewUser(item.id)}>
-                          View User
-                        </Button>
-                      </Link>
+                        <Link
+                          to={`/pending-users-table/pending-user-view/${item.id}`}
+                        >
+                          <Button onClick={() => handleViewUser(item.id)}>
+                            View User
+                          </Button>
+                        </Link>
                       </td>
                     </tr>
                   ))}
