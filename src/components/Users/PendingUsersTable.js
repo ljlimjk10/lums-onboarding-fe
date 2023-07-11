@@ -66,23 +66,23 @@ function PendingUsersTable() {
             <InputGroup className="my-3">
               <ButtonGroup aria-label="Basic example">
                 <Button
-                  variant={selectedStatus === "New" ? "info" : "primary"}
+                  variant={selectedStatus === "NEW" ? "info" : "primary"}
                   style={{ borderRadius: 0, zIndex: 0 }}
-                  onClick={() => setSelectedStatus("New")}
+                  onClick={() => setSelectedStatus("NEW")}
                 >
                   New
                 </Button>
                 <Button
-                  variant={selectedStatus === "Editing" ? "info" : "primary"}
+                  variant={selectedStatus === "PENDING" ? "info" : "primary"}
                   style={{ zIndex: 0 }}
-                  onClick={() => setSelectedStatus("Editing")}
+                  onClick={() => setSelectedStatus("PENDING")}
                 >
-                  Editing
+                  Pending
                 </Button>
                 <Button
-                  variant={selectedStatus === "Rejected" ? "info" : "primary"}
+                  variant={selectedStatus === "REJECTED" ? "info" : "primary"}
                   style={{ borderRadius: 0, zIndex: 0 }}
-                  onClick={() => setSelectedStatus("Rejected")}
+                  onClick={() => setSelectedStatus("REJECTED")}
                 >
                   Rejected
                 </Button>

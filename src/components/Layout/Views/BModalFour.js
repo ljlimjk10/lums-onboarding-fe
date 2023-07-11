@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -10,18 +11,33 @@ const API_ENDPOINT = "/api/user/approve/";
 
 function BModalFour(props) {
 
+  const navigate = useNavigate();
+
   const [changeTo, setChangeTo] = useState(props.header)
   const [show, setShow] = useState(false);
   const {value} = props;
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
+    event.preventDefault(); // Prevent the default form submissxion behavior
     if (changeTo === "Approve") {
       try {
         const response = await axios.put(`${API_BASE_URL}${API_ENDPOINT}${props.id}`, { status: "APPROVED" },{headers:authHeader()});
         console.log(response.data);
         // Perform any additional logic or actions you want after successfully updating the status
+        navigate('/Users');
+      } catch (error) {
+        console.error(error);
+        // Handle the error and display an appropriate message to the user
+      }
+    }
+    else if (changeTo === "Reject"){
+      try {
+        
+        const response = await axios.put(`${API_BASE_URL}${API_ENDPOINT}${props.id}`, { status: "REJECTED" },{headers:authHeader()});
+        console.log(response.data);
+        // Perform any additional logic or actions you want after successfully updating the status
+        navigate('/pending-users-table');
       } catch (error) {
         console.error(error);
         // Handle the error and display an appropriate message to the user

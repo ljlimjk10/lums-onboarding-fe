@@ -3,9 +3,6 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { Container } from "react-bootstrap";
 import DropDownList from "../Layout/Views/Dropdown";
-import CreatePostAdHoc from "./CreatePostAdHoc";
-import CreatePostEvent from "./CreatePostEvent";
-import { useNavigate } from "react-router-dom";
 
 function CreatePost() {
     return (
