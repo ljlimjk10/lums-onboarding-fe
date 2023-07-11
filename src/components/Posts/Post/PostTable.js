@@ -56,10 +56,6 @@ function PostTable() {
     setSelectedStatus("");
   };
 
-  const handleGoBack = () => {
-    setSelectedPost(null);
-  };
-
   const handleGenerateCSV = (postData) => {
     const csvData = [];
     csvData.push([
@@ -113,7 +109,7 @@ function PostTable() {
 
   return (
     <Col>
-      {selectedPost ? (<Post_Job onClick={handleGoBack} postId={selectedPost} handleGenerateCSV={handleGenerateCSV} />) : (
+      {selectedPost ? (<Post_Job postId={selectedPost} handleGenerateCSV={handleGenerateCSV} />) : (
         <Container>
           <h1 className="text-center mt-4">Post Table</h1>
           <Form>

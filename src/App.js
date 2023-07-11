@@ -45,7 +45,7 @@ function MainContent() {
 				<Route path="/support" element={isLoggedIn ? <QuestionTable /> : <LoginPage />} />
 				<Route path="/new-post" element={isLoggedIn ? <CreatePost /> : <LoginPage />} />
 				<Route path="/new-post/adhoc" element={isLoggedIn ? <CreatePostAdHoc /> : <LoginPage />} />
-				<Route path="/new-post/event" element={isLoggedIn ? <CreatePostEvent /> : <LoginPage />} />
+				<Route path="/new-post/event" element={isLoggedIn ? <CreatePostEvent /> : <LoginPage />} /> 
 			</Routes>
 		</>
 	);

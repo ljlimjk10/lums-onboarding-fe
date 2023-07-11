@@ -35,6 +35,7 @@ function CreatePostAdHoc() {
     const [model, setModel] = useState('');
 
     const handleValueChange = (value, label) => {
+        console.log(label);
         if (label === "Price") {
             setPrice(value);
         } else if (label === "Location*") {
@@ -92,7 +93,7 @@ function CreatePostAdHoc() {
 
     useEffect(() => {
         updateTemplate();
-    }, [pickupTime, pickupDate, location, destination, region, dropoffTime, dropoffDate, price, payout, riders, model]);
+    }, [pickupTime, pickupDate, location, destination, region, dropoffTime, dropoffDate, price, payout, riders, model, postDate, postTime]);
 
     return (
         <Container>
@@ -112,8 +113,8 @@ function CreatePostAdHoc() {
                         <TextBox Label="Payout" type="number" value={payout} onChange={handleValueChange} />
                         <TextBox Label="Riders" type="number" value={riders} onChange={handleValueChange} />
                         <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Model*" type="text" value={model} onChange={handleValueChange} />
-                        <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Post Time*" current={postTime} onChange={handleValueChange} placeholder="Please schedule (Top Right)" />
-                        <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Post Date*" current={postDate} onChange={handleValueChange} placeholder="Please schedule (Top Right)" />
+                        <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Post Time*" value={postTime} onChange={handleValueChange} placeholder="Please schedule (Top Right)" />
+                        <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Post Date*" value={postDate} onChange={handleValueChange} placeholder="Please schedule (Top Right)" />
                     </Col>
 
                     <Col lg={6} md={6} xs={12}>
