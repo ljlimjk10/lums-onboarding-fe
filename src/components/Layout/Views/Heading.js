@@ -10,9 +10,10 @@ function Heading(props) {
     const navigate = useNavigate();
 
     console.log(props);
-    const [values,setValues] = useState({});
+    
     const handleSaveChanges = () => {
         setIsEditMode(false);
+        props.update(props.id);
         navigate('/pending-users-table');
     }
 
