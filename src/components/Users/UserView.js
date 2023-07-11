@@ -15,11 +15,12 @@ import "../../index.css";
 import Heading from "../Layout/Views/Heading";
 import Cordion from "../Layout/Views/Cordion";
 import authHeader from "../../services/auth-header.js";
+import { useParams } from "react-router-dom";
 
 
 function UserView(props) {
     // console.log(data);
-    const id = props.userId;
+    const {id} = useParams();
     const [userData, setUserData] = useState(null);
     const [isEditMode, setIsEditMode] = useState(false);
     const BASE_URL = "http://localhost:3001"

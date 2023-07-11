@@ -10,6 +10,7 @@ import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import PendingUserView from "./PendingUserView.js";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useNavigate,Link } from "react-router-dom";
 
 const API_BASE_URL = "http://localhost:3001";
 const API_ENDPOINTS = [
@@ -19,6 +20,7 @@ const API_ENDPOINTS = [
 ];
 
 function PendingUsersTable() {
+  const navigate = useNavigate();
   const [contacts, setContacts] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
@@ -137,9 +139,11 @@ function PendingUsersTable() {
                       <td>{item.address}</td>
                       <td>{item.status}</td>
                       <td align="center">
+                      <Link to={`/pending-users-table/pending-user-view/${item.id}`}>
                         <Button onClick={() => handleViewUser(item.id)}>
                           View User
                         </Button>
+                      </Link>
                       </td>
                     </tr>
                   ))}

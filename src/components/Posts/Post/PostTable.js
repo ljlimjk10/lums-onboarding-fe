@@ -4,17 +4,48 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { postdata } from "./postdata";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Post_Job from "./Post_Job";
 import saveAs from "file-saver";
+import axios from "axios";
+import authHeader from "../../../services/auth-header";
+
+
+const API_BASE_URL = "http://localhost:3001";
+const API_ENDPOINTS = [
+  "/api/post/allevents"
+];
 
 function PostTable() {
   const [search, setSearch] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
   const [selectedPost, setSelectedPost] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [contacts, setContacts] = useState([]);
+
+
+  useEffect(() => {
+    fetchPostData();
+  }, []);
+
+  const fetchPostData = async () => {
+    try {
+      setIsLoading(true);
+      const requests = API_ENDPOINTS.map(endpoint=>axios.get(`${API_BASE_URL}${endpoint}`,{headers:authHeader()}))
+      const responses = await Promise.all(requests);
+
+      const data = responses.map(response=>response.data);
+      console.log(data);
+      const consolidatedData = data.flat();
+      setContacts(consolidatedData)
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleViewPost = (postId) => {
     setSelectedPost(postId)
@@ -126,7 +157,7 @@ function PostTable() {
               </tr>
             </thead>
             <tbody>
-              {postdata
+              {contacts
                 .filter((item) => {
                   const Message = item.message;
                   const Type = item.type;

@@ -4,11 +4,11 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { Container } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {useParams} from "react-router-dom";
 
 import TextBox from "../Layout/Views/TextBox";
 import PendingUserHeading from "../Layout/Views/PendingUserHeading";
 import Cordion from "../Layout/Views/Cordion";
-import { data } from "./data"
 import authHeader from "../../services/auth-header";
 
 const API_BASE_URL= "http://localhost:3001";
@@ -16,7 +16,7 @@ const API_ENDPOINT= "/api/user/profile/";
 
 
 function PendingUserView(props) {
-    const id = props.userId;
+    const {id} = useParams();
     const [userData, setUserData] = useState(null);
 
     useEffect(() => {
@@ -40,7 +40,7 @@ function PendingUserView(props) {
     return (
         <Container>
             <Row>
-                <PendingUserHeading id={props.userId}  page="Pending User" b_name="Reject" b_name_two="Approve" onClick={props.onClick} />
+                <PendingUserHeading id={id}  page="Pending User" b_name="Reject" b_name_two="Approve" onClick={props.onClick} />
                 <Col lg={6} md={6} xs={12}>
                     <TextBox Label="Name" disabled="true" current={name} />
                     <TextBox Label="NRIC" disabled="true" current={nricId} />
