@@ -11,9 +11,9 @@ function Heading(props) {
 
     console.log(props);
     
-    const handleSaveChanges = () => {
+    const handleSaveChanges = async () => {
         setIsEditMode(false);
-        props.update(props.id);
+        await props.update(props.id);
         navigate('/pending-users-table');
     }
 

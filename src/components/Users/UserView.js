@@ -42,10 +42,12 @@ function UserView(props) {
 
     const updateUser = async (id) => {
         try {
+            
             const endpoint = `${BASE_URL}/api/user/update/${id}`;
-            const response = await axios.put(endpoint, userData, {
+            const response = await axios.post(endpoint, userData, {
                 headers: authHeader(),
             });
+            console.log(response);
             const updatedUser = response.data.user;
             setUserData(updatedUser);
             setIsEditMode(false);

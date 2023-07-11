@@ -10,7 +10,7 @@ import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import PendingUserView from "./PendingUserView.js";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link,useLocation } from "react-router-dom";
 
 const API_BASE_URL = "http://localhost:3001";
 const API_ENDPOINTS = [
@@ -21,19 +21,23 @@ const API_ENDPOINTS = [
 
 function PendingUsersTable() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [contacts, setContacts] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => {  
     fetchPendingUserData();
   }, []);
 
+
+
   const fetchPendingUserData = async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       const requests = API_ENDPOINTS.map(endpoint =>
         axios.get(`${API_BASE_URL}${endpoint}`, { headers: authHeader() })
       );
