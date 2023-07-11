@@ -113,8 +113,8 @@ function CreatePostAdHoc() {
                         <TextBox Label="Payout" type="number" value={payout} onChange={handleValueChange} />
                         <TextBox Label="Riders" type="number" value={riders} onChange={handleValueChange} />
                         <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Model*" type="text" value={model} onChange={handleValueChange} />
-                        <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Post Time*" value={postTime} onChange={handleValueChange} placeholder="Please schedule (Top Right)" />
                         <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Post Date*" value={postDate} onChange={handleValueChange} placeholder="Please schedule (Top Right)" />
+                        <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Post Time*" value={postTime} onChange={handleValueChange} placeholder="Please schedule (Top Right)" />
                     </Col>
 
                     <Col lg={6} md={6} xs={12}>
