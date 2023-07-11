@@ -2,10 +2,16 @@ import Col from "react-bootstrap/Col";
 import Badge from 'react-bootstrap/Badge';
 import Button from "react-bootstrap/Button";
 import BModalFour from "./BModalFour";
-
-
+import { useNavigate } from 'react-router-dom';
 
 function PendingUserHeading(props) {
+    const navigate = useNavigate();
+
+    const handleBack = () => {
+        // Perform any necessary actions before navigating back
+        navigate('/pending-users-table'); // Replace '/other-page' with the desired URL
+    };    
+
     return (
         <>      
             <Col style={{marginTop:"3%"}} lg={10} md={8} xs={8}>
@@ -21,7 +27,7 @@ function PendingUserHeading(props) {
                     <BModalFour id={props.id} name={props.b_name_two} var="success" header={props.b_name_two} value="You have been accepted." />
                 </div>
                 <div>
-                    <Button onClick={props.onClick}>Back</Button>
+                    <Button onClick={handleBack}>Back</Button>
                 </div>
             </Col>
             <hr />
