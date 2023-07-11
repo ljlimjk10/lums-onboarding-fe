@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Textarea from './Textarea';
 import axios from "axios";
+import authHeader from '../../../services/auth-header';
 
 function BModalTwo(props) {
   const {onRefreshData} = props
@@ -27,7 +28,7 @@ function BModalTwo(props) {
 
   }
   const createQuestionAndAnswer = () => {
-    axios.post('http://localhost:3001/api/faq/create',{question,answer})
+    axios.post('http://localhost:3001/api/faq/create',{question_en:question,answer_en:answer},{headers:authHeader()})
     .then(response=>{
       console.log('Question and answer created successfully');
       onRefreshData();

@@ -13,6 +13,8 @@ import BModalThree from "../Layout/Views/BModalThree";
 import axios from "axios";
 import authHeader from "../../services/auth-header";
 
+const BASE_URL = "http://localhost:3001";
+
 function QuestionTable() {
   const [contacts, setContacts] = useState([]);
   const [search, setSearch] = useState("");
@@ -21,20 +23,23 @@ function QuestionTable() {
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [showPopUp, setShowPopUp] = useState(false);
-  const BASE_URL = "http://localhost:3001";
-
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchData();
   }, []);
+
   // Fetching Data
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/api/faq/retrieve`,{headers:authHeader()});
+      setIsLoading(true);
+      const response = await axios.get(`${BASE_URL}/api/faq/retrieve`, { headers: authHeader() });
       const faqData = response.data.FAQs;
       setContacts(faqData);
     } catch (error) {
       console.error('Error retrieving FAQ data:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -122,46 +127,49 @@ function QuestionTable() {
             />
           </InputGroup>
         </Form>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Question</th>
-              <th>Answer</th>
-              <th>Select</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {contacts
-              .filter((item) => {
-                const Question = item.question;
-                const Answer = item.answer;
+        {isLoading ? (<div className="text-center">Loading...</div>)
+          :
+          (<Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Question</th>
+                <th>Answer</th>
+                <th>Select</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {contacts
+                .filter((item) => {
+                  const Question = item.question_en;
+                  const Answer = item.answer_en;
 
-                return (
-                  (search.toLowerCase() === "" ||
-                    Question.toLowerCase().includes(search.toLowerCase()) ||
-                    Answer.toLowerCase().includes(search.toLowerCase())
-                  )
-                );
-              })
-              .map((item, index) => (
-                <tr key={index}>
-                  <td>{item.question}</td>
-                  <td>{item.answer}</td>
-                  <td>
-                    <input
-                      type="checkbox"
-                      checked={selectedQuestions.includes(item.id)}
-                      onChange={() => handleQuestionSelection(item.id)}
-                    />
-                  </td>
-                  <td align="center">
-                    <BModalThree refreshData= {refreshData} bname="View Question" header="New Question" qn={item.question} ans={item.answer} id={item.id} dis="true" />
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </Table>
+                  return (
+                    (search.toLowerCase() === "" ||
+                      Question.toLowerCase().includes(search.toLowerCase()) ||
+                      Answer.toLowerCase().includes(search.toLowerCase())
+                    )
+                  );
+                })
+                .map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.question_en}</td>
+                    <td>{item.answer_en}</td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={selectedQuestions.includes(item.id)}
+                        onChange={() => handleQuestionSelection(item.id)}
+                      />
+                    </td>
+                    <td align="center">
+                      <BModalThree refreshData={refreshData} bname="View Question" header="Edit Question" qn={item.question_en} ans={item.answer_en} id={item.id} dis="true" />
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </Table>
+          )}
         <BModalTwo bname="New Question" header="New Question" onRefreshData={refreshData} />
         <Button onClick={deleteData} style={{ marginLeft: "10px" }} variant="danger">Delete</Button>
         <Button onClick={handleGenerateCSV} style={{ marginLeft: "10px" }}>Generate CSV</Button>
@@ -173,13 +181,15 @@ function QuestionTable() {
         </Button>
         {showPopUp && (
           <div className="pop-up-message">
-            Please select {isDelete ? "a question to delete": "at least one user to generate the CSV"}.
+            Please select {isDelete ? "a question to delete" : "at least one user to generate the CSV"}.
           </div>
         )}
         <hr />
       </Container>
     </Col>
+
   );
+
 }
 
 export default QuestionTable;
