@@ -2,7 +2,7 @@ import Col from "react-bootstrap/Col";
 import Badge from 'react-bootstrap/Badge';
 import Button from "react-bootstrap/Button";
 import BModalFour from "./BModalFour";
-import ScheduleModal from "./ScheduleModal";
+
 
 
 function PendingUserHeading(props) {

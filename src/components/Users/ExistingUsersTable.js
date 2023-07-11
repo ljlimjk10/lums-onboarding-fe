@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
+import { Link } from "react-router-dom";
+
 import UserView from "./UserView.js";
-import { saveAs } from "file-saver";
-import axios from "axios";
 import authHeader from "../../services/auth-header.js";
+
 
 const API_BASE_URL = "http://localhost:3001";
 const API_ENDPOINT = "/api/user/all/verified";
@@ -224,9 +226,11 @@ function ExistingUsersTable() {
                         />
                       </td>
                       <td align="center">
-                        <Button onClick={() => handleViewUser(item.id)}>
-                          View User
-                        </Button>
+                      <Link to={`/users/user-view/${item.id}`}>
+                          <Button onClick={() => handleViewUser(item.id)}>
+                            View User
+                          </Button>
+                        </Link>
                       </td>
                     </tr>
                   ))}
