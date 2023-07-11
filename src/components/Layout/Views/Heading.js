@@ -2,7 +2,6 @@ import Col from "react-bootstrap/Col";
 import Badge from 'react-bootstrap/Badge';
 import Button from "react-bootstrap/Button";
 import BModal_Edit from "./BModal_Edit";
-import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 function Heading(props) {
@@ -17,6 +16,11 @@ function Heading(props) {
         navigate('/pending-users-table');
     }
 
+    const handleBack = () => {
+        // Perform any necessary actions before navigating back
+        navigate('/users'); // Replace '/other-page' with the desired URL
+      };
+
     const handleEdit = () => setIsEditMode(true);
     return (
         <>
@@ -30,7 +34,7 @@ function Heading(props) {
                     Save Changes
                 </Button>) : (<BModal_Edit id={props.id} var="danger" name="Edit" header="Edit" onClick={handleEdit} />)}
                 {!isEditMode
-                ? (<Button onClick={props.onClick} style={{ marginRight: "3%" }}>Back</Button>) : null}
+                ? (<Button onClick={handleBack} style={{ marginRight: "3%" }}>Back</Button>) : null}
             </Col>
             <hr />
         </>

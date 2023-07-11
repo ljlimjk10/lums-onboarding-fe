@@ -41,7 +41,7 @@ function PendingUserView(props) {
     return (
         <Container>
             <Row>
-                <PendingUserHeading id={id}  page="Pending User" b_name="Reject" b_name_two="Approve" onClick={props.onClick} />
+                <PendingUserHeading id={id}  page="Pending User" b_name="Reject" b_name_two="Approve" />
                 <Col lg={6} md={6} xs={12}>
                     <TextBox Label="Name" disabled="true" value={name} />
                     <TextBox Label="NRIC" disabled="true" value={nricId} />

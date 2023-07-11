@@ -62,11 +62,6 @@ function PendingUsersTable() {
     setSelectedStatus("");
   };
 
-  const handleGoBack = () => {
-    setSelectedUserId(null);
-    navigate("/pending-users-table");
-  };
-
   return (
     <Col>
       {!selectedUserId ? (
@@ -165,7 +160,7 @@ function PendingUsersTable() {
         </Container>
       ) : (
         <Container>
-          <PendingUserView onClick={handleGoBack} userId={selectedUserId} />
+          <PendingUserView userId={selectedUserId} />
         </Container>
       )}
     </Col>

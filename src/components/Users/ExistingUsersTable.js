@@ -155,9 +155,6 @@ function ExistingUsersTable() {
     }
   };
 
-  const handleGoBack = () => {
-    setSelectedUserId(null);
-  };
 
   return (
     <Col>
@@ -252,7 +249,7 @@ function ExistingUsersTable() {
         </Container>
       ) : (
         <Container>
-          <UserView handleGoBack={handleGoBack} userId={selectedUserId} />
+          <UserView userId={selectedUserId} />
         </Container>
       )}
     </Col>
