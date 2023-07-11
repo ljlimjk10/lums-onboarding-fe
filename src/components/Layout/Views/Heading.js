@@ -2,7 +2,6 @@ import Col from "react-bootstrap/Col";
 import Badge from 'react-bootstrap/Badge';
 import Button from "react-bootstrap/Button";
 import BModal_Edit from "./BModal_Edit";
-import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
 function Heading(props) {
