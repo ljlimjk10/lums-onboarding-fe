@@ -23,7 +23,7 @@ const API_ENDPOINTS = [
 function PostTable() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
-  const [selectedStatus, setSelectedStatus] = useState("");
+  const [selectedType, setSelectedType] = useState("");
   const [selectedPost, setSelectedPost] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
@@ -62,7 +62,7 @@ function PostTable() {
 
   const clearFilters = () => {
     setSearch("");
-    setSelectedStatus("");
+    setSelectedType("");
   };
 
   const handleGenerateCSV = (postData) => {
@@ -125,16 +125,16 @@ function PostTable() {
             <InputGroup className="my-3">
               <ButtonGroup aria-label="Basic example">
                 <Button
-                  variant={selectedStatus === "Job" ? "info" : "primary"}
+                  variant={selectedType === "Job" ? "info" : "primary"}
                   style={{ borderRadius: 0, zIndex: 0 }}
-                  onClick={() => setSelectedStatus("Job")}
+                  onClick={() => setSelectedType("Job")}
                 >
                   Job
                 </Button>
                 <Button
-                  variant={selectedStatus === "Announcement" ? "info" : "primary"}
+                  variant={selectedType === "Announcement" ? "info" : "primary"}
                   style={{ borderRadius: 0, zIndex: 0 }}
-                  onClick={() => setSelectedStatus("Announcement")}
+                  onClick={() => setSelectedType("Announcement")}
                 >
                   Announcement
                 </Button>
@@ -174,7 +174,7 @@ function PostTable() {
                       Message.toLowerCase().includes(search.toLowerCase()) ||
                       Type.toLowerCase().includes(search.toLowerCase()) ||
                       Created.toLowerCase().includes(search.toLowerCase())) &&
-                    (selectedStatus === "" || Status === selectedStatus)
+                    (selectedType === "" || Status === selectedType)
                   );
                 })
                 // Only display users with status other than "Accepted" when no filters are selected

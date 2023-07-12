@@ -46,6 +46,7 @@ function CreatePostEvent() {
                   <DropDownList Label="Job Type" post="2"/>
                   <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Post Date*" value={postDate} onChange={handleValueChange} placeholder="Please schedule (Top Right)" />
                   <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Post Time*" value={postTime} onChange={handleValueChange} placeholder="Please schedule (Top Right)" />
+
               </Col>
             </Row>
 
