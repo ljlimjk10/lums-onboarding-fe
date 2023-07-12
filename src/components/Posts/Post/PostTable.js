@@ -70,7 +70,7 @@ function PostTable() {
       "Payout",
       "Status",
       "Created At",
-      "Scheduled For"
+      // "Scheduled For"
     ]);
     const {
       message,
@@ -84,7 +84,7 @@ function PostTable() {
       payout,
       status,
       createdAt,
-      scheduledfor
+      // scheduledfor
     } = postData;
     const sanitizedMessage = message ? `"${message.replace(/"/g, '""')}"` : "";
     csvData.push([
@@ -98,8 +98,8 @@ function PostTable() {
       price || "",
       payout || "",
       status || "",
-      createdAt || "",
-      scheduledfor || ""
+      createdAt || ""
+      // scheduledfor || ""
     ]);
 
     const csvString = csvData.map((row) => row.join(",")).join("\n");
@@ -116,18 +116,18 @@ function PostTable() {
             <InputGroup className="my-3">
               <ButtonGroup aria-label="Basic example">
                 <Button
-                  variant={selectedStatus === "Posted" ? "info" : "primary"}
+                  variant={selectedStatus === "Job" ? "info" : "primary"}
                   style={{ borderRadius: 0, zIndex: 0 }}
-                  onClick={() => setSelectedStatus("Posted")}
+                  onClick={() => setSelectedStatus("Job")}
                 >
-                  Posted
+                  Job
                 </Button>
                 <Button
-                  variant={selectedStatus === "Scheduled" ? "info" : "primary"}
+                  variant={selectedStatus === "Announcement" ? "info" : "primary"}
                   style={{ borderRadius: 0, zIndex: 0 }}
-                  onClick={() => setSelectedStatus("Scheduled")}
+                  onClick={() => setSelectedStatus("Announcement")}
                 >
-                  Scheduled
+                  Announcement
                 </Button>
               </ButtonGroup>
               <Form.Control
