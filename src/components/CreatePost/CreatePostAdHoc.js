@@ -67,26 +67,25 @@ function CreatePostAdHoc() {
     };
 
     const updateTemplate = () => {
-        const updatedTemplate = `
-            *COMPULSORY ACTION REQUIRED | NEW JOB PAGE (AD-HOC)* *RESPOND ‘YES’ TO ACCEPT ✔ AND ‘NO’ TO REJECT ✖.*
-            Route Description:
-            Route 1
-            Pick-Up Address: ${location} | Region: ${region} | Start Date: ${pickupDate} | Start Time: ${pickupTime}
-            Drop-Off Address (if any): ${destination} | End Time (if any): ${dropoffTime}\n
-            Type of Project: Point-to-Point (Single) / Point-to-Point (Multi-Stop) / Disposal (Hourly)
-            Industry: Education / Workplace (Standard) / Workplace (Silent Hour) / Medical / Tourism / Others\n 
-            Expected Daily Project Driver-Payout: S$${price} (BEFORE LyloScheme deduction, if any)
-            Expected Daily Project Driver-Payout: S$${payout} (AFTER LyloScheme deduction, if any)\n
-            *Job Details:*
-            Expected Passengers Per Ride: ${riders} PAX 
-            Car Model: ${model}
-            Profile of Passengers:
-            • Average Age/ Students Grade:
-            • Gender (if specified):
-            • Special Requirements (if any):
-            Job Description: 
-            • XX
-            *Terms and Conditions Applies*`;
+        const updatedTemplate = `*COMPULSORY ACTION REQUIRED | NEW JOB PAGE (AD-HOC)* *RESPOND ‘YES’ TO ACCEPT ✔ AND ‘NO’ TO REJECT ✖.*
+Route Description:
+Route 1
+Pick-Up Address: ${location} | Region: ${region} | Start Date: ${pickupDate} | Start Time: ${pickupTime}
+Drop-Off Address (if any): ${destination} | End Time (if any): ${dropoffTime}\n
+Type of Project: Point-to-Point (Single) / Point-to-Point (Multi-Stop) / Disposal (Hourly)
+Industry: Education / Workplace (Standard) / Workplace (Silent Hour) / Medical / Tourism / Others\n 
+Expected Daily Project Driver-Payout: S$${price} (BEFORE LyloScheme deduction, if any)
+Expected Daily Project Driver-Payout: S$${payout} (AFTER LyloScheme deduction, if any)\n
+*Job Details:*
+Expected Passengers Per Ride: ${riders} PAX 
+Car Model: ${model}
+Profile of Passengers:
+• Average Age/ Students Grade:
+• Gender (if specified):
+• Special Requirements (if any):
+Job Description: 
+• XX
+*Terms and Conditions Applies*`;
 
         setTemplate(updatedTemplate);
     };
@@ -113,12 +112,12 @@ function CreatePostAdHoc() {
                         <TextBox Label="Payout" type="number" value={payout} onChange={handleValueChange} />
                         <TextBox Label="Riders" type="number" value={riders} onChange={handleValueChange} />
                         <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Model*" type="text" value={model} onChange={handleValueChange} />
-                        <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Post Date*" value={postDate} onChange={handleValueChange} placeholder="Please schedule (Top Right)" />
-                        <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Post Time*" value={postTime} onChange={handleValueChange} placeholder="Please schedule (Top Right)" />
+                        {/* <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Post Date*" value={postDate} onChange={handleValueChange} placeholder="Please schedule (Top Right)" />
+                        <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Post Time*" value={postTime} onChange={handleValueChange} placeholder="Please schedule (Top Right)" /> */}
                     </Col>
 
                     <Col lg={6} md={6} xs={12}>
-                        <Textarea Label="Template" rows="26" value={template} onChange={(e) => setTemplate(e.target.value)} />
+                        <Textarea Label="Template" rows="25" value={template} onChange={(e) => setTemplate(e.target.value)} />
                     </Col>
 
                 </Row>
