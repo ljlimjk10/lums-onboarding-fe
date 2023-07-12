@@ -32,14 +32,15 @@ function Post_Job(props) {
                     <TextBox Label="Location" disabled="true" pholder="ABC Street" current={location} />
                     <TextBox Label="Destination" disabled="true" pholder="DEF Road" current={destination} />
                     <TextBox Label="Region" disabled="true" pholder="North" current={region} />
-                    <TextBox Label="Model" disabled="true" pholder="Toyota" current={model} />
+                    
                 </Col>
                 <Col lg={6} md={6} xs={12}>
-                    <TextBox Label="Creation D/T" disabled="true" pholder="" current={createdAt} />
+                    {/* <TextBox Label="Creation D/T" disabled="true" pholder="" current={createdAt} /> */}
                     <TextBox Label="Posted D/T" disabled="true" pholder="" current={scheduledfor} />
                     <TextBox Label="Price" disabled="true" pholder="$20" current={price} />
                     <TextBox Label="Payout" disabled="true" pholder="$15" current={payout} />
                     <TextBox Label="Riders" disabled="true" pholder="5" current={riders} />
+                    <TextBox Label="Model" disabled="true" pholder="Toyota" current={model} />
                 </Col>
                 <hr/>
                 <Cordion_Two header_1="Message" header_2="Response Order" r_order={<PostResponses />} message={message} />

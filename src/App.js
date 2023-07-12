@@ -36,7 +36,10 @@ function MainContent() {
 	const { isLoggedIn } = useContext(LoginContext);
 	return (
 		<>
-			{isLoggedIn && <Navbar />}
+			<Navbar />
+			<Post_Job />
+			{/* <Post_Event /> */}
+			{/* {isLoggedIn && <Navbar />}
 			<Routes>
 				<Route path="/" element={isLoggedIn ? <Dashboard /> : <LoginPage />} />
 				<Route path="/users" element={isLoggedIn ? <ExistingUsersTable /> : <LoginPage />} />
@@ -50,7 +53,7 @@ function MainContent() {
 				<Route path="/new-post" element={isLoggedIn ? <CreatePost /> : <LoginPage />} />
 				<Route path="/new-post/adhoc" element={isLoggedIn ? <CreatePostAdHoc /> : <LoginPage />} />
 				<Route path="/new-post/event" element={isLoggedIn ? <CreatePostEvent /> : <LoginPage />} /> 
-			</Routes>
+			</Routes> */}
 		</>
 	);
 }
