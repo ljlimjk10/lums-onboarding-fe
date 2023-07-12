@@ -29,6 +29,7 @@ function PendingUserView(props) {
         const endpoint = `${API_BASE_URL}${API_ENDPOINT}${userId}`;
         axios.get(endpoint, { headers: authHeader() })
             .then((response) => {
+                
                 const pendingUserData = response.data.data;
                 console.log("Pending User Data:", pendingUserData);
 

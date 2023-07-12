@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -15,40 +16,48 @@ import authHeader from "../../../services/auth-header";
 
 const API_BASE_URL = "http://localhost:3001";
 const API_ENDPOINTS = [
-  "/api/post/allevents"
+  "/api/post/allevents",
+  "/api/post/alljobs"
 ];
 
 function PostTable() {
+  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
   const [selectedPost, setSelectedPost] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
   const [contacts, setContacts] = useState([]);
-
 
   useEffect(() => {
     fetchPostData();
   }, []);
 
   const fetchPostData = async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       const requests = API_ENDPOINTS.map(endpoint=>axios.get(`${API_BASE_URL}${endpoint}`,{headers:authHeader()}))
       const responses = await Promise.all(requests);
-
       const data = responses.map(response=>response.data);
-      console.log(data);
-      const consolidatedData = data.flat();
+      const consolidatedData = data.reduce((accumulator, currentValue) => {
+        const key = Object.keys(currentValue)[0]; // Get the key of the current data object
+        accumulator[key] = currentValue[key]; // Assign the array to the corresponding key in the accumulator object
+        return accumulator;
+      }, {});
+      console.log(consolidatedData);
       setContacts(consolidatedData)
+      // console.log(consolidatedData);
     } catch (error) {
       console.error(error);
     } finally {
       setIsLoading(false);
+      setIsInitialized(true);
     }
   };
 
   const handleViewPost = (postId) => {
     setSelectedPost(postId)
+    navigate(`/posts/post-job-view/${postId}`);
   }
 
   const clearFilters = () => {
@@ -143,6 +152,7 @@ function PostTable() {
               </Button>
             </InputGroup>
           </Form>
+          {isLoading && !isInitialized ? (<div className="text-center">Loading...</div>):(
           <Table striped bordered hover>
             <thead>
               <tr>
@@ -153,7 +163,7 @@ function PostTable() {
               </tr>
             </thead>
             <tbody>
-              {contacts
+              {Object.keys(contacts).flatMap(key=>contacts[key]
                 .filter((item) => {
                   const Message = item.message;
                   const Type = item.type;
@@ -178,9 +188,10 @@ function PostTable() {
                       <Button onClick={() => handleViewPost(item.id)}>View Post</Button>
                     </td>
                   </tr>
-                ))}
+                )))}
             </tbody>
-          </Table>
+          </Table>)}
+          {/* {isInitialized && Object.keys(contacts.length)===0 && (<div className="text-center">No posts available.</div>)} */}
         </Container>
       )}
     </Col>

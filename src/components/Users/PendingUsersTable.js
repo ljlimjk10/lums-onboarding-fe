@@ -42,8 +42,10 @@ function PendingUsersTable() {
         axios.get(`${API_BASE_URL}${endpoint}`, { headers: authHeader() })
       );
       const responses = await Promise.all(requests);
+      console.log(responses);
       const data = responses.map((response) => response.data.data);
       const consolidatedData = data.flat();
+      console.log(consolidatedData);
       setContacts(consolidatedData);
     } catch (error) {
       console.error(error);
