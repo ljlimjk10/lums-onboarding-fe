@@ -179,8 +179,8 @@ function PostTable() {
                 })
                 // Only display users with status other than "Accepted" when no filters are selected
                 .filter((item) => item.status !== "Accepted")
-                .map((item, index) => (
-                  <tr key={index}>
+                .map((item) => (
+                  <tr key={item.id}>
                     <td style={{ maxWidth: "300px" }}>{item.message}</td>
                     <td>{item.type}</td>
                     <td>{item.createdAt}</td>
