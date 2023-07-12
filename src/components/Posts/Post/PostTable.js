@@ -36,9 +36,9 @@ function PostTable() {
   const fetchPostData = async () => {
     setIsLoading(true);
     try {
-      const requests = API_ENDPOINTS.map(endpoint=>axios.get(`${API_BASE_URL}${endpoint}`,{headers:authHeader()}))
+      const requests = API_ENDPOINTS.map(endpoint => axios.get(`${API_BASE_URL}${endpoint}`, { headers: authHeader() }))
       const responses = await Promise.all(requests);
-      const data = responses.map(response=>response.data);
+      const data = responses.map(response => response.data);
       const consolidatedData = data.reduce((accumulator, currentValue) => {
         const key = Object.keys(currentValue)[0]; // Get the key of the current data object
         accumulator[key] = currentValue[key]; // Assign the array to the corresponding key in the accumulator object
@@ -55,9 +55,14 @@ function PostTable() {
     }
   };
 
-  const handleViewPost = (postId) => {
-    setSelectedPost(postId)
-    navigate(`/posts/post-job-view/${postId}`);
+  const handleViewPost = (postId, type) => {
+    setSelectedPost(postId);
+    console.log(type);
+    if (type === "Announcement") {
+      navigate(`/posts/post-event-view/${postId}`);
+    } else if (type === "Job") {
+      navigate(`/posts/post-job-view/${postId}`);
+    }
   }
 
   const clearFilters = () => {
@@ -152,45 +157,44 @@ function PostTable() {
               </Button>
             </InputGroup>
           </Form>
-          {isLoading && !isInitialized ? (<div className="text-center">Loading...</div>):(
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Message</th>
-                <th>Type</th>
-                <th>Created</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(contacts).flatMap(key=>contacts[key]
-                .filter((item) => {
-                  const Message = item.message;
-                  const Type = item.type;
-                  const Created = item.createdAt;
-                  const Status = item.status;
-                  return (
-                    (search.toLowerCase() === "" ||
-                      Message.toLowerCase().includes(search.toLowerCase()) ||
-                      Type.toLowerCase().includes(search.toLowerCase()) ||
-                      Created.toLowerCase().includes(search.toLowerCase())) &&
-                    (selectedStatus === "" || Status === selectedStatus)
-                  );
-                })
-                // Only display users with status other than "Accepted" when no filters are selected
-                .filter((item) => item.status !== "Accepted")
-                .map((item) => (
-                  <tr key={item.id}>
-                    <td style={{ maxWidth: "300px" }}>{item.message}</td>
-                    <td>{item.type}</td>
-                    <td>{item.createdAt}</td>
-                    <td align="center">
-                      <Button onClick={() => handleViewPost(item.id)}>View Post</Button>
-                    </td>
-                  </tr>
-                )))}
-            </tbody>
-          </Table>)}
+          {isLoading && !isInitialized ? (<div className="text-center">Loading...</div>) : (
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Message</th>
+                  <th>Type</th>
+                  <th>Created</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.keys(contacts).flatMap(key => contacts[key]
+                  .filter((item) => {
+                    console.log(item);
+                    const Message = item.message;
+                    const Type = item.type;
+                    const Created = item.createdAt;
+                    const Status = item.status;
+                    return (
+                      (search.toLowerCase() === "" ||
+                        Message.toLowerCase().includes(search.toLowerCase()) ||
+                        Type.toLowerCase().includes(search.toLowerCase()) ||
+                        Created.toLowerCase().includes(search.toLowerCase())) &&
+                      (selectedStatus === "" || Status === selectedStatus)
+                    );
+                  })
+                  .map((item) => (
+                    <tr key={item.id}>
+                      <td style={{ maxWidth: "300px" }}>{item.message}</td>
+                      <td>{item.type}</td>
+                      <td>{item.createdAt || item.datetime}</td>
+                      <td align="center">
+                        <Button onClick={() => handleViewPost(item.id, item.type)}>View Post</Button>
+                      </td>
+                    </tr>
+                  )))}
+              </tbody>
+            </Table>)}
           {/* {isInitialized && Object.keys(contacts.length)===0 && (<div className="text-center">No posts available.</div>)} */}
         </Container>
       )}
