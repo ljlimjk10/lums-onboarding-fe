@@ -15,9 +15,9 @@ function Heading_Schedule(props) {
                 <div style={{marginLeft:"3%"}}>
                     <BModal_Post name={props.b_name} var="danger" header={props.b_name} />
                 </div>
-                <div>
+                {/* <div>
                     <ScheduleModal handleValueChange={props.handleValueChange} name={props.b_name_two} var="success" header={props.b_name_two} />
-                </div>
+                </div> */}
             </Col>
             <hr />
         </>

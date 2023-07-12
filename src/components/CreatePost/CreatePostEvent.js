@@ -40,15 +40,14 @@ function CreatePostEvent() {
       <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Container>
           <Row>
-            <Heading_Schedule handleValueChange={handleValueChange} page="Create Post" b_name="Post" b_name_two="Schedule" />
-            <Row>
+            <Heading_Schedule page="Create Post" b_name="Post" b_name_two="Schedule" />
+            {/* <Row>
               <Col lg={6} md={10} xs={12}>
                   <DropDownList Label="Job Type" post="2"/>
                   <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Post Date*" value={postDate} onChange={handleValueChange} placeholder="Please schedule (Top Right)" />
                   <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Post Time*" value={postTime} onChange={handleValueChange} placeholder="Please schedule (Top Right)" />
-
               </Col>
-            </Row>
+            </Row> */}
 
             <Col lg={6} md={10} xs={12}>
               <Textarea r="true" rows={13} Label="Message"/>
