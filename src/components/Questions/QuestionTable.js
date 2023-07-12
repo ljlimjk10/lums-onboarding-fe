@@ -5,12 +5,12 @@ import InputGroup from "react-bootstrap/InputGroup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
-// import { data } from "./questionData";
 import React, { useState, useEffect } from "react";
 import { saveAs } from "file-saver";
 import BModalTwo from "../Layout/Views/BModalTwo";
 import BModalThree from "../Layout/Views/BModalThree";
 import axios from "axios";
+
 import authHeader from "../../services/auth-header";
 
 const BASE_URL = "http://localhost:3001";
@@ -19,7 +19,6 @@ function QuestionTable() {
   const [contacts, setContacts] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedQuestions, setSelectedQuestions] = useState([]);
-  const [selectedQuestionId, setSelectedQuestionId] = useState(null);
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const [showPopUp, setShowPopUp] = useState(false);
@@ -59,9 +58,6 @@ function QuestionTable() {
     }
   };
 
-
-
-
   const refreshData = () => {
     // Implement the logic to refresh the data in the parent component
     fetchData();
@@ -100,10 +96,10 @@ function QuestionTable() {
       // Iterate over selectedQuestions array
       selectedQuestions.forEach((questionId) => {
         const question = contacts.find((item) => item.id === questionId);
-        if (question && question.question && question.answer) {
-          const { question: questionText, answer } = question;
+        if (question && question.question_en && question.answer_en) {
+          const { question_en: questionText, answer_en } = question;
           const formattedQuestion = `"${questionText.replace(/\n/g, " ")}"`;
-          const formattedAnswer = `"${answer.replace(/\n/g, " ")}"`;
+          const formattedAnswer = `"${answer_en.replace(/\n/g, " ")}"`;
           csvData.push([formattedQuestion, formattedAnswer]);
         }
       });
@@ -113,7 +109,7 @@ function QuestionTable() {
       // Save the CSV file using FileSaver.js
       saveAs(blob, "selected_questions.csv");
     }
-  };
+};
 
   return (
     <Col>
@@ -151,8 +147,8 @@ function QuestionTable() {
                     )
                   );
                 })
-                .map((item, index) => (
-                  <tr key={index}>
+                .map((item) => (
+                  <tr key={item.id}>
                     <td>{item.question_en}</td>
                     <td>{item.answer_en}</td>
                     <td>

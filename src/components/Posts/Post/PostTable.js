@@ -12,7 +12,6 @@ import Post_Job from "./Post_Job";
 import axios from "axios";
 import authHeader from "../../../services/auth-header";
 
-
 const API_BASE_URL = "http://localhost:3001";
 const API_ENDPOINTS = [
   "/api/post/allevents",
@@ -22,7 +21,7 @@ const API_ENDPOINTS = [
 function PostTable() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
-  const [selectedStatus, setSelectedStatus] = useState("");
+  const [selectedType, setSelectedType] = useState("");
   const [selectedPost, setSelectedPost] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
@@ -44,8 +43,7 @@ function PostTable() {
         return accumulator;
       }, {});
       console.log(consolidatedData);
-      setContacts(consolidatedData)
-      // console.log(consolidatedData);
+      setContacts(consolidatedData);
     } catch (error) {
       console.error(error);
     } finally {
@@ -62,11 +60,11 @@ function PostTable() {
     } else if (type === "Job") {
       navigate(`/posts/post-job-view/${postId}`);
     }
-  }
+  };
 
   const clearFilters = () => {
     setSearch("");
-    setSelectedStatus("");
+    setSelectedType("");
   };
 
   return (
@@ -78,23 +76,24 @@ function PostTable() {
             <InputGroup className="my-3">
               <ButtonGroup aria-label="Basic example">
                 <Button
-                  variant={selectedStatus === "Job" ? "info" : "primary"}
+                  variant={selectedType === "Job" ? "info" : "primary"}
                   style={{ borderRadius: 0, zIndex: 0 }}
-                  onClick={() => setSelectedStatus("Job")}
+                  onClick={() => setSelectedType("Job")}
                 >
                   Job
                 </Button>
                 <Button
-                  variant={selectedStatus === "Announcement" ? "info" : "primary"}
+                  variant={selectedType === "Announcement" ? "info" : "primary"}
                   style={{ borderRadius: 0, zIndex: 0 }}
-                  onClick={() => setSelectedStatus("Announcement")}
+                  onClick={() => setSelectedType("Announcement")}
                 >
                   Announcement
                 </Button>
               </ButtonGroup>
               <Form.Control
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search posts" value={search}
+                placeholder="Search posts"
+                value={search}
               />
               <Button
                 variant="primary"
@@ -105,7 +104,9 @@ function PostTable() {
               </Button>
             </InputGroup>
           </Form>
-          {isLoading && !isInitialized ? (<div className="text-center">Loading...</div>) : (
+          {isLoading && !isInitialized ? (
+            <div className="text-center">Loading...</div>
+          ) : (
             <Table striped bordered hover>
               <thead>
                 <tr>
@@ -116,21 +117,22 @@ function PostTable() {
                 </tr>
               </thead>
               <tbody>
-                {Object.keys(contacts).flatMap(key => contacts[key]
-                  .filter((item) => {
-                    console.log(item);
-                    const Message = item.message;
-                    const Type = item.type;
-                    const Created = item.createdAt;
-                    const Status = item.status;
-                    return (
-                      (search.toLowerCase() === "" ||
-                        Message.toLowerCase().includes(search.toLowerCase()) ||
-                        Type.toLowerCase().includes(search.toLowerCase()) ||
-                        Created.toLowerCase().includes(search.toLowerCase())) &&
-                      (selectedStatus === "" || Status === selectedStatus)
-                    );
-                  })
+                {Object.keys(contacts)
+                  .flatMap(key =>
+                    contacts[key].filter((item) => {
+                      const Message = item.message;
+                      const Type = item.type;
+                      const Created = item.createdAt || item.datetime;
+                      const Status = item.status;
+                      return (
+                        (search.toLowerCase() === "" ||
+                          Message.toLowerCase().includes(search.toLowerCase()) ||
+                          Type.toLowerCase().includes(search.toLowerCase()) ||
+                          Created.toLowerCase().includes(search.toLowerCase())) &&
+                        (selectedType === "" || Type === selectedType)
+                      );
+                    })
+                  )
                   .map((item) => (
                     <tr key={item.id}>
                       <td style={{ maxWidth: "300px" }}>{item.message}</td>
@@ -140,10 +142,10 @@ function PostTable() {
                         <Button onClick={() => handleViewPost(item.id, item.type)}>View Post</Button>
                       </td>
                     </tr>
-                  )))}
+                  ))}
               </tbody>
-            </Table>)}
-          {/* {isInitialized && Object.keys(contacts.length)===0 && (<div className="text-center">No posts available.</div>)} */}
+            </Table>
+          )}
         </Container>
       )}
     </Col>

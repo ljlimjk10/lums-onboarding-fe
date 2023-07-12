@@ -30,7 +30,6 @@ function BModalThree(props) {
     setAnswer(value)
   }
 
-
   const handleSaveChanges = async () => {
     // Handle saving changes logic here
     setIsEditMode(false);
