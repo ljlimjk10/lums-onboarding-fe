@@ -26,9 +26,9 @@ function Post_Event(props) {
         <Container>
             <Row>
                 <ViewPostHeading type={type} handleGenerateCSV={handleGenerateCSV} postData={postData} status={status} page="Post" b_name="Back" b_name_two="Generate CSV" />
-                <Col lg={6} md={6} xs={12}>
+                {/* <Col lg={6} md={6} xs={12}>
                     <TextBox Label="Creation D/T" disabled="true" pholder="" current={createdAt} />
-                </Col>
+                </Col> */}
                 <Col lg={6} md={6} xs={12}>
                     <TextBox Label="Posted D/T" disabled="true" pholder="" current={scheduledfor} />
                 </Col>

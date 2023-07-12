@@ -16,6 +16,8 @@ import CreatePost from "./components/CreatePost/CreatePost";
 import CreatePostEvent from "./components/CreatePost/CreatePostEvent";
 import PendingUserView from "./components/Users/PendingUserView";
 import UserView from "./components/Users/UserView";
+import Post_Event from "./components/Posts/Post/Post_Event";
+import Post_Job from "./components/Posts/Post/Post_Job";
 
 function App() {
 	return (
@@ -34,7 +36,10 @@ function MainContent() {
 	const { isLoggedIn } = useContext(LoginContext);
 	return (
 		<>
-			{isLoggedIn && <Navbar />}
+			<Navbar />
+			<Post_Job />
+			{/* <Post_Event /> */}
+			{/* {isLoggedIn && <Navbar />}
 			<Routes>
 				<Route path="/" element={isLoggedIn ? <Dashboard /> : <LoginPage />} />
 				<Route path="/users" element={isLoggedIn ? <ExistingUsersTable /> : <LoginPage />} />
@@ -46,7 +51,7 @@ function MainContent() {
 				<Route path="/new-post" element={isLoggedIn ? <CreatePost /> : <LoginPage />} />
 				<Route path="/new-post/adhoc" element={isLoggedIn ? <CreatePostAdHoc /> : <LoginPage />} />
 				<Route path="/new-post/event" element={isLoggedIn ? <CreatePostEvent /> : <LoginPage />} /> 
-			</Routes>
+			</Routes> */}
 		</>
 	);
 }
