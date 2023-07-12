@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { saveAs } from "file-saver";
+
 import { Container, Row, Col } from "react-bootstrap";
 import TextBox from "../../Layout/Views/TextBox";
 import PostResponses from "./PostResponses";
@@ -12,7 +14,6 @@ const API_BASE_URL = "http://localhost:3001";
 const API_ENDPOINT = "/api/post/job/";
 
 function Post_Job(props) {
-    const { onClick: handleGoBack, postId, handleGenerateCSV } = props;
     const { id } = useParams();
     const [postData, setPostData] = useState(null);
 
@@ -31,6 +32,56 @@ function Post_Job(props) {
                 console.error(error);
             });
     };
+    const handleGenerateCSV = (postData) => {
+        const csvData = [];
+        csvData.push([
+            "Message",
+            "Image",
+            "Type",
+            "Location",
+            "Destination",
+            "Pickup Time",
+            "Drop-off Time",
+            "Price",
+            "Payout",
+            "Status",
+            "Created At",
+            // "Scheduled For"
+        ]);
+        const {
+            message,
+            image,
+            type,
+            location,
+            destination,
+            pickupTime,
+            dropoffTime,
+            price,
+            payout,
+            status,
+            createdAt,
+            // scheduledfor
+        } = postData;
+        const sanitizedMessage = message ? `"${message.replace(/"/g, '""')}"` : "";
+        csvData.push([
+            sanitizedMessage,
+            image || "",
+            type || "",
+            location || "",
+            destination || "",
+            pickupTime || "",
+            dropoffTime || "",
+            price || "",
+            payout || "",
+            status || "",
+            createdAt || ""
+            // scheduledfor || ""
+        ]);
+
+        const csvString = csvData.map((row) => row.join(",")).join("\n");
+        const blob = new Blob([csvString], { type: "text/csv;charset=utf-8" });
+        saveAs(blob, "post_job_data.csv");
+    }
 
     if (!postData) {
         return <div>Loading...</div>;
@@ -60,7 +111,6 @@ function Post_Job(props) {
                 <ViewPostHeading
                     type={type}
                     handleGenerateCSV={handleGenerateCSV}
-                    onClick={handleGoBack}
                     postData={postData}
                     status={status}
                     page="Post"

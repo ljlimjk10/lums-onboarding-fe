@@ -9,7 +9,6 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Post_Job from "./Post_Job";
-import saveAs from "file-saver";
 import axios from "axios";
 import authHeader from "../../../services/auth-header";
 
@@ -70,60 +69,9 @@ function PostTable() {
     setSelectedStatus("");
   };
 
-  const handleGenerateCSV = (postData) => {
-    const csvData = [];
-    csvData.push([
-      "Message",
-      "Image",
-      "Type",
-      "Location",
-      "Destination",
-      "Pickup Time",
-      "Drop-off Time",
-      "Price",
-      "Payout",
-      "Status",
-      "Created At",
-      // "Scheduled For"
-    ]);
-    const {
-      message,
-      image,
-      type,
-      location,
-      destination,
-      pickupTime,
-      dropofftime,
-      price,
-      payout,
-      status,
-      createdAt,
-      // scheduledfor
-    } = postData;
-    const sanitizedMessage = message ? `"${message.replace(/"/g, '""')}"` : "";
-    csvData.push([
-      sanitizedMessage,
-      image || "",
-      type || "",
-      location || "",
-      destination || "",
-      pickupTime || "",
-      dropofftime || "",
-      price || "",
-      payout || "",
-      status || "",
-      createdAt || ""
-      // scheduledfor || ""
-    ]);
-
-    const csvString = csvData.map((row) => row.join(",")).join("\n");
-    const blob = new Blob([csvString], { type: "text/csv;charset=utf-8" });
-    saveAs(blob, "post_data.csv");
-  }
-
   return (
     <Col>
-      {selectedPost ? (<Post_Job postId={selectedPost} handleGenerateCSV={handleGenerateCSV} />) : (
+      {selectedPost ? (<Post_Job postId={selectedPost} />) : (
         <Container>
           <h1 className="text-center mt-4">Post Table</h1>
           <Form>

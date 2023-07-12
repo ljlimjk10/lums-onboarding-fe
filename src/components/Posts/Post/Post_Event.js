@@ -3,7 +3,6 @@ import Col from "react-bootstrap/Col";
 import Container from 'react-bootstrap/Container';
 import TextBox from "../../Layout/Views/TextBox";
 import PostResponses from "./PostResponses";
-import { postdata } from "./postdata";
 import { useState, useEffect } from "react";
 import ViewPostHeading from "../../Layout/Views/ViewPostHeading";
 import Cordion_Event from "../../Layout/Views/Cordion_Event";
@@ -11,18 +10,17 @@ import Cordion_Event from "../../Layout/Views/Cordion_Event";
 import axios from "axios";
 import authHeader from "../../../services/auth-header";
 import { useParams } from "react-router-dom";
+import saveAs from "file-saver";
 
 const API_BASE_URL = "http://localhost:3001";
 const API_ENDPOINT = "/api/post/event/";
 
 function Post_Event(props) {
-    const { onClick: postId, handleGenerateCSV } = props;
-    const {id} = useParams();
+    const { id } = useParams();
     const [postData, setPostData] = useState(null);
     useEffect(() => {
         fetchPostData(id);
     }, [id]);
-
     const fetchPostData = (postId) => {
         const endpoint = `${API_BASE_URL}${API_ENDPOINT}${postId}`;
         axios
@@ -34,6 +32,37 @@ function Post_Event(props) {
                 console.error(error);
             });
     };
+    const handleGenerateCSV = (postData) => {
+        const csvData = [];
+        csvData.push([
+            "Message",
+            "Image",
+            "Type",
+            "Date Time", 
+            "Status",
+        ]);
+        const {
+            message,
+            image,
+            type,
+            datetime,
+            status,
+            
+        } = postData;
+        const sanitizedMessage = message ? `"${message.replace(/"/g, '""')}"` : "";
+        csvData.push([
+            sanitizedMessage,
+            image || "",
+            type || "",
+            datetime || "",
+            status || "",  
+        ]);
+
+        const csvString = csvData.map((row) => row.join(",")).join("\n");
+        const blob = new Blob([csvString], { type: "text/csv;charset=utf-8" });
+        saveAs(blob, "post_event_data.csv");
+    }
+
 
     if (!postData) {
         return <div>Loading...</div>;
