@@ -6,19 +6,16 @@ import DropDownList from '../Layout/Views/Dropdown';
 import TextBox from '../Layout/Views/TextBox';
 import Textarea from '../Layout/Views/Textarea';
 import Heading_Schedule from '../Layout/Views/Heading_Schedule';
-import Form from "react-bootstrap/Form"
+import Form from "react-bootstrap/Form";
+import axios from "axios";
+
+import authHeader from '../../services/auth-header';
+
+
+const API_BASE_URL = "http://localhost:3001";
+const API_ENDPOINT = "/api/post/jobcreate";
 
 function CreatePostAdHoc() {
-    const [validated, setValidated] = useState(false);
-    const handleSubmit = (event) => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        setValidated(true);
-    };
-
     const [pickupTime, setPickupTime] = useState('');
     const [pickupDate, setPickupDate] = useState('');
     const [location, setLocation] = useState('');
@@ -29,14 +26,75 @@ function CreatePostAdHoc() {
     const [price, setPrice] = useState('');
     const [payout, setPayout] = useState('');
     const [riders, setRiders] = useState('');
-    const [postTime, setPostTime] = useState('');
-    const [postDate, setPostDate] = useState('');
+    // const [postTime, setPostTime] = useState(''); // createdAt
+    // const [postDate, setPostDate] = useState(''); // createdAt
     const [template, setTemplate] = useState('');
     const [model, setModel] = useState('');
+    const [validated, setValidated] = useState(false);
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            setValidated(true);
+            return;
+        }
+
+        try {
+            const currentDate = new Date();
+            const currentTimeString = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
+            const currentDateString = currentDate.getFullYear()+'-'+(currentDate.getMonth()+1)+'-'+currentDate.getDate();
+            // const currentDateString = currentDate.toISOString().split('T')[0];
+            // const currentTimeString = currentDate.toISOString().split('T')[1].substring(0, 8);
+            const data = {
+                type: 'Job', // Assuming the type is 'job' for job posts
+                message: template,
+                location,
+                region,
+                destination,
+                pickupDateTime: new Date(`${pickupDate} ${pickupTime}`),
+                riders,
+                model,
+                price,
+                payout,
+                dropoffDateTime: new Date(`${dropoffDate} ${dropoffTime}`),
+                status: 'Posted', // Assuming the initial status is 'posted'
+                scheduledFor: new Date(`${currentDateString} ${currentTimeString}`)
+            };
+
+            const response = await axios.post(`${API_BASE_URL}${API_ENDPOINT}`,{data:data}, { headers: authHeader() });
+
+            // Reset the form fields
+            setPickupTime('');
+            setPickupDate('');
+            setLocation('');
+            setDestination('');
+            setRegion('');
+            setDropoffTime('');
+            setDropoffDate('');
+            setPrice('');
+            setPayout('');
+            setRiders('');
+            // setPostTime('');
+            // setPostDate('');
+            setTemplate('');
+            setModel('');
+        } catch (error) {
+            console.error(error); // Handle errors
+        }
+
+        setValidated(false);
+    };
+
+
+
 
     const handleValueChange = (value, label) => {
         console.log(label);
         if (label === "Price") {
+            value = parseInt(value);
             setPrice(value);
         } else if (label === "Location*") {
             setLocation(value);
@@ -45,8 +103,10 @@ function CreatePostAdHoc() {
         } else if (label === "Region") {
             setRegion(value);
         } else if (label === "Payout") {
+            value = parseInt(value);
             setPayout(value);
         } else if (label === "Riders") {
+            value = parseInt(value);
             setRiders(value);
         } else if (label === "Model*") {
             setModel(value);
@@ -58,10 +118,6 @@ function CreatePostAdHoc() {
             setPickupDate(value);
         } else if (label === "Drop-off Date*") {
             setDropoffDate(value);
-        } else if (label === "Date") {
-            setPostDate(value)
-        } else if (label === "Time") {
-            setPostTime(value);
         }
         updateTemplate();
     };
@@ -92,7 +148,7 @@ Job Description:
 
     useEffect(() => {
         updateTemplate();
-    }, [pickupTime, pickupDate, location, destination, region, dropoffTime, dropoffDate, price, payout, riders, model, postDate, postTime]);
+    }, [pickupTime, pickupDate, location, destination, region, dropoffTime, dropoffDate, price, payout, riders, model]);
 
     return (
         <Container>
