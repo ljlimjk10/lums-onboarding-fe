@@ -123,7 +123,6 @@ function PostTable() {
                       const Message = item.message;
                       const Type = item.type;
                       const Created = item.createdAt || item.datetime;
-                      const Status = item.status;
                       return (
                         (search.toLowerCase() === "" ||
                           Message.toLowerCase().includes(search.toLowerCase()) ||

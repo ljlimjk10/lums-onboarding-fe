@@ -2,6 +2,9 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from 'react-bootstrap/Container';
 import Dashboard_element from "../Layout/Views/Dashboard_element";
+import RecentJobTable from "./RecentJobTable";
+import RecentEventTable from "./RecentEventTable";
+
 
 function Dashboard() {
     return (
@@ -16,7 +19,9 @@ function Dashboard() {
                 <Dashboard_element title="Number of jobs (Day)" lg="4" md="3" xs="12" mTop="20px" mBottom="20px" content="5"  fSize="60px" />
                 <Dashboard_element title="Number of new Drivers" lg="4" md="4" xs="12" mTop="20px" mBottom="20px" content="11" fSize="60px" />
                 <Dashboard_element title="Most Recent Event" lg="6" md="6" xs="12" mBottom="10px" content="asdasas" />
-                <Dashboard_element title="Drivers pending Approval" lg="6" md="5" xs="12" content="20" fSize="60px"/>
+                <Dashboard_element title="Drivers pending Approval" lg="6" md="5" xs="12" content="20" fSize="60px" />
+                <RecentEventTable />
+                <RecentJobTable />
             </Row>
         </Container>
     );
