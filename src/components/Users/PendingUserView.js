@@ -4,20 +4,21 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { Container } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
+import AESCipher from "../../services/encryption.js";
+
+
 
 import TextBox from "../Layout/Views/TextBox";
 import PendingUserHeading from "../Layout/Views/PendingUserHeading";
 import Cordion from "../Layout/Views/Cordion";
 import authHeader from "../../services/auth-header";
 
-const API_BASE_URL= "http://localhost:3001";
-const API_ENDPOINT= "/api/user/profile/";
-
+const API_BASE_URL = "http://localhost:3001";
+const API_ENDPOINT = "/api/user/profile/";
 
 function PendingUserView(props) {
-
-    const {id} = useParams();
+    const { id } = useParams();
     const [userData, setUserData] = useState(null);
 
     useEffect(() => {
@@ -26,22 +27,53 @@ function PendingUserView(props) {
 
     const fetchUserData = (userId) => {
         const endpoint = `${API_BASE_URL}${API_ENDPOINT}${userId}`;
-        axios.get(endpoint,{headers:authHeader()})
-        .then((response)=>{
-            const pendingUserData = response.data.data;
-            setUserData(pendingUserData);
-        })
-        .catch((error)=>{
-            console.log(error);
-        })
+        axios.get(endpoint, { headers: authHeader() })
+            .then((response) => {
+                const pendingUserData = response.data.data;
+                console.log("Pending User Data:", pendingUserData);
+
+                if (pendingUserData.nric_front || pendingUserData.nric_back) {
+                    
+
+                    try {
+                        // const decryptedNricFront = aesCipher.decrypt(pendingUserData.nric_front);
+                        // console.log("Decrypted NRIC Front:", decryptedNricFront);
+
+                        // const decryptedNricBack = aesCipher.decrypt(pendingUserData.nric_back);
+                        // console.log("Decrypted NRIC Back:", decryptedNricBack);
+
+                        setUserData({
+                            ...pendingUserData,
+                            decryptedNricFront,
+                            decryptedNricBack
+                        });
+                    } catch (error) {
+                        console.log("Decryption error:", error);
+                        setUserData(pendingUserData);
+                    }
+                } else {
+                    setUserData(pendingUserData);
+                }
+            })
+            .catch((error) => {
+                console.log("API Error:", error);
+            });
     };
 
-    const { name, nricId, address, car_model, car_capacity, region, contact, telehandle, affiliation, car_plate, nric_front, nric_back, certificate } = userData || {};
+    const { name, nricId, address, car_model, car_capacity, region, contact, telehandle, affiliation, car_plate, decryptedNricFront, decryptedNricBack, certificate } = userData || {};
+
+    const displayImage = (data) => {
+
+        if (!data) return null;
+        const blob = new Blob([data], { type: "image/jpeg" });
+        const imageUrl = URL.createObjectURL(blob);
+        return <img src={imageUrl} alt="Decrypted NRIC" />;
+    };
 
     return (
         <Container>
             <Row>
-                <PendingUserHeading id={id}  page="Pending User" b_name="Reject" b_name_two="Approve" />
+                <PendingUserHeading id={id} page="Pending User" b_name="Reject" b_name_two="Approve" />
                 <Col lg={6} md={6} xs={12}>
                     <TextBox Label="Name" disabled="true" value={name} />
                     <TextBox Label="NRIC" disabled="true" value={nricId} />
@@ -57,9 +89,20 @@ function PendingUserView(props) {
                     <TextBox Label="Car plate" disabled="true" value={car_plate} />
                 </Col>
                 <Col lg={12} md={12} xs={12}>
-                    <Cordion source="https://picsum.photos/500/300" front_license={nric_front} back_license={nric_back} certifications={certificate} header_one="Driver's License" header_two="NRIC" disabled="true" />
+                    {decryptedNricFront && <div>{displayImage(decryptedNricFront)}</div>}
+                    {decryptedNricBack && <div>{displayImage(decryptedNricBack)}</div>}
+                    <Cordion
+                        source="https://picsum.photos/500/300"
+                        front_license={decryptedNricFront}
+                        back_license={decryptedNricBack}
+                        certifications={certificate}
+                        header_one="Driver's License"
+                        header_two="NRIC"
+                        disabled="true"
+                    />
                     <hr />
                 </Col>
+
             </Row>
         </Container>
     );
