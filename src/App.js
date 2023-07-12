@@ -19,6 +19,7 @@ import UserView from "./components/Users/UserView";
 import Post_Event from "./components/Posts/Post/Post_Event";
 import Post_Job from "./components/Posts/Post/Post_Job";
 import RecentEventTable from "./components/Dashboard/RecentEventTable";
+import RecentJobTable from "./components/Dashboard/RecentJobTable";
 
 
 function App() {
@@ -35,11 +36,10 @@ function App() {
 }
 
 function MainContent() {
-	// const { isLoggedIn } = useContext(LoginContext);
+	const { isLoggedIn } = useContext(LoginContext);
 	return (
 		<>
-			<RecentEventTable />
-			{/* {isLoggedIn && <Navbar />}
+			{isLoggedIn && <Navbar />}
 			<Routes>
 				<Route path="/" element={isLoggedIn ? <Dashboard /> : <LoginPage />} />
 				<Route path="/users" element={isLoggedIn ? <ExistingUsersTable /> : <LoginPage />} />
@@ -51,7 +51,7 @@ function MainContent() {
 				<Route path="/new-post" element={isLoggedIn ? <CreatePost /> : <LoginPage />} />
 				<Route path="/new-post/adhoc" element={isLoggedIn ? <CreatePostAdHoc /> : <LoginPage />} />
 				<Route path="/new-post/event" element={isLoggedIn ? <CreatePostEvent /> : <LoginPage />} /> 
-			</Routes> */}
+			</Routes>
 		</>
 	);
 }

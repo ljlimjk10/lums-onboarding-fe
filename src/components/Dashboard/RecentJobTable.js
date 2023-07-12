@@ -9,9 +9,9 @@ import authHeader from "../../services/auth-header";
 import Button from "react-bootstrap/Button";
 
 const API_BASE_URL = "http://localhost:3001";
-const API_ENDPOINTS = ["/api/post/allevents"];
+const API_ENDPOINTS = ["/api/post/alljobs"];
 
-function PostTable() {
+function RecentJobTable() {
   const navigate = useNavigate();
   const [selectedPost, setSelectedPost] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -85,9 +85,8 @@ function PostTable() {
             </Table>
           )}
         </Container>
-
     </Col>
   );
 }
 
-export default PostTable;
+export default RecentJobTable;
