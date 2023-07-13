@@ -16,7 +16,7 @@ function Cordion(props) {
                 header={`${props.header_one} Front`}
                 disabled={props.disabled}
                 handleImageUpload={props.handleImageUpload}
-                fieldName="encodedLicenseFront"
+                fieldName="license_front"
               />
             </Col>
             <Col className="d-flex justify-content-center" lg={6} md={6} xs={12}>
@@ -25,7 +25,7 @@ function Cordion(props) {
                 header={`${props.header_one} Back`}
                 disabled={props.disabled}
                 handleImageUpload={props.handleImageUpload}
-                fieldName="encodedLicenseBack"
+                fieldName="license_back"
               />
             </Col>
           </Row>
@@ -42,7 +42,7 @@ function Cordion(props) {
                 header={`${props.header_two} Front`}
                 disabled={props.disabled}
                 handleImageUpload={props.handleImageUpload}
-                fieldName="encodedNricFront"
+                fieldName="nric_front"
               />
             </Col>
             <Col className="d-flex justify-content-center" lg={6} md={6} xs={12}>
@@ -51,7 +51,7 @@ function Cordion(props) {
                 header={`${props.header_two} Back`}
                 disabled={props.disabled}
                 handleImageUpload={props.handleImageUpload}
-                fieldName="encodedNricBack"
+                fieldName="nric_back"
               />
             </Col>
           </Row>

@@ -9,14 +9,22 @@ import Row from 'react-bootstrap/Row';
 function BModal(props) {
   const [show, setShow] = useState(false);
   const [selectedImg, setSelectedImg] = useState(null);
+  const [file, setFile] = useState(null); // New state to store the file
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const handleImgSelect = (event) => {
-    const file = event.target.files[0];
-    setSelectedImg(URL.createObjectURL(file));
-    props.handleImageUpload(props.fieldName, file);
+    const selectedFile = event.target.files[0];
+    setSelectedImg(URL.createObjectURL(selectedFile));
+    setFile(selectedFile); // Store the file in state
+  };
+
+  const handleUploadImage = () => {
+    if (file) {
+      props.handleImageUpload(props.fieldName, file);
+      handleClose();
+    }
   };
 
   return (
@@ -48,7 +56,7 @@ function BModal(props) {
               <Form.Control type="file" accept=".jpg, .jpeg, .png" onChange={handleImgSelect} />
             </Col>
             <Col lg={4} md={6} xs={6}>
-              <Button variant="primary" onClick={handleClose}>
+              <Button variant="primary" onClick={handleUploadImage}>
                 Save Changes
               </Button>
             </Col>
