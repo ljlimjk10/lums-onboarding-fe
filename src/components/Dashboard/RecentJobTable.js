@@ -61,6 +61,12 @@ function RecentJobTable(props) {
     }
   };
 
+  const recentJobs = Object.values(contacts).flatMap((key) => key).sort((a, b) => {
+    const dateA = new Date(a.createdAt || a.datetime);
+    const dateB = new Date(b.createdAt || b.datetime);
+    return dateB - dateA;
+  }).slice(0, 2);
+
   return (
     <Col>
       <Container>
@@ -78,30 +84,28 @@ function RecentJobTable(props) {
                 </tr>
               </thead>
               <tbody>
-                {Object.keys(contacts).flatMap((key) =>
-                  contacts[key].map((item) => (
-                    <tr key={item.id}>
-                      <td style={{ maxWidth: "300px" }}>
-                        {item.type === "Job" ? (
-                          <>
-                            Location: {item.location} | Region: {item.region} | Model: {item.model} | Destination: {item.destination} | 
-                            Pickup Date and Time: {new Date(item.pickupTime).toLocaleString("en-SG", { timeZone: "Asia/Singapore" })} | 
-                            Price: ${item.price} | Payout: ${item.payout} | 
-                            Dropoff Date and Time: {new Date(item.dropoffTime).toLocaleString("en-SG", { timeZone: "Asia/Singapore" })} | 
-                            Status: {item.status ? "true" : "false"} | 
-                            Posted Date and Time: {new Date(item.createdAt).toLocaleString("en-SG", { timeZone: "Asia/Singapore" })}
-                          </>
-                        ) : (
-                          item.message
-                        )}
-                      </td>
-                      <td>{item.formattedDate}</td>
-                      <td align="center">
-                        <Button onClick={() => handleViewPost(item.id, item.type)}>View Post</Button>
-                      </td>
-                    </tr>
-                  ))
-                )}
+                {recentJobs.map((item) => (
+                  <tr key={item.id}>
+                    <td style={{ maxWidth: "300px" }}>
+                      {item.type === "Job" ? (
+                        <>
+                          Location: {item.location} | Region: {item.region} | Model: {item.model} | Destination: {item.destination} |
+                          Pickup Date and Time: {new Date(item.pickupTime).toLocaleString("en-SG", { timeZone: "Asia/Singapore" })} |
+                          Price: ${item.price} | Payout: ${item.payout} |
+                          Dropoff Date and Time: {new Date(item.dropoffTime).toLocaleString("en-SG", { timeZone: "Asia/Singapore" })} |
+                          Status: {item.status ? "true" : "false"} |
+                          Posted Date and Time: {new Date(item.createdAt).toLocaleString("en-SG", { timeZone: "Asia/Singapore" })}
+                        </>
+                      ) : (
+                        item.message
+                      )}
+                    </td>
+                    <td>{item.formattedDate}</td>
+                    <td align="center">
+                      <Button onClick={() => handleViewPost(item.id, item.type)}>View Post</Button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
           </>

@@ -78,15 +78,17 @@ function RecentEventTable(props) {
               </thead>
               <tbody>
                 {Object.keys(contacts).flatMap((key) =>
-                  contacts[key].map((item) => (
-                    <tr key={item.id}>
-                      <td style={{ maxWidth: "300px" }}>{item.message}</td>
-                      <td>{item.formattedDate}</td>
-                      <td align="center">
-                        <Button onClick={() => handleViewPost(item.id, item.type)}>View Post</Button>
-                      </td>
-                    </tr>
-                  ))
+                  contacts[key]
+                    .slice(-3)
+                    .map((item) => (
+                      <tr key={item.id}>
+                        <td style={{ maxWidth: "300px" }}>{item.message}</td>
+                        <td>{item.formattedDate}</td>
+                        <td align="center">
+                          <Button onClick={() => handleViewPost(item.id, item.type)}>View Post</Button>
+                        </td>
+                      </tr>
+                    ))
                 )}
               </tbody>
             </Table>
