@@ -32,23 +32,35 @@ function PendingUserView(props) {
             const pendingUserData = response.data.data;
             console.log("Pending User Data:", pendingUserData);
 
-            if (pendingUserData.nric_front || pendingUserData.nric_back) {
+            if (
+                pendingUserData.nric_front ||
+                pendingUserData.nric_back ||
+                pendingUserData.license_front ||
+                pendingUserData.license_back
+            ) {
                 try {
                     const telegramEndpoint = `${API_BASE_URL}/api/user/search/${pendingUserData.telehandle}`;
-                    const telegramResponse = await axios.get(telegramEndpoint, { headers: authHeader() });
+                    const telegramResponse = await axios.get(telegramEndpoint, {
+                        headers: authHeader(),
+                    });
                     const data_access = telegramResponse.data.access_token;
                     const encodedNRICUrlEndpoint = `${API_BASE_URL}/api/user/display/nric`;
-                    const encodedNRICUrlResponse = await axios.get(encodedNRICUrlEndpoint, { headers: { Authorization: `Bearer ${data_access}` } });
+                    const encodedNRICUrlResponse = await axios.get(encodedNRICUrlEndpoint, {
+                        headers: { Authorization: `Bearer ${data_access}` },
+                    });
                     const encodedNRICUrlArrays = encodedNRICUrlResponse.data;
                     const encodedLicenseUrlEndpoint = `${API_BASE_URL}/api/user/display/license`;
-                    const encodedLicenseUrlResponse = await axios.get(encodedLicenseUrlEndpoint, { headers: { Authorization: `Bearer ${data_access}` } });
-                    const encodedLicenseUrlArrays = encodedNRICUrlResponse.data;
+                    const encodedLicenseUrlResponse = await axios.get(
+                        encodedLicenseUrlEndpoint,
+                        { headers: { Authorization: `Bearer ${data_access}` } }
+                    );
+                    const encodedLicenseUrlArrays = encodedLicenseUrlResponse.data;
                     setUserData({
                         ...pendingUserData,
-                        encodedNricFront: encodedNRICUrlArrays[0],
-                        encodedNricBack: encodedNRICUrlArrays[1],
-                        encodedLicenseFront: encodedLicenseUrlArrays[0],
-                        encodedLicenseBack: encodedLicenseUrlArrays[1]
+                        encodedNricFront: encodedNRICUrlArrays[0] || "",
+                        encodedNricBack: encodedNRICUrlArrays[1] || "",
+                        encodedLicenseFront: encodedLicenseUrlArrays[0] || "",
+                        encodedLicenseBack: encodedLicenseUrlArrays[1] || "",
                     });
                 } catch (error) {
                     console.log("Decryption error:", error);
@@ -64,20 +76,12 @@ function PendingUserView(props) {
         }
     };
 
-
     const { name, nricId, address, car_model, car_capacity, region, contact, telehandle, affiliation, car_plate, encodedLicenseFront, encodedLicenseBack, encodedNricFront, encodedNricBack, certificate } = userData || {};
-
-    const displayImage = (data) => {
-        if (!data) return null;
-        const blob = new Blob([data], { type: "image/jpeg" });
-        const imageUrl = URL.createObjectURL(blob);
-        return <img src={imageUrl} alt="Decrypted NRIC" />;
-    };
 
     return (
         <Container>
             {isLoading ? (
-                <div>Loading...</div> // Render loading indicator while loading
+                <div className="text-center">Loading...</div> // Render loading indicator while loading
             ) : (
                 <Row>
                     <PendingUserHeading id={id} page="Pending User" b_name="Reject" b_name_two="Approve" />

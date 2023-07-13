@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Image from 'react-bootstrap/Image';
-import Col from "react-bootstrap/Col";
+import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
@@ -16,25 +16,22 @@ function BModal(props) {
   const handleImgSelect = (event) => {
     const file = event.target.files[0];
     setSelectedImg(URL.createObjectURL(file));
-  };
-
-  const handleUploadImage = () => {
-    if (selectedImg) {
-      // Perform any necessary actions with the selected image here
-      console.log('Selected img:', selectedImg);
-    }
+    props.handleImageUpload(props.fieldName, file);
   };
 
   return (
     <>
       <Form.Group>
         <Col>
-          <Form.Label column>
-            {props.Label}
-          </Form.Label>
+          <Form.Label column>{props.Label}</Form.Label>
         </Col>
         <Button variant="link" onClick={handleShow} disabled={props.disabled}>
-          <Image src={`data:image/jpeg;base64,${props.source}`} rounded fluid alt="No Image Attached! Click here to upload!" />
+          <Image
+            src={`data:image/jpeg;base64,${props.source}`}
+            rounded
+            fluid
+            alt="No Image Attached! Click here to upload!"
+          />
         </Button>
       </Form.Group>
 
