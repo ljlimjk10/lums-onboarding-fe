@@ -12,7 +12,7 @@ import Row from "react-bootstrap/Row";
 const API_BASE_URL = "http://localhost:3001";
 const API_ENDPOINTS = ["/api/post/allevents"];
 
-function PostTable(props) {
+function RecentEventTable(props) {
   const navigate = useNavigate();
   const [selectedPost, setSelectedPost] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -92,4 +92,4 @@ function PostTable(props) {
   );
 }
 
-export default PostTable;
+export default RecentEventTable;
