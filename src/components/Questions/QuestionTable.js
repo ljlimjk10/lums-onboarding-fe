@@ -159,7 +159,7 @@ function QuestionTable() {
                       />
                     </td>
                     <td align="center">
-                      <BModalThree refreshData={refreshData} bname="View Question" header="Edit Question" qn={item.question_en} ans={item.answer_en} id={item.id} dis="true" />
+                      <BModalThree refreshData={refreshData} bname="Edit Question" header="Edit Question" qn={item.question_en} ans={item.answer_en} id={item.id} dis="true" />
                     </td>
                   </tr>
                 ))}

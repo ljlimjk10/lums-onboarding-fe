@@ -7,11 +7,12 @@ import Col from "react-bootstrap/Col";
 import axios from "axios";
 import authHeader from "../../services/auth-header";
 import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
 
 const API_BASE_URL = "http://localhost:3001";
 const API_ENDPOINTS = ["/api/post/alljobs"];
 
-function RecentJobTable() {
+function RecentJobTable(props) {
   const navigate = useNavigate();
   const [selectedPost, setSelectedPost] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -31,8 +32,13 @@ function RecentJobTable() {
       const responses = await Promise.all(requests);
       const data = responses.map((response) => response.data);
       const consolidatedData = data.reduce((accumulator, currentValue) => {
-        const key = Object.keys(currentValue)[0]; // Get the key of the current data object
-        accumulator[key] = currentValue[key]; // Assign the array to the corresponding key in the accumulator object
+        const key = Object.keys(currentValue)[0];
+        accumulator[key] = currentValue[key].map((item) => {
+          const formattedDate = new Date(item.createdAt || item.datetime).toLocaleString("en-SG", {
+            timeZone: "Asia/Singapore",
+          });
+          return { ...item, formattedDate };
+        });
         return accumulator;
       }, {});
       console.log(consolidatedData);
@@ -55,12 +61,20 @@ function RecentJobTable() {
     }
   };
 
+  const recentJobs = Object.values(contacts).flatMap((key) => key).sort((a, b) => {
+    const dateA = new Date(a.createdAt || a.datetime);
+    const dateB = new Date(b.createdAt || b.datetime);
+    return dateB - dateA;
+  }).slice(0, 2);
+
   return (
     <Col>
-        <Container>
-          {isLoading && !isInitialized ? (
-            <div className="text-center">Loading...</div>
-          ) : (
+      <Container>
+        {isLoading && !isInitialized ? (
+          <div className="text-center">Loading...</div>
+        ) : (
+          <>
+            <Row style={{ marginLeft: "1px" }}>{props.title}</Row>
             <Table striped bordered hover>
               <thead>
                 <tr>
@@ -70,21 +84,33 @@ function RecentJobTable() {
                 </tr>
               </thead>
               <tbody>
-                {Object.keys(contacts).flatMap((key) =>
-                  contacts[key].map((item) => (
-                    <tr key={item.id}>
-                      <td style={{ maxWidth: "300px" }}>{item.message}</td>
-                      <td>{item.createdAt || item.datetime}</td>
-                      <td align="center">
-                        <Button onClick={() => handleViewPost(item.id, item.type)}>View Post</Button>
-                      </td>
-                    </tr>
-                  ))
-                )}
+                {recentJobs.map((item) => (
+                  <tr key={item.id}>
+                    <td style={{ maxWidth: "300px" }}>
+                      {item.type === "Job" ? (
+                        <>
+                          Location: {item.location} | Region: {item.region} | Model: {item.model} | Destination: {item.destination} |
+                          Pickup Date and Time: {new Date(item.pickupTime).toLocaleString("en-SG", { timeZone: "Asia/Singapore" })} |
+                          Price: ${item.price} | Payout: ${item.payout} |
+                          Dropoff Date and Time: {new Date(item.dropoffTime).toLocaleString("en-SG", { timeZone: "Asia/Singapore" })} |
+                          Status: {item.status ? "true" : "false"} |
+                          Posted Date and Time: {new Date(item.createdAt).toLocaleString("en-SG", { timeZone: "Asia/Singapore" })}
+                        </>
+                      ) : (
+                        item.message
+                      )}
+                    </td>
+                    <td>{item.formattedDate}</td>
+                    <td align="center">
+                      <Button onClick={() => handleViewPost(item.id, item.type)}>View Post</Button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
-          )}
-        </Container>
+          </>
+        )}
+      </Container>
     </Col>
   );
 }
