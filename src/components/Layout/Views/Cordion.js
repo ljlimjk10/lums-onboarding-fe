@@ -28,10 +28,10 @@ function Cordion(props){
 
             <Row>
               <Col className='d-flex justify-content-center' lg={6} md={6} xs={12}>
-                <BModal source={props.source} header={`${props.header_two} Front`} disabled={props.disabled} />
+                <BModal source={props.front_nric} header={`${props.header_two} Front`} disabled={props.disabled} />
               </Col>
               <Col className='d-flex justify-content-center' lg={6} md={6} xs={12}> 
-                <BModal source={props.source} header={`${props.header_two} Back`} disabled={props.disabled} />
+                <BModal source={props.back_nric} header={`${props.header_two} Back`} disabled={props.disabled} />
               </Col>
             </Row>
 

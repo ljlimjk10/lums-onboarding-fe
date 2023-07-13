@@ -34,7 +34,7 @@ function BModal(props) {
           </Form.Label>
         </Col>
         <Button variant="link" onClick={handleShow} disabled={props.disabled}>
-          <Image src={props.source} rounded fluid alt="No Image Attached! Click here to upload!" />
+          <Image src={`data:image/jpeg;base64,${props.source}`} rounded fluid alt="No Image Attached! Click here to upload!" />
         </Button>
       </Form.Group>
 

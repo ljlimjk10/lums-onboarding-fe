@@ -5,9 +5,6 @@ import Row from "react-bootstrap/Row";
 import { Container } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useParams } from "react-router-dom";
-import AESCipher from "../../services/encryption.js";
-
-
 
 import TextBox from "../Layout/Views/TextBox";
 import PendingUserHeading from "../Layout/Views/PendingUserHeading";
@@ -20,51 +17,57 @@ const API_ENDPOINT = "/api/user/profile/";
 function PendingUserView(props) {
     const { id } = useParams();
     const [userData, setUserData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true); // New state variable for loading indicator
 
     useEffect(() => {
         fetchUserData(id);
     }, [id]);
 
-    const fetchUserData = (userId) => {
-        const endpoint = `${API_BASE_URL}${API_ENDPOINT}${userId}`;
-        axios.get(endpoint, { headers: authHeader() })
-            .then((response) => {
-                
-                const pendingUserData = response.data.data;
-                console.log("Pending User Data:", pendingUserData);
+    const fetchUserData = async (userId) => {
+        try {
+            setIsLoading(true); // Set loading state to true before making the API request
 
-                if (pendingUserData.nric_front || pendingUserData.nric_back) {
-                    
+            const endpoint = `${API_BASE_URL}${API_ENDPOINT}${userId}`;
+            const response = await axios.get(endpoint, { headers: authHeader() });
+            const pendingUserData = response.data.data;
+            console.log("Pending User Data:", pendingUserData);
 
-                    try {
-                        // const decryptedNricFront = aesCipher.decrypt(pendingUserData.nric_front);
-                        // console.log("Decrypted NRIC Front:", decryptedNricFront);
-
-                        // const decryptedNricBack = aesCipher.decrypt(pendingUserData.nric_back);
-                        // console.log("Decrypted NRIC Back:", decryptedNricBack);
-
-                        setUserData({
-                            ...pendingUserData,
-                            decryptedNricFront,
-                            decryptedNricBack
-                        });
-                    } catch (error) {
-                        console.log("Decryption error:", error);
-                        setUserData(pendingUserData);
-                    }
-                } else {
+            if (pendingUserData.nric_front || pendingUserData.nric_back) {
+                try {
+                    const telegramEndpoint = `${API_BASE_URL}/api/user/search/${pendingUserData.telehandle}`;
+                    const telegramResponse = await axios.get(telegramEndpoint, { headers: authHeader() });
+                    const data_access = telegramResponse.data.access_token;
+                    const encodedNRICUrlEndpoint = `${API_BASE_URL}/api/user/display/nric`;
+                    const encodedNRICUrlResponse = await axios.get(encodedNRICUrlEndpoint, { headers: { Authorization: `Bearer ${data_access}` } });
+                    const encodedNRICUrlArrays = encodedNRICUrlResponse.data;
+                    const encodedLicenseUrlEndpoint = `${API_BASE_URL}/api/user/display/license`;
+                    const encodedLicenseUrlResponse = await axios.get(encodedLicenseUrlEndpoint, { headers: { Authorization: `Bearer ${data_access}` } });
+                    const encodedLicenseUrlArrays = encodedNRICUrlResponse.data;
+                    setUserData({
+                        ...pendingUserData,
+                        encodedNricFront: encodedNRICUrlArrays[0],
+                        encodedNricBack: encodedNRICUrlArrays[1],
+                        encodedLicenseFront: encodedLicenseUrlArrays[0],
+                        encodedLicenseBack: encodedLicenseUrlArrays[1]
+                    });
+                } catch (error) {
+                    console.log("Decryption error:", error);
                     setUserData(pendingUserData);
                 }
-            })
-            .catch((error) => {
-                console.log("API Error:", error);
-            });
+            } else {
+                setUserData(pendingUserData);
+            }
+        } catch (error) {
+            console.log("API Error:", error);
+        } finally {
+            setIsLoading(false); // Set loading state to false after the API request is completed
+        }
     };
 
-    const { name, nricId, address, car_model, car_capacity, region, contact, telehandle, affiliation, car_plate, decryptedNricFront, decryptedNricBack, certificate } = userData || {};
+
+    const { name, nricId, address, car_model, car_capacity, region, contact, telehandle, affiliation, car_plate, encodedLicenseFront, encodedLicenseBack, encodedNricFront, encodedNricBack, certificate } = userData || {};
 
     const displayImage = (data) => {
-
         if (!data) return null;
         const blob = new Blob([data], { type: "image/jpeg" });
         const imageUrl = URL.createObjectURL(blob);
@@ -73,38 +76,40 @@ function PendingUserView(props) {
 
     return (
         <Container>
-            <Row>
-                <PendingUserHeading id={id} page="Pending User" b_name="Reject" b_name_two="Approve" />
-                <Col lg={6} md={6} xs={12}>
-                    <TextBox Label="Name" disabled="true" value={name} />
-                    <TextBox Label="NRIC" disabled="true" value={nricId} />
-                    <TextBox Label="Address" disabled="true" value={address} />
-                    <TextBox Label="Make/Model" disabled="true" value={car_model} />
-                    <TextBox Label="Capacity" disabled="true" value={car_capacity} />
-                </Col>
-                <Col lg={6} md={6} xs={12}>
-                    <TextBox Label="Location" disabled="true" value={region} />
-                    <TextBox Label="Contact" disabled="true" value={contact} />
-                    <TextBox Label="Telegram" disabled="true" value={telehandle} />
-                    <TextBox Label="Entity" disabled="true" value={affiliation} />
-                    <TextBox Label="Car plate" disabled="true" value={car_plate} />
-                </Col>
-                <Col lg={12} md={12} xs={12}>
-                    {decryptedNricFront && <div>{displayImage(decryptedNricFront)}</div>}
-                    {decryptedNricBack && <div>{displayImage(decryptedNricBack)}</div>}
-                    <Cordion
-                        source="https://picsum.photos/500/300"
-                        front_license={decryptedNricFront}
-                        back_license={decryptedNricBack}
-                        certifications={certificate}
-                        header_one="Driver's License"
-                        header_two="NRIC"
-                        disabled="true"
-                    />
-                    <hr />
-                </Col>
-
-            </Row>
+            {isLoading ? (
+                <div>Loading...</div> // Render loading indicator while loading
+            ) : (
+                <Row>
+                    <PendingUserHeading id={id} page="Pending User" b_name="Reject" b_name_two="Approve" />
+                    <Col lg={6} md={6} xs={12}>
+                        <TextBox Label="Name" disabled="true" value={name} />
+                        <TextBox Label="NRIC" disabled="true" value={nricId} />
+                        <TextBox Label="Address" disabled="true" value={address} />
+                        <TextBox Label="Make/Model" disabled="true" value={car_model} />
+                        <TextBox Label="Capacity" disabled="true" value={car_capacity} />
+                    </Col>
+                    <Col lg={6} md={6} xs={12}>
+                        <TextBox Label="Location" disabled="true" value={region} />
+                        <TextBox Label="Contact" disabled="true" value={contact} />
+                        <TextBox Label="Telegram" disabled="true" value={telehandle} />
+                        <TextBox Label="Entity" disabled="true" value={affiliation} />
+                        <TextBox Label="Car plate" disabled="true" value={car_plate} />
+                    </Col>
+                    <Col lg={12} md={12} xs={12}>
+                        <Cordion
+                            front_license={encodedLicenseFront}
+                            back_license={encodedLicenseBack}
+                            front_nric={encodedNricFront}
+                            back_nric={encodedNricBack}
+                            certifications={certificate}
+                            header_one="Driver's License"
+                            header_two="NRIC"
+                            disabled="true"
+                        />
+                        <hr />
+                    </Col>
+                </Row>
+            )}
         </Container>
     );
 }
