@@ -10,6 +10,7 @@ import Form from "react-bootstrap/Form";
 import axios from "axios";
 
 import authHeader from '../../services/auth-header';
+import { useNavigate } from 'react-router-dom';
 
 
 const API_BASE_URL = "http://localhost:3001";
@@ -31,6 +32,7 @@ function CreatePostAdHoc() {
     const [template, setTemplate] = useState('');
     const [model, setModel] = useState('');
     const [validated, setValidated] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -81,6 +83,7 @@ function CreatePostAdHoc() {
             // setPostDate('');
             setTemplate('');
             setModel('');
+            navigate('/posts');
         } catch (error) {
             console.error(error); // Handle errors
         }

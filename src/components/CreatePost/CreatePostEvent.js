@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { Container } from 'react-bootstrap';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 import DropDownList from '../Layout/Views/Dropdown';
 import Textarea from '../Layout/Views/Textarea';
@@ -20,6 +21,7 @@ function CreatePostEvent() {
   // const [postTime, setPostTime] = useState('');
   // const [postDate, setPostDate] = useState('');
   const [sendMessage,setSendMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -39,8 +41,9 @@ function CreatePostEvent() {
         datetime: new Date(`${currentDateString} ${currentTimeString}`),
         status:'Posted',
       }
-      const response = await axios.post(`${API_BASE_URL}${API_ENDPOINT}`,{data:data}, { headers: authHeader() });
+      const response = await axios.post(`${API_BASE_URL}${API_ENDPOINT}`,data, { headers: authHeader() });
       setSendMessage('');
+      navigate('/posts');
 
     }catch (error){
       console.error(error);

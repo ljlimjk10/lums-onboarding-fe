@@ -32,6 +32,15 @@ function Post_Job(props) {
                 console.error(error);
             });
     };
+
+    const convertToSingaporeTime = (dateTimeString) => {
+        const dateTime = new Date(dateTimeString);
+        if (isNaN(dateTime)) {
+            return "";
+        }
+        return dateTime.toLocaleString("en-SG", { timeZone: "Asia/Singapore" });
+    };
+
     const handleGenerateCSV = (postData) => {
         const csvData = [];
         csvData.push([
@@ -40,12 +49,15 @@ function Post_Job(props) {
             "Type",
             "Location",
             "Destination",
+            "Pickup Date",
             "Pickup Time",
+            "Drop-off Date",
             "Drop-off Time",
             "Price",
             "Payout",
             "Status",
-            "Created At",
+            "Created Date",
+            "Created Time"
             // "Scheduled For"
         ]);
         const {
@@ -69,12 +81,12 @@ function Post_Job(props) {
             type || "",
             location || "",
             destination || "",
-            pickupTime || "",
-            dropoffTime || "",
+            convertToSingaporeTime(pickupTime) || "",
+            convertToSingaporeTime(dropoffTime) || "",
             price || "",
             payout || "",
             status || "",
-            createdAt || ""
+            convertToSingaporeTime(createdAt) || ""
             // scheduledfor || ""
         ]);
 
@@ -122,13 +134,13 @@ function Post_Job(props) {
                         Label="Pickup Date/Time"
                         disabled={true}
                         pholder="PickupDateTime"
-                        value={pickupTime}
+                        value={convertToSingaporeTime(pickupTime)}
                     />
                     <TextBox
                         Label="Dropoff Time"
                         disabled={true}
                         pholder="dropofftime Date"
-                        value={dropoffTime}
+                        value={convertToSingaporeTime(dropoffTime)}
                     />
                     <TextBox
                         Label="Location"
@@ -154,19 +166,19 @@ function Post_Job(props) {
                         Label="Posted D/T"
                         disabled={true}
                         pholder=""
-                        value={createdAt}
+                        value={convertToSingaporeTime(createdAt)}
                     />
                     <TextBox
                         Label="Price"
                         disabled={true}
                         pholder="$20"
-                        value={price}
+                        value={"$"+price}
                     />
                     <TextBox
                         Label="Payout"
                         disabled={true}
                         pholder="$15"
-                        value={payout}
+                        value={"$"+payout}
                     />
                     <TextBox
                         Label="Riders"

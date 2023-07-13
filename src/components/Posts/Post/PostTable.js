@@ -120,6 +120,7 @@ function PostTable() {
                 {Object.keys(contacts)
                   .flatMap(key =>
                     contacts[key].filter((item) => {
+
                       const Message = item.message;
                       const Type = item.type;
                       const Created = item.createdAt || item.datetime;
@@ -132,16 +133,71 @@ function PostTable() {
                       );
                     })
                   )
-                  .map((item) => (
-                    <tr key={item.id}>
-                      <td style={{ maxWidth: "300px" }}>{item.message}</td>
-                      <td>{item.type}</td>
-                      <td>{item.createdAt || item.datetime}</td>
-                      <td align="center">
-                        <Button onClick={() => handleViewPost(item.id, item.type)}>View Post</Button>
-                      </td>
-                    </tr>
-                  ))}
+                  .map((item) => {
+                    console.log(item);
+                    let toDisplay = "";
+                    let displayCreated = "";
+                    let displayDateTime = "";
+                    if (item.type === "Job") {
+                      const {
+                        id,
+                        location,
+                        region,
+                        model,
+                        destination,
+                        pickupTime,
+                        price,
+                        payout,
+                        dropoffTime,
+                        status,
+                        createdAt,
+                      } = item;
+                      // Convert pickupTime to Singapore time and date
+                      const pickupDateTime = new Date(pickupTime).toLocaleString("en-SG", {
+                        timeZone: "Asia/Singapore",
+                      });
+
+                      // Convert dropoffTime to Singapore time
+                      const dropoffDateTime = new Date(dropoffTime).toLocaleString("en-SG", {
+                        timeZone: "Asia/Singapore",
+                      });
+
+                      // Convert createdAt to Singapore time
+                      const createdDateTime = new Date(createdAt).toLocaleString("en-SG", {
+                        timeZone: "Asia/Singapore",
+                      });
+
+                      toDisplay = `Location: ${location} | Region: ${region} | Model: ${model} | Destination: ${destination} | Pickup Date and Time: ${pickupDateTime} | Price: $${price} | Payout: $${payout} | Dropoff Date and Time: ${dropoffDateTime} | Status: ${status ? "true" : "false"} | Posted Date and Time: ${createdDateTime}`;
+
+                    } else {
+                      toDisplay = item.message;
+                    }
+                    if (item.createdAt) {
+                      const createdAtDate = new Date(item.createdAt);
+                      if (createdAtDate instanceof Date && !isNaN(createdAtDate)) {
+                        displayCreated = createdAtDate.toLocaleString("en-SG", {
+                          timeZone: "Asia/Singapore",
+                        });
+                      }
+                    } else if (item.datetime) {
+                      const datetimeDate = new Date(item.datetime);
+                      if (datetimeDate instanceof Date && !isNaN(datetimeDate)) {
+                        displayDateTime = datetimeDate.toLocaleString("en-SG", {
+                          timeZone: "Asia/Singapore",
+                        });
+                      }
+                    }
+
+                    return (
+                      <tr key={item.id}>
+                        <td style={{ maxWidth: "300px" }}>{toDisplay}</td>
+                        <td>{item.type}</td>
+                        <td>{displayCreated || displayDateTime}</td>
+                        <td align="center">
+                          <Button onClick={() => handleViewPost(item.id, item.type)}>View Post</Button>
+                        </td>
+                      </tr>)
+                  })}
               </tbody>
             </Table>
           )}

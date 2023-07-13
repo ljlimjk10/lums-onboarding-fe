@@ -32,13 +32,21 @@ function Post_Event(props) {
                 console.error(error);
             });
     };
+    const convertToSingaporeTime = (dateTimeString) => {
+        const dateTime = new Date(dateTimeString);
+        if (isNaN(dateTime)) {
+            return "";
+        }
+        return dateTime.toLocaleString("en-SG", { timeZone: "Asia/Singapore" });
+    };
     const handleGenerateCSV = (postData) => {
         const csvData = [];
         csvData.push([
             "Message",
             "Image",
             "Type",
-            "Date Time", 
+            "Date Posted",
+            "Time Posted",
             "Status",
         ]);
         const {
@@ -47,15 +55,15 @@ function Post_Event(props) {
             type,
             datetime,
             status,
-            
+
         } = postData;
         const sanitizedMessage = message ? `"${message.replace(/"/g, '""')}"` : "";
         csvData.push([
             sanitizedMessage,
             image || "",
             type || "",
-            datetime || "",
-            status || "",  
+            convertToSingaporeTime(datetime) || "",
+            status || "",
         ]);
 
         const csvString = csvData.map((row) => row.join(",")).join("\n");
@@ -77,7 +85,7 @@ function Post_Event(props) {
                     <TextBox Label="Creation D/T" disabled="true" pholder="" current={createdAt} />
                 </Col> */}
                 <Col lg={6} md={6} xs={12}>
-                    <TextBox Label="Posted D/T" disabled="true" pholder="" value={datetime} />
+                    <TextBox Label="Posted D/T" disabled="true" pholder="" value={convertToSingaporeTime(datetime)} />
                 </Col>
                 <hr />
                 <Cordion_Event header_1="Message" header_2="Image" header_3="Response Order" source="https://picsum.photos/200/300" r_order={<PostResponses />} message={message} />
