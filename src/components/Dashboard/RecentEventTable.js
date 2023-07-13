@@ -26,12 +26,19 @@ function RecentEventTable(props) {
   const fetchPostData = async () => {
     setIsLoading(true);
     try {
-      const requests = API_ENDPOINTS.map(endpoint => axios.get(`${API_BASE_URL}${endpoint}`, { headers: authHeader() }))
+      const requests = API_ENDPOINTS.map((endpoint) =>
+        axios.get(`${API_BASE_URL}${endpoint}`, { headers: authHeader() })
+      );
       const responses = await Promise.all(requests);
-      const data = responses.map(response => response.data);
+      const data = responses.map((response) => response.data);
       const consolidatedData = data.reduce((accumulator, currentValue) => {
-        const key = Object.keys(currentValue)[0]; // Get the key of the current data object
-        accumulator[key] = currentValue[key]; // Assign the array to the corresponding key in the accumulator object
+        const key = Object.keys(currentValue)[0];
+        accumulator[key] = currentValue[key].map((item) => {
+          const formattedDate = new Date(item.createdAt || item.datetime).toLocaleString("en-SG", {
+            timeZone: "Asia/Singapore",
+          });
+          return { ...item, formattedDate };
+        });
         return accumulator;
       }, {});
       console.log(consolidatedData);
@@ -55,39 +62,37 @@ function RecentEventTable(props) {
 
   return (
     <Col>
-        <Container>
-          {isLoading && !isInitialized ? (
-            <div className="text-center">Loading...</div>
-          ) : (
-            <>
-            <Row style={{marginLeft:"1px"}}>{props.title}</Row>
-              <Table striped bordered hover>
-                <thead>
-                  <tr>
-                    <th>Message</th>
-                    <th>Created</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {Object.keys(contacts).flatMap((key) =>
-                    contacts[key].map((item) => (
-                      <tr key={item.id}>
-                        <td style={{ maxWidth: "300px" }}>{item.message}</td>
-                        <td>{item.createdAt || item.datetime}</td>
-                        <td align="center">
-                          <Button onClick={() => handleViewPost(item.id, item.type)}>View Post</Button>
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </Table>
-            </>
-
-          )}
-        </Container>
-
+      <Container>
+        {isLoading && !isInitialized ? (
+          <div className="text-center">Loading...</div>
+        ) : (
+          <>
+            <Row style={{ marginLeft: "1px" }}>{props.title}</Row>
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th>Message</th>
+                  <th>Created</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.keys(contacts).flatMap((key) =>
+                  contacts[key].map((item) => (
+                    <tr key={item.id}>
+                      <td style={{ maxWidth: "300px" }}>{item.message}</td>
+                      <td>{item.formattedDate}</td>
+                      <td align="center">
+                        <Button onClick={() => handleViewPost(item.id, item.type)}>View Post</Button>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </Table>
+          </>
+        )}
+      </Container>
     </Col>
   );
 }
