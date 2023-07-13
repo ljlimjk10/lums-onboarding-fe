@@ -4,6 +4,7 @@ import Col from "react-bootstrap/Col";
 import { Button } from "react-bootstrap";
 
 function Dashboard_element(props){
+    
     return (
         <>
             <Col lg={props.lg} md={props.md} xs={props.xs} style={{ height: "300px", marginBottom: props.mBottom, marginTop: props.mTop }}>

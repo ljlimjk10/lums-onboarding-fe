@@ -41,7 +41,6 @@ function RecentEventTable(props) {
         });
         return accumulator;
       }, {});
-      console.log(consolidatedData);
       setContacts(consolidatedData);
     } catch (error) {
       console.error(error);
