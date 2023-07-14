@@ -2,16 +2,14 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import Textarea from './Textarea';
 
 function BModal_Post(props) {
   const [show, setShow] = useState(false);
-  const {value} = props;
+  const { value } = props;
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleSubmit = (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
-    // Additional logic or actions you want to perform on form submission
+    event.preventDefault();
     handleClose();
   };
 
@@ -26,9 +24,7 @@ function BModal_Post(props) {
           <Modal.Header closeButton>
             <Modal.Title>{props.header}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            Are you sure?
-          </Modal.Body>
+          <Modal.Body>Are you sure?</Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close

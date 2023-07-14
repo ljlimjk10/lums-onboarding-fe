@@ -42,7 +42,7 @@ function DropDownList(props) {
             Select Job Type
           </option>
           <option value="1">Ad-Hoc Job</option>
-          <option value="2">Post</option>
+          <option value="2">Announcement</option>
         </Form.Select>
       </Col>
     </Form.Group>

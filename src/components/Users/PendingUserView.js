@@ -108,6 +108,7 @@ function PendingUserView(props) {
                             certifications={certificate}
                             header_one="Driver's License"
                             header_two="NRIC"
+                            header_three="Certificates"
                             disabled="true"
                         />
                         <hr />

@@ -13,6 +13,7 @@ const API_ENDPOINT = '/api/user/profile/';
 
 function UserView(props) {
     const { id } = useParams();
+    console.log(id);
     const [userData, setUserData] = useState(null);
     const [isEditMode, setIsEditMode] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -23,7 +24,7 @@ function UserView(props) {
 
     const fetchUserData = async (userId) => {
         try {
-            setIsLoading(true); // Set loading state to true before making the API request
+            setIsLoading(true);
 
             const endpoint = `${API_BASE_URL}${API_ENDPOINT}${userId}`;
             const response = await axios.get(endpoint, { headers: authHeader() });
@@ -68,7 +69,7 @@ function UserView(props) {
         } catch (error) {
             console.log('API Error:', error);
         } finally {
-            setIsLoading(false); // Set loading state to false after the API request is completed
+            setIsLoading(false);
         }
     };
 
@@ -81,25 +82,34 @@ function UserView(props) {
 
     const handleImageUpload = (fieldName, file) => {
         console.log(file);
-        const reader = new FileReader();
-        reader.onload = () => {
-            const base64String = reader.result.split(',')[1];
-            setUserData((prevData) => ({
-                ...prevData,
-                [fieldName]: base64String,
-            }));
-        };
-        reader.readAsDataURL(file);
+        setUserData((prevData) => ({
+            ...prevData,
+            [fieldName]: file,
+        }));
     };
 
-    const updateUser = async (id) => {
+    const updateUser = async () => {
         try {
-            const endpoint = `${API_BASE_URL}/api/user/update/${id}`;
-            const response = await axios.post(endpoint, userData, {
-                headers: authHeader(),
+            const endpoint = `${API_BASE_URL}/api/user/admin/update/${id}`;
+            const formData = new FormData();
+            console.log(userData);
+            for (const key in userData) {
+                if (userData.hasOwnProperty(key)) {
+                    if (key === 'nric_front' || key === 'nric_back' || key === 'license_front' || key === 'license_back') {
+                        if (userData[key]) {
+                            formData.append(key, userData[key]);
+                        }
+                    } else {
+                        formData.append(key, userData[key]);
+                    }
+                }
+            }
+            const response = await axios.post(endpoint, formData, {
+                headers: {
+                    ...authHeader(),
+                    'Content-Type': 'multipart/form-data',
+                },
             });
-            const updatedUser = response.data.user;
-            setUserData(updatedUser);
             setIsEditMode(false);
             // Show success message or perform additional actions
         } catch (error) {
@@ -129,7 +139,7 @@ function UserView(props) {
     return (
         <Container>
             {isLoading ? (
-                <div className="text-center">Loading...</div> // Render loading indicator while loading
+                <div className="text-center">Loading...</div>
             ) : (
                 <Row>
                     <Heading
@@ -215,6 +225,7 @@ function UserView(props) {
                             certifications={certificate}
                             header_one="Driver's License"
                             header_two="NRIC"
+                            header_three="Certificates"
                             disabled={!isEditMode}
                             handleImageUpload={handleImageUpload}
                         />

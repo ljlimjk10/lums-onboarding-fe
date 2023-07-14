@@ -20,6 +20,7 @@ function CreatePostEvent() {
   const [validated, setValidated] = useState(false);
   const [data, setData] = useState({});
   const [sendMessage, setSendMessage] = useState('');
+  const [uploadedImage, setUploadedImage] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -41,6 +42,7 @@ function CreatePostEvent() {
         status: 'Posted',
       };
       setData(newData);
+      console.log(newData);
       const response = await axios.post(`${API_BASE_URL}${API_ENDPOINT}`, newData, { headers: authHeader() });
       setSendMessage('');
       navigate('/posts');
@@ -59,6 +61,7 @@ function CreatePostEvent() {
         ...prevData,
         [fieldName]: base64String,
       }));
+      setUploadedImage(reader.result);
     };
     reader.readAsDataURL(file);
   };
@@ -69,10 +72,12 @@ function CreatePostEvent() {
         <Row>
           <Heading_Schedule page="Create Post" b_name="Post" b_name_two="Schedule" />
           <Col lg={6} md={10} xs={12}>
+            <DropDownList Label="Job Type" post="1" />
             <Textarea onChange={(e) => setSendMessage(e.target.value)} value={sendMessage} r="true" rows={13} Label="Message" />
+            {uploadedImage && <img src={uploadedImage} alt="Uploaded" style={{ maxWidth: '100%', marginTop: '10px' }} />}
           </Col>
           <Col lg={6} md={12} xs={12}>
-            <BModal header="Attach Image" Label="Attach Image" />
+            <BModal handleImageUpload={handleImageUpload} header="Attach Image" Label="Attach Image" />
           </Col>
         </Row>
       </Container>
