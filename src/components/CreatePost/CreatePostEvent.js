@@ -18,9 +18,8 @@ const API_ENDPOINT = "/api/post/eventcreate";
 
 function CreatePostEvent() {
   const [validated, setValidated] = useState(false);
-  // const [postTime, setPostTime] = useState('');
-  // const [postDate, setPostDate] = useState('');
-  const [sendMessage,setSendMessage] = useState('');
+  const [data, setData] = useState({});
+  const [sendMessage, setSendMessage] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -29,60 +28,52 @@ function CreatePostEvent() {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       setValidated(true);
-      return
+      return;
     }
     try {
       const currentDate = new Date();
       const currentTimeString = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
       const currentDateString = currentDate.getFullYear() + '-' + (currentDate.getMonth() + 1) + '-' + currentDate.getDate();
-      const data = {
+      const newData = {
         type: 'Announcement',
-        message:sendMessage,
+        message: sendMessage,
         datetime: new Date(`${currentDateString} ${currentTimeString}`),
-        status:'Posted',
-      }
-      const response = await axios.post(`${API_BASE_URL}${API_ENDPOINT}`,data, { headers: authHeader() });
+        status: 'Posted',
+      };
+      setData(newData);
+      const response = await axios.post(`${API_BASE_URL}${API_ENDPOINT}`, newData, { headers: authHeader() });
       setSendMessage('');
       navigate('/posts');
-
-    }catch (error){
+    } catch (error) {
       console.error(error);
     }
     setValidated(false);
-
   };
 
-  // const handleValueChange = (value, label) => {
-  //   console.log(label);
-  //   if (label === "Date") {
-  //     setPostDate(value)
-  //   } else if (label === "Time") {
-  //     setPostTime(value);
-  //   }
-
-  // };
+  const handleImageUpload = (fieldName, file) => {
+    console.log(file);
+    const reader = new FileReader();
+    reader.onload = () => {
+      const base64String = reader.result.split(',')[1];
+      setData((prevData) => ({
+        ...prevData,
+        [fieldName]: base64String,
+      }));
+    };
+    reader.readAsDataURL(file);
+  };
 
   return (
     <Form noValidate validated={validated} onSubmit={handleSubmit}>
       <Container>
         <Row>
           <Heading_Schedule page="Create Post" b_name="Post" b_name_two="Schedule" />
-          {/* <Row>
-              <Col lg={6} md={10} xs={12}>
-                  <DropDownList Label="Job Type" post="2"/>
-                  <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Post Date*" value={postDate} onChange={handleValueChange} placeholder="Please schedule (Top Right)" />
-                  <TextBox r="required" style={{ fontWeight: 'bold' }} Label="Post Time*" value={postTime} onChange={handleValueChange} placeholder="Please schedule (Top Right)" />
-              </Col>
-            </Row> */}
-
           <Col lg={6} md={10} xs={12}>
-            <Textarea onChange={(e)=>setSendMessage(e.target.value)} value={sendMessage} r="true" rows={13} Label="Message" />
+            <Textarea onChange={(e) => setSendMessage(e.target.value)} value={sendMessage} r="true" rows={13} Label="Message" />
           </Col>
-
           <Col lg={6} md={12} xs={12}>
-            <BModal source="https://picsum.photos/625/325" header="Attach Image" Label="Attach Image" />
+            <BModal header="Attach Image" Label="Attach Image" />
           </Col>
-
         </Row>
       </Container>
     </Form>
