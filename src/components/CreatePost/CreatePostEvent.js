@@ -76,6 +76,7 @@ function CreatePostEvent() {
             </Row> */}
 
           <Col lg={6} md={10} xs={12}>
+            <DropDownList Label="Job Type" post="1" />
             <Textarea onChange={(e)=>setSendMessage(e.target.value)} value={sendMessage} r="true" rows={13} Label="Message" />
           </Col>
 

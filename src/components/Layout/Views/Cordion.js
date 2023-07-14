@@ -57,6 +57,33 @@ function Cordion(props) {
           </Row>
         </Accordion.Body>
       </Accordion.Item>
+
+      {/* May need to look at header & fieldName and change accrodingly. Delete comment if it is correct */}
+      <Accordion.Item eventKey="2">
+        <Accordion.Header>{props.header_three}</Accordion.Header>
+        <Accordion.Body>
+          <Row>
+            <Col className="d-flex justify-content-center" lg={6} md={6} xs={12}>
+              <BModal
+                source={props.certifications}
+                header="Medical Certificate"
+                disabled={props.disabled}
+                handleImageUpload={props.handleImageUpload}
+                fieldName="Medical Certificate"
+              />
+            </Col>
+            <Col className="d-flex justify-content-center" lg={6} md={6} xs={12}>
+              <BModal
+                source={props.certifications}
+                header="Child Safety Certificate"
+                disabled={props.disabled}
+                handleImageUpload={props.handleImageUpload}
+                fieldName="Child Safety Certificate"
+              />
+            </Col>
+          </Row>
+        </Accordion.Body>
+      </Accordion.Item>
     </Accordion>
   );
 }
