@@ -13,7 +13,10 @@ import axios from "axios";
 import authHeader from "../../../services/auth-header";
 
 const API_BASE_URL = "http://localhost:3001";
-const API_ENDPOINTS = ["/api/post/allevents", "/api/post/alljobs"];
+const API_ENDPOINTS = [
+  "/api/post/allevents",
+  "/api/post/alljobs"
+];
 
 function PostTable() {
   const navigate = useNavigate();
@@ -31,19 +34,14 @@ function PostTable() {
   const fetchPostData = async () => {
     setIsLoading(true);
     try {
-      const requests = API_ENDPOINTS.map((endpoint) =>
-        axios.get(`${API_BASE_URL}${endpoint}`, { headers: authHeader() })
-      );
+      const requests = API_ENDPOINTS.map(endpoint => axios.get(`${API_BASE_URL}${endpoint}`, { headers: authHeader() }))
       const responses = await Promise.all(requests);
-      const data = responses.map((response) => response.data);
-      const consolidatedData = data.reduce(
-        (accumulator, currentValue) => {
-          const key = Object.keys(currentValue)[0]; // Get the key of the current data object
-          accumulator[key] = currentValue[key]; // Assign the array to the corresponding key in the accumulator object
-          return accumulator;
-        },
-        {}
-      );
+      const data = responses.map(response => response.data);
+      const consolidatedData = data.reduce((accumulator, currentValue) => {
+        const key = Object.keys(currentValue)[0]; // Get the key of the current data object
+        accumulator[key] = currentValue[key]; // Assign the array to the corresponding key in the accumulator object
+        return accumulator;
+      }, {});
       console.log(consolidatedData);
       setContacts(consolidatedData);
     } catch (error) {
@@ -71,9 +69,7 @@ function PostTable() {
 
   return (
     <Col>
-      {selectedPost ? (
-        <Post_Job postId={selectedPost} />
-      ) : (
+      {selectedPost ? (<Post_Job postId={selectedPost} />) : (
         <Container>
           <h1 className="text-center mt-4">Post Table</h1>
           <Form>
@@ -122,32 +118,17 @@ function PostTable() {
               </thead>
               <tbody>
                 {Object.keys(contacts)
-                  .flatMap((key) =>
+                  .flatMap(key =>
                     contacts[key].filter((item) => {
+
                       const Message = item.message;
                       const Type = item.type;
                       const Created = item.createdAt || item.datetime;
-                      const searchTerm = search.toLowerCase();
-                      const escapedSearchTerm = searchTerm.replace(
-                        /[.*+?^${}()|[\]\\]/g,
-                        "\\$&"
-                      ); // Escape special characters
-
-                      const messageMatches = Message
-                        .toLowerCase()
-                        .includes(escapedSearchTerm);
-                      const typeMatches = Type
-                        .toLowerCase()
-                        .includes(escapedSearchTerm);
-                      const createdMatches = Created
-                        .toLowerCase()
-                        .includes(escapedSearchTerm);
-
                       return (
-                        (searchTerm === "" ||
-                          messageMatches ||
-                          typeMatches ||
-                          createdMatches) &&
+                        (search.toLowerCase() === "" ||
+                          Message.toLowerCase().includes(search.toLowerCase()) ||
+                          Type.toLowerCase().includes(search.toLowerCase()) ||
+                          Created.toLowerCase().includes(search.toLowerCase())) &&
                         (selectedType === "" || Type === selectedType)
                       );
                     })
@@ -172,46 +153,35 @@ function PostTable() {
                         createdAt,
                       } = item;
                       // Convert pickupTime to Singapore time and date
-                      const pickupDateTime = new Date(
-                        pickupTime
-                      ).toLocaleString("en-SG", {
+                      const pickupDateTime = new Date(pickupTime).toLocaleString("en-SG", {
                         timeZone: "Asia/Singapore",
                       });
 
                       // Convert dropoffTime to Singapore time
-                      const dropoffDateTime = new Date(
-                        dropoffTime
-                      ).toLocaleString("en-SG", {
+                      const dropoffDateTime = new Date(dropoffTime).toLocaleString("en-SG", {
                         timeZone: "Asia/Singapore",
                       });
 
                       // Convert createdAt to Singapore time
-                      const createdDateTime = new Date(
-                        createdAt
-                      ).toLocaleString("en-SG", {
+                      const createdDateTime = new Date(createdAt).toLocaleString("en-SG", {
                         timeZone: "Asia/Singapore",
                       });
 
                       toDisplay = `Location: ${location} | Region: ${region} | Model: ${model} | Destination: ${destination} | Pickup Date and Time: ${pickupDateTime} | Price: $${price} | Payout: $${payout} | Dropoff Date and Time: ${dropoffDateTime} | Status: ${status ? "true" : "false"} | Posted Date and Time: ${createdDateTime}`;
+
                     } else {
                       toDisplay = item.message;
                     }
                     if (item.createdAt) {
                       const createdAtDate = new Date(item.createdAt);
-                      if (
-                        createdAtDate instanceof Date &&
-                        !isNaN(createdAtDate)
-                      ) {
+                      if (createdAtDate instanceof Date && !isNaN(createdAtDate)) {
                         displayCreated = createdAtDate.toLocaleString("en-SG", {
                           timeZone: "Asia/Singapore",
                         });
                       }
                     } else if (item.datetime) {
                       const datetimeDate = new Date(item.datetime);
-                      if (
-                        datetimeDate instanceof Date &&
-                        !isNaN(datetimeDate)
-                      ) {
+                      if (datetimeDate instanceof Date && !isNaN(datetimeDate)) {
                         displayDateTime = datetimeDate.toLocaleString("en-SG", {
                           timeZone: "Asia/Singapore",
                         });
@@ -224,14 +194,9 @@ function PostTable() {
                         <td>{item.type}</td>
                         <td>{displayCreated || displayDateTime}</td>
                         <td align="center">
-                          <Button
-                            onClick={() => handleViewPost(item.id, item.type)}
-                          >
-                            View Post
-                          </Button>
+                          <Button onClick={() => handleViewPost(item.id, item.type)}>View Post</Button>
                         </td>
-                      </tr>
-                    );
+                      </tr>)
                   })}
               </tbody>
             </Table>
