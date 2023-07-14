@@ -82,11 +82,20 @@ function UserView(props) {
 
     const handleImageUpload = (fieldName, file) => {
         console.log(file);
-        setUserData((prevData) => ({
-            ...prevData,
-            [fieldName]: file,
-        }));
+        const reader = new FileReader();
+        reader.onload = () => {
+            const base64String = reader.result;
+
+            // Create the display property with the base64 string for display
+            setUserData((prevData) => ({
+                ...prevData,
+                [`display_${fieldName}`]: base64String,
+                [fieldName]: file,
+            }));
+        };
+        reader.readAsDataURL(file);
     };
+
 
     const updateUser = async () => {
         try {
@@ -133,8 +142,14 @@ function UserView(props) {
         license_back,
         nric_front,
         nric_back,
+        display_license_front,
+        display_license_back,
+        display_nric_front,
+        display_nric_back,
         certificate,
     } = userData || {};
+    console.log(userData);
+    console.log(userData);
 
     return (
         <Container>
@@ -222,6 +237,10 @@ function UserView(props) {
                             back_license={license_back}
                             front_nric={nric_front}
                             back_nric={nric_back}
+                            display_front_license={display_license_front}
+                            display_back_license={display_license_back}
+                            display_front_nric={display_nric_front}
+                            display_back_nric={display_nric_back}
                             certifications={certificate}
                             header_one="Driver's License"
                             header_two="NRIC"

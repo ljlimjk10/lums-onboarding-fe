@@ -44,23 +44,23 @@ function PendingUserView(props) {
                         headers: authHeader(),
                     });
                     const data_access = telegramResponse.data.access_token;
-                    const encodedNRICUrlEndpoint = `${API_BASE_URL}/api/user/display/nric`;
-                    const encodedNRICUrlResponse = await axios.get(encodedNRICUrlEndpoint, {
+                    const NRICUrlEndpoint = `${API_BASE_URL}/api/user/display/nric`;
+                    const NRICUrlResponse = await axios.get(NRICUrlEndpoint, {
                         headers: { Authorization: `Bearer ${data_access}` },
                     });
-                    const encodedNRICUrlArrays = encodedNRICUrlResponse.data;
-                    const encodedLicenseUrlEndpoint = `${API_BASE_URL}/api/user/display/license`;
-                    const encodedLicenseUrlResponse = await axios.get(
-                        encodedLicenseUrlEndpoint,
+                    const NRICUrlArrays = NRICUrlResponse.data;
+                    const LicenseUrlEndpoint = `${API_BASE_URL}/api/user/display/license`;
+                    const LicenseUrlResponse = await axios.get(
+                        LicenseUrlEndpoint,
                         { headers: { Authorization: `Bearer ${data_access}` } }
                     );
-                    const encodedLicenseUrlArrays = encodedLicenseUrlResponse.data;
+                    const LicenseUrlArrays = LicenseUrlResponse.data;
                     setUserData({
                         ...pendingUserData,
-                        encodedNricFront: encodedNRICUrlArrays[0] || "",
-                        encodedNricBack: encodedNRICUrlArrays[1] || "",
-                        encodedLicenseFront: encodedLicenseUrlArrays[0] || "",
-                        encodedLicenseBack: encodedLicenseUrlArrays[1] || "",
+                        nric_front: NRICUrlArrays[0] || "",
+                        nric_back: NRICUrlArrays[1] || "",
+                        license_front: LicenseUrlArrays[0] || "",
+                        license_back: LicenseUrlArrays[1] || "",
                     });
                 } catch (error) {
                     console.log("Decryption error:", error);
@@ -76,8 +76,7 @@ function PendingUserView(props) {
         }
     };
 
-    const { name, nricId, address, car_model, car_capacity, region, contact, telehandle, affiliation, car_plate, encodedLicenseFront, encodedLicenseBack, encodedNricFront, encodedNricBack, certificate } = userData || {};
-
+    const { name, nricId, address, car_model, car_capacity, region, contact, telehandle, affiliation, car_plate, license_front, license_back, nric_front, nric_back, certificate } = userData || {};
     return (
         <Container>
             {isLoading ? (
@@ -101,10 +100,10 @@ function PendingUserView(props) {
                     </Col>
                     <Col lg={12} md={12} xs={12}>
                         <Cordion
-                            front_license={encodedLicenseFront}
-                            back_license={encodedLicenseBack}
-                            front_nric={encodedNricFront}
-                            back_nric={encodedNricBack}
+                            front_license={license_front}
+                            back_license={license_back}
+                            front_nric={nric_front}
+                            back_nric={nric_back}
                             certifications={certificate}
                             header_one="Driver's License"
                             header_two="NRIC"

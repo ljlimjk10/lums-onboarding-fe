@@ -40,6 +40,7 @@ function BModal(props) {
             fluid
             alt="No Image Attached! Click here to upload!"
           />
+
         </Button>
       </Form.Group>
 
