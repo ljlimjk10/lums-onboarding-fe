@@ -86,8 +86,8 @@ function Dashboard() {
                 <Dashboard_element title="Number of Drivers" lg="4" md="4" xs="12" mTop="20px" mBottom="50px" content={driverCount} fSize="60px" />
                 <Dashboard_element title="Waiting Approval" lg="4" md="4" xs="12" mTop="20px" mBottom="50px" content={pendingCount + rejectedCount + newCount} fSize="60px" />
                 <Dashboard_element title="Jobs (today)" lg="4" md="4" xs="12" mTop="20px" mBottom="50px" content={JobCountDay} fSize="60px" />
-                <RecentEventTable />
-                <RecentJobTable />
+                <RecentEventTable  title="Recent Events" />
+                <RecentJobTable title="Recent Jobs" />
             </Row>
         </Container>
     );
