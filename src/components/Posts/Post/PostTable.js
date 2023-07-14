@@ -42,7 +42,6 @@ function PostTable() {
         accumulator[key] = currentValue[key]; // Assign the array to the corresponding key in the accumulator object
         return accumulator;
       }, {});
-      console.log(consolidatedData);
       setContacts(consolidatedData);
     } catch (error) {
       console.error(error);
@@ -54,7 +53,6 @@ function PostTable() {
 
   const handleViewPost = (postId, type) => {
     setSelectedPost(postId);
-    console.log(type);
     if (type === "Announcement") {
       navigate(`/posts/post-event-view/${postId}`);
     } else if (type === "Job") {
@@ -120,6 +118,25 @@ function PostTable() {
                 {Object.keys(contacts)
                   .flatMap(key =>
                     contacts[key].filter((item) => {
+                      let displayCreated = "";
+                      let displayDateTime = "";
+
+                      if (item.createdAt) {
+                      const createdAtDate = new Date(item.createdAt);
+                      if (createdAtDate instanceof Date && !isNaN(createdAtDate)) {
+                        displayCreated = createdAtDate.toLocaleString("en-SG", {
+                          timeZone: "Asia/Singapore",
+                        });
+                      }
+                    } else if (item.datetime) {
+                      const datetimeDate = new Date(item.datetime);
+                      if (datetimeDate instanceof Date && !isNaN(datetimeDate)) {
+                        displayDateTime = datetimeDate.toLocaleString("en-SG", {
+                          timeZone: "Asia/Singapore",
+                        });
+                      }
+                    }
+
 
                       const Message = item.message;
                       const Type = item.type;
@@ -128,13 +145,13 @@ function PostTable() {
                         (search.toLowerCase() === "" ||
                           Message.toLowerCase().includes(search.toLowerCase()) ||
                           Type.toLowerCase().includes(search.toLowerCase()) ||
-                          Created.toLowerCase().includes(search.toLowerCase())) &&
+                          displayCreated.toLowerCase().includes(search.toLowerCase()) ||
+                          displayDateTime.toLowerCase().includes(search.toLowerCase())) &&
                         (selectedType === "" || Type === selectedType)
                       );
                     })
                   )
                   .map((item) => {
-                    console.log(item);
                     let toDisplay = "";
                     let displayCreated = "";
                     let displayDateTime = "";
