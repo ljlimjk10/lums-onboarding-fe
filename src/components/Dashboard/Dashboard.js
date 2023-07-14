@@ -8,6 +8,7 @@ import authHeader from "../../services/auth-header";
 import RecentEventTable from "./RecentEventTable";
 import RecentJobTable from "./RecentJobTable";
 
+
 const API_BASE_URL = "http://localhost:3001";
 const API_ENDPOINTS = ["/api/user/all/verified", "/api/user/all/pending", "/api/user/all/rejected", "/api/user/all/new", "/api/post/alljobs"];
 
@@ -83,10 +84,10 @@ function Dashboard() {
                         Dashboard
                     </div>
                 </Col>
-                <Dashboard_element title="Number of Drivers" lg="4" md="4" xs="12" mTop="20px" mBottom="50px" content={driverCount} fSize="60px" />
-                <Dashboard_element title="Waiting Approval" lg="4" md="4" xs="12" mTop="20px" mBottom="50px" content={pendingCount + rejectedCount + newCount} fSize="60px" />
-                <Dashboard_element title="Jobs (today)" lg="4" md="4" xs="12" mTop="20px" mBottom="50px" content={JobCountDay} fSize="60px" />
-                <RecentEventTable  title="Recent Events" />
+                <Dashboard_element title="Number of Drivers" lg="4" md="4" xs="12" mTop="20px" mBottom="50px" content={driverCount} fSize="60px" url="/users" />
+                <Dashboard_element title="Waiting Approval" lg="4" md="4" xs="12" mTop="20px" mBottom="50px" content={pendingCount + rejectedCount + newCount} fSize="60px" url="/pending-users-table" />
+                <Dashboard_element title="Jobs (today)" lg="4" md="4" xs="12" mTop="20px" mBottom="50px" content={JobCountDay} fSize="60px" url="/Posts" />
+                <RecentEventTable title="Recent Events" />
                 <RecentJobTable title="Recent Jobs" />
             </Row>
         </Container>

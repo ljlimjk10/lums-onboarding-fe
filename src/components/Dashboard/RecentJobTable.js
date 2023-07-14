@@ -64,7 +64,7 @@ function RecentJobTable(props) {
     const dateA = new Date(a.createdAt || a.datetime);
     const dateB = new Date(b.createdAt || b.datetime);
     return dateB - dateA;
-  }).slice(0, 2);
+  }).slice(0, 1);
 
   return (
     <Col>
