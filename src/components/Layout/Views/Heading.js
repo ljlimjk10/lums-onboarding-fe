@@ -7,8 +7,6 @@ import { useNavigate } from 'react-router-dom';
 function Heading(props) {
     const { isEditMode, setIsEditMode } = props;
     const navigate = useNavigate();
-
-    console.log(props);
     
     const handleSaveChanges = async () => {
         setIsEditMode(false);

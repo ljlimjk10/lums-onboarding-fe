@@ -30,7 +30,6 @@ function PendingUserView(props) {
             const endpoint = `${API_BASE_URL}${API_ENDPOINT}${userId}`;
             const response = await axios.get(endpoint, { headers: authHeader() });
             const pendingUserData = response.data.data;
-            console.log("Pending User Data:", pendingUserData);
 
             if (
                 pendingUserData.nric_front ||
@@ -44,30 +43,44 @@ function PendingUserView(props) {
                         headers: authHeader(),
                     });
                     const data_access = telegramResponse.data.access_token;
-                    const NRICUrlEndpoint = `${API_BASE_URL}/api/user/display/nric`;
-                    const NRICUrlResponse = await axios.get(NRICUrlEndpoint, {
-                        headers: { Authorization: `Bearer ${data_access}` },
-                    });
-                    const NRICUrlArrays = NRICUrlResponse.data;
-                    const LicenseUrlEndpoint = `${API_BASE_URL}/api/user/display/license`;
-                    const LicenseUrlResponse = await axios.get(
-                        LicenseUrlEndpoint,
-                        { headers: { Authorization: `Bearer ${data_access}` } }
-                    );
-                    const LicenseUrlArrays = LicenseUrlResponse.data;
+                    let NRICUrlArrays = [];
+                    let LicenseUrlArrays = [];
+
+                    if (pendingUserData.nric_front && pendingUserData.nric_back) {
+                        const NRICUrlEndpoint = `${API_BASE_URL}/api/user/display/nric`;
+                        const NRICUrlResponse = await axios.get(NRICUrlEndpoint, {
+                            headers: { Authorization: `Bearer ${data_access}` },
+                        });
+                        NRICUrlArrays = NRICUrlResponse.data;
+                    }
+
+                    if (pendingUserData.license_front && pendingUserData.license_back) {
+                        const LicenseUrlEndpoint = `${API_BASE_URL}/api/user/display/license`;
+                        const LicenseUrlResponse = await axios.get(LicenseUrlEndpoint, {
+                            headers: { Authorization: `Bearer ${data_access}` },
+                        });
+                        LicenseUrlArrays = LicenseUrlResponse.data;
+                    }
+
                     setUserData({
                         ...pendingUserData,
-                        nric_front: NRICUrlArrays[0] || "",
-                        nric_back: NRICUrlArrays[1] || "",
-                        license_front: LicenseUrlArrays[0] || "",
-                        license_back: LicenseUrlArrays[1] || "",
+                        display_nric_front: NRICUrlArrays[0] || "",
+                        display_nric_back: NRICUrlArrays[1] || "",
+                        display_license_front: LicenseUrlArrays[0] || "",
+                        display_license_back: LicenseUrlArrays[1] || "",
                     });
                 } catch (error) {
                     console.log("Decryption error:", error);
                     setUserData(pendingUserData);
                 }
             } else {
-                setUserData(pendingUserData);
+                setUserData({
+                    ...pendingUserData,
+                    display_nric_front: "",
+                    display_nric_back: "",
+                    display_license_front: "",
+                    display_license_back: "",
+                });
             }
         } catch (error) {
             console.log("API Error:", error);
@@ -76,7 +89,7 @@ function PendingUserView(props) {
         }
     };
 
-    const { name, nricId, address, car_model, car_capacity, region, contact, telehandle, affiliation, car_plate, license_front, license_back, nric_front, nric_back, certificate } = userData || {};
+    const { name, nricId, address, car_model, car_capacity, region, contact, telehandle, affiliation, car_plate, license_front, license_back, nric_front, nric_back, display_license_front, display_license_back, display_nric_front, display_nric_back, certificate } = userData || {};
     return (
         <Container>
             {isLoading ? (
@@ -100,10 +113,10 @@ function PendingUserView(props) {
                     </Col>
                     <Col lg={12} md={12} xs={12}>
                         <Cordion
-                            front_license={license_front}
-                            back_license={license_back}
-                            front_nric={nric_front}
-                            back_nric={nric_back}
+                            front_license={display_license_front}
+                            back_license={display_license_back}
+                            front_nric={display_nric_front}
+                            back_nric={display_nric_back}
                             certifications={certificate}
                             header_one="Driver's License"
                             header_two="NRIC"

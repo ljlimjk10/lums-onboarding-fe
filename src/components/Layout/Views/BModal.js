@@ -21,12 +21,12 @@ function BModal(props) {
   };
 
   const handleUploadImage = () => {
+    console.log(file);
     if (file) {
-      props.handleImageUpload(props.fieldName, file);
+      props.handleImageUpload(props.fieldName, file); // File type
       handleClose();
     }
   };
-
   return (
     <>
       <Form.Group>
@@ -34,7 +34,7 @@ function BModal(props) {
           <Form.Label column>{props.Label}</Form.Label>
         </Col>
         <Button variant="link" onClick={handleShow} disabled={props.disabled}>
-          <Image
+          <Image 
             src={`data:image/jpeg;base64,${props.source}`}
             rounded
             fluid

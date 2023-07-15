@@ -13,10 +13,10 @@ const API_ENDPOINT = '/api/user/profile/';
 
 function UserView(props) {
     const { id } = useParams();
-    console.log(id);
     const [userData, setUserData] = useState(null);
     const [isEditMode, setIsEditMode] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [updatedFields, setUpdatedFields] = useState([]);
 
     useEffect(() => {
         fetchUserData(id);
@@ -54,17 +54,23 @@ function UserView(props) {
                     const LicenseUrlArrays = LicenseUrlResponse.data;
                     setUserData({
                         ...pendingUserData,
-                        nric_front: NRICUrlArrays[0] || '',
-                        nric_back: NRICUrlArrays[1] || '',
-                        license_front: LicenseUrlArrays[0] || '',
-                        license_back: LicenseUrlArrays[1] || '',
+                        display_nric_front: NRICUrlArrays[0] || '',
+                        display_nric_back: NRICUrlArrays[1] || '',
+                        display_license_front: LicenseUrlArrays[0] || '',
+                        display_license_back: LicenseUrlArrays[1] || '',
                     });
                 } catch (error) {
                     console.log('Decryption error:', error);
                     setUserData(pendingUserData);
                 }
             } else {
-                setUserData(pendingUserData);
+                setUserData({
+                    ...pendingUserData,
+                    display_nric_front: '',
+                    display_nric_back: '',
+                    display_license_front: '',
+                    display_license_back: '',
+                });
             }
         } catch (error) {
             console.log('API Error:', error);
@@ -78,47 +84,59 @@ function UserView(props) {
             ...prevData,
             [fieldName]: value,
         }));
+
+        if (!updatedFields.includes(fieldName)) {
+            setUpdatedFields((prevFields) => [...prevFields, fieldName]);
+        }
     };
 
-    const handleImageUpload = (fieldName, file) => {
-        console.log(file);
+
+    const handleImageUpload = async (fieldName, file) => {
         const reader = new FileReader();
         reader.onload = () => {
             const base64String = reader.result;
+            const base64Data = base64String.split(',')[1];
 
-            // Create the display property with the base64 string for display
             setUserData((prevData) => ({
                 ...prevData,
-                [`display_${fieldName}`]: base64String,
+                [`display_${fieldName}`]: base64Data,
                 [fieldName]: file,
             }));
+
+            if (!updatedFields.includes(fieldName)) {
+                setUpdatedFields((prevFields) => [...prevFields, fieldName]);
+            }
         };
         reader.readAsDataURL(file);
     };
 
-
-    const updateUser = async () => {
+    const updateUser = async (id) => {
         try {
             const endpoint = `${API_BASE_URL}/api/user/admin/update/${id}`;
             const formData = new FormData();
-            console.log(userData);
-            for (const key in userData) {
-                if (userData.hasOwnProperty(key)) {
-                    if (key === 'nric_front' || key === 'nric_back' || key === 'license_front' || key === 'license_back') {
-                        if (userData[key]) {
-                            formData.append(key, userData[key]);
-                        }
-                    } else {
-                        formData.append(key, userData[key]);
-                    }
+
+            // Append non-file fields to formData if they are in updatedFields
+            for (const field of updatedFields) {
+                if (!(userData[field] instanceof File)) {
+                    formData.append(field, userData[field]);
                 }
             }
+
+            // Append file fields to formData separately
+            for (const field of updatedFields) {
+                const file = userData[field];
+                if (file instanceof File) {
+                    formData.append(field, file);
+                }
+            }
+
             const response = await axios.post(endpoint, formData, {
                 headers: {
                     ...authHeader(),
                     'Content-Type': 'multipart/form-data',
                 },
             });
+
             setIsEditMode(false);
             // Show success message or perform additional actions
         } catch (error) {
@@ -126,6 +144,7 @@ function UserView(props) {
             // Show error message or handle the error
         }
     };
+
 
     const {
         name,
@@ -148,8 +167,6 @@ function UserView(props) {
         display_nric_back,
         certificate,
     } = userData || {};
-    console.log(userData);
-    console.log(userData);
 
     return (
         <Container>
@@ -172,31 +189,31 @@ function UserView(props) {
                             Label="Name"
                             disabled={!isEditMode}
                             value={name}
-                            onChange={(value, label) => handleInputChange('name', value)}
+                            onChange={(value) => handleInputChange('name', value)}
                         />
                         <TextBox
                             Label="NRIC"
                             disabled={!isEditMode}
                             value={nricId}
-                            onChange={(value, label) => handleInputChange('nricId', value)}
+                            onChange={(value) => handleInputChange('nricId', value)}
                         />
                         <TextBox
                             Label="Address"
                             disabled={!isEditMode}
                             value={address}
-                            onChange={(value, label) => handleInputChange('address', value)}
+                            onChange={(value) => handleInputChange('address', value)}
                         />
                         <TextBox
                             Label="Make/Model"
                             disabled={!isEditMode}
                             value={car_model}
-                            onChange={(value, label) => handleInputChange('car_model', value)}
+                            onChange={(value) => handleInputChange('car_model', value)}
                         />
                         <TextBox
                             Label="Capacity"
                             disabled={!isEditMode}
                             value={car_capacity}
-                            onChange={(value, label) => handleInputChange('car_capacity', value)}
+                            onChange={(value) => handleInputChange('car_capacity', value)}
                         />
                     </Col>
                     <Col lg={6} md={6} xs={12}>
@@ -204,43 +221,39 @@ function UserView(props) {
                             Label="Location"
                             disabled={!isEditMode}
                             value={region}
-                            onChange={(value, label) => handleInputChange('region', value)}
+                            onChange={(value) => handleInputChange('region', value)}
                         />
                         <TextBox
                             Label="Contact"
                             disabled={!isEditMode}
                             value={contact}
-                            onChange={(value, label) => handleInputChange('contact', value)}
+                            onChange={(value) => handleInputChange('contact', value)}
                         />
                         <TextBox
                             Label="Telegram"
                             disabled={!isEditMode}
                             value={telehandle}
-                            onChange={(value, label) => handleInputChange('telehandle', value)}
+                            onChange={(value) => handleInputChange('telehandle', value)}
                         />
                         <TextBox
                             Label="Entity"
                             disabled={!isEditMode}
                             value={affiliation}
-                            onChange={(value, label) => handleInputChange('affiliation', value)}
+                            onChange={(value) => handleInputChange('affiliation', value)}
                         />
                         <TextBox
                             Label="Car plate"
                             disabled={!isEditMode}
                             value={car_plate}
-                            onChange={(value, label) => handleInputChange('car_plate', value)}
+                            onChange={(value) => handleInputChange('car_plate', value)}
                         />
                     </Col>
                     <Col lg={12} md={12} xs={12}>
                         <Cordion
-                            front_license={license_front}
-                            back_license={license_back}
-                            front_nric={nric_front}
-                            back_nric={nric_back}
-                            display_front_license={display_license_front}
-                            display_back_license={display_license_back}
-                            display_front_nric={display_nric_front}
-                            display_back_nric={display_nric_back}
+                            front_license={display_license_front}
+                            back_license={display_license_back}
+                            front_nric={display_nric_front}
+                            back_nric={display_nric_back}
                             certifications={certificate}
                             header_one="Driver's License"
                             header_two="NRIC"

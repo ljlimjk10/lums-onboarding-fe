@@ -13,7 +13,7 @@ function Cordion(props) {
           <Row>
             <Col className="d-flex justify-content-center" lg={6} md={6} xs={12}>
               <BModal
-                source={props.display_front_license || props.front_license}
+                source={props.front_license}
                 header={`${props.header_one} Front`}
                 disabled={props.disabled}
                 handleImageUpload={props.handleImageUpload}
@@ -23,7 +23,7 @@ function Cordion(props) {
             </Col>
             <Col className="d-flex justify-content-center" lg={6} md={6} xs={12}>
               <BModal
-                source={props.display_back_license||props.back_license}
+                source={props.back_license}
                 header={`${props.header_one} Back`}
                 disabled={props.disabled}
                 handleImageUpload={props.handleImageUpload}
@@ -40,7 +40,7 @@ function Cordion(props) {
           <Row>
             <Col className="d-flex justify-content-center" lg={6} md={6} xs={12}>
               <BModal
-                source={props.display_front_nric||props.front_nric}
+                source={props.front_nric}
                 header={`${props.header_two} Front`}
                 disabled={props.disabled}
                 handleImageUpload={props.handleImageUpload}
@@ -49,7 +49,7 @@ function Cordion(props) {
             </Col>
             <Col className="d-flex justify-content-center" lg={6} md={6} xs={12}>
               <BModal
-                source={props.display_back_nric||props.back_nric}
+                source={props.back_nric}
                 header={`${props.header_two} Back`}
                 disabled={props.disabled}
                 handleImageUpload={props.handleImageUpload}
