@@ -23,7 +23,7 @@ function BModal_Edit(props) {
       try {
         const response = await axios.put(
           `${API_BASE_URL}${API_ENDPOINT}${props.id}`,
-          { status: "PENDING",comments:"Admin is editing your details! Kindly wait for an approval! Thank you!" },
+          { status: "PENDING",comments:"Admin is reviewing your details! Kindly wait for an approval! Thank you!" },
           { headers: authHeader() }
         );
         // Provide appropriate feedback to the user, e.g., show a success message

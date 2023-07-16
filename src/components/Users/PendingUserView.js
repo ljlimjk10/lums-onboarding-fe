@@ -17,103 +17,114 @@ const API_ENDPOINT = "/api/user/profile/";
 function PendingUserView(props) {
     const { id } = useParams();
     const [userData, setUserData] = useState(null);
-    const [isLoading, setIsLoading] = useState(true); // New state variable for loading indicator
+    const [isLoading, setIsLoading] = useState(true);
     const [certData, setCertData] = useState(null);
 
     useEffect(() => {
         fetchUserData(id);
     }, [id]);
-    // const fetchDocData = async (certInfo) => {
-    //     await Promise.all(
-    //         certInfo.map(async (doc) => {
-    //             const curDocType = doc.type;
-    //             const curId = doc.userId;
-    //             const responseDisplay = await axios.get(`${API_BASE_URL}/api/document/display/certs/${curDocType}/${curId}`);
-    //             // Rest of your code using the responseDisplay
-    //         })
-    //     );
-    // };
 
+    useEffect(() => {
+        if (certData) {
+            console.log(certData); // Modify or use certData as needed
+        }
+    }, [certData]);
 
+    const fetchDocData = async (certInfo) => {
+        if (!Array.isArray(certInfo)) {
+            console.error('certInfo is not an array.');
+            return;
+        }
+
+        const resultArray = {};
+
+        await Promise.all(
+            certInfo.map(async (doc) => {
+                const curDocType = doc.type;
+                const curId = doc.userId;
+                const responseDisplay = await axios.get(`${API_BASE_URL}/api/document/display/certs/${curDocType}/${curId}`, { headers: authHeader() });
+
+                // Rest of your code using the responseDisplay
+                // If you want to update the resultArray with the fetched data:
+                resultArray[`display_${curDocType}`] = responseDisplay.data[0];
+            })
+        );
+
+        // Check if "medical" key is present, if not assign it to an empty string
+        if (!resultArray.hasOwnProperty("display_medical")) {
+            resultArray["display_medical"] = "";
+        }
+
+        // Check if "child_safety" key is present, if not assign it to an empty string
+        if (!resultArray.hasOwnProperty("display_child_safety")) {
+            resultArray["display_child_safety"] = "";
+        }
+
+        // After all the promises are resolved, you can use the resultArray here if needed
+        setCertData(resultArray);
+    };
 
 
     const fetchUserData = async (userId) => {
-        // try {
-        //     const docEndpoint = `${API_BASE_URL}/api/document/certs/${userId}`; // "data":[] if empty
-        //     const responseCerts = await axios.get(docEndpoint, { headers: authHeader() });
-        //     if (responseCerts.data !== []) {
-        //         const certInfo = responseCerts.data; // array
-        //         fetchDocData(certInfo);
+        try {
+            setIsLoading(true);
 
-        //     }
+            const docEndpoint = `${API_BASE_URL}/api/document/certs/${userId}`;
+            const responseCerts = await axios.get(docEndpoint, { headers: authHeader() });
 
-        // } catch (error) {
+            console.log(responseCerts); // data: {data: {THE LINKS TO IMAGE S3}}
+            if (responseCerts.data.data.length > 0) {
+                const certInfo = responseCerts.data.data;
+                await fetchDocData(certInfo);
+            } else {
+                setCertData({ "display_medical": "", "display_child_safety": "" })
+            }
 
-        // }
+        } catch (error) {
+            console.log(error);
+        }
 
         try {
-            setIsLoading(true); // Set loading state to true before making the API request
-
             const endpoint = `${API_BASE_URL}${API_ENDPOINT}${userId}`;
             const response = await axios.get(endpoint, { headers: authHeader() });
             const pendingUserData = response.data.data;
 
+            const telegramEndpoint = `${API_BASE_URL}/api/user/search/${pendingUserData.telehandle}`;
+            const telegramResponse = await axios.get(telegramEndpoint, {
+                headers: authHeader(),
+            });
+            const data_access = telegramResponse.data.access_token;
+            let NRICUrlArrays = [];
+            let LicenseUrlArrays = [];
 
-            if (
-                pendingUserData.nric_front ||
-                pendingUserData.nric_back ||
-                pendingUserData.license_front ||
-                pendingUserData.license_back
-            ) {
-                try {
-                    const telegramEndpoint = `${API_BASE_URL}/api/user/search/${pendingUserData.telehandle}`;
-                    const telegramResponse = await axios.get(telegramEndpoint, {
-                        headers: authHeader(),
-                    });
-                    const data_access = telegramResponse.data.access_token;
-                    let NRICUrlArrays = [];
-                    let LicenseUrlArrays = [];
-
-                    if (pendingUserData.nric_front && pendingUserData.nric_back) {
-                        const NRICUrlEndpoint = `${API_BASE_URL}/api/user/display/nric`;
-                        const NRICUrlResponse = await axios.get(NRICUrlEndpoint, {
-                            headers: { Authorization: `Bearer ${data_access}` },
-                        });
-                        NRICUrlArrays = NRICUrlResponse.data;
-                    }
-
-                    if (pendingUserData.license_front && pendingUserData.license_back) {
-                        const LicenseUrlEndpoint = `${API_BASE_URL}/api/user/display/license`;
-                        const LicenseUrlResponse = await axios.get(LicenseUrlEndpoint, {
-                            headers: { Authorization: `Bearer ${data_access}` },
-                        });
-                        LicenseUrlArrays = LicenseUrlResponse.data;
-                    }
-
-                    setUserData({
-                        ...pendingUserData,
-                        display_nric_front: NRICUrlArrays[0] || "",
-                        display_nric_back: NRICUrlArrays[1] || "",
-                        display_license_front: LicenseUrlArrays[0] || "",
-                        display_license_back: LicenseUrlArrays[1] || "",
-                    });
-                } catch (error) {
-                    console.log("Decryption error:", error);
-                    setUserData(pendingUserData);
-                }
-            } else {
-                setUserData({
-                    ...pendingUserData,
-                    display_nric_front: "",
-                    display_nric_back: "",
-                    display_license_front: "",
-                    display_license_back: "",
+            if (pendingUserData.nric_front && pendingUserData.nric_back) {
+                const NRICUrlEndpoint = `${API_BASE_URL}/api/user/display/nric`;
+                const NRICUrlResponse = await axios.get(NRICUrlEndpoint, {
+                    headers: { Authorization: `Bearer ${data_access}` },
                 });
+                NRICUrlArrays = NRICUrlResponse.data;
             }
+
+            if (pendingUserData.license_front && pendingUserData.license_back) {
+                const LicenseUrlEndpoint = `${API_BASE_URL}/api/user/display/license`;
+                const LicenseUrlResponse = await axios.get(LicenseUrlEndpoint, {
+                    headers: { Authorization: `Bearer ${data_access}` },
+                });
+                LicenseUrlArrays = LicenseUrlResponse.data;
+            }
+
+            setUserData({
+                ...pendingUserData,
+                display_nric_front: pendingUserData.nric_front ? NRICUrlArrays[0] : "",
+                display_nric_back: pendingUserData.nric_back ? NRICUrlArrays[1] : "",
+                display_license_front: pendingUserData.license_front ? LicenseUrlArrays[0] : "",
+                display_license_back: pendingUserData.license_back ? LicenseUrlArrays[1] : "",
+            });
+
         } catch (error) {
             console.log("API Error:", error);
         } finally {
-            setIsLoading(false); // Set loading state to false after the API request is completed
+            setIsLoading(false);
         }
     };
 
@@ -121,7 +132,7 @@ function PendingUserView(props) {
     return (
         <Container>
             {isLoading ? (
-                <div className="text-center">Loading...</div> // Render loading indicator while loading
+                <div className="text-center">Loading...</div>
             ) : (
                 <Row>
                     <PendingUserHeading id={id} page="Pending User" b_name="Reject" b_name_two="Approve" />
@@ -145,7 +156,7 @@ function PendingUserView(props) {
                             back_license={display_license_back}
                             front_nric={display_nric_front}
                             back_nric={display_nric_back}
-                            certifications={certificate}
+                            certifications={certData}
                             header_one="Driver's License"
                             header_two="NRIC"
                             header_three="Certificates"

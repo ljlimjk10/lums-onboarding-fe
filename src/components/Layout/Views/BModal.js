@@ -21,7 +21,6 @@ function BModal(props) {
   };
 
   const handleUploadImage = () => {
-    console.log(file);
     if (file) {
       props.handleImageUpload(props.fieldName, file); // File type
       handleClose();
