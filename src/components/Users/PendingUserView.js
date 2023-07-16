@@ -18,18 +18,46 @@ function PendingUserView(props) {
     const { id } = useParams();
     const [userData, setUserData] = useState(null);
     const [isLoading, setIsLoading] = useState(true); // New state variable for loading indicator
+    const [certData, setCertData] = useState(null);
 
     useEffect(() => {
         fetchUserData(id);
     }, [id]);
+    // const fetchDocData = async (certInfo) => {
+    //     await Promise.all(
+    //         certInfo.map(async (doc) => {
+    //             const curDocType = doc.type;
+    //             const curId = doc.userId;
+    //             const responseDisplay = await axios.get(`${API_BASE_URL}/api/document/display/certs/${curDocType}/${curId}`);
+    //             // Rest of your code using the responseDisplay
+    //         })
+    //     );
+    // };
+
+
+
 
     const fetchUserData = async (userId) => {
+        // try {
+        //     const docEndpoint = `${API_BASE_URL}/api/document/certs/${userId}`; // "data":[] if empty
+        //     const responseCerts = await axios.get(docEndpoint, { headers: authHeader() });
+        //     if (responseCerts.data !== []) {
+        //         const certInfo = responseCerts.data; // array
+        //         fetchDocData(certInfo);
+
+        //     }
+
+        // } catch (error) {
+
+        // }
+
         try {
             setIsLoading(true); // Set loading state to true before making the API request
 
             const endpoint = `${API_BASE_URL}${API_ENDPOINT}${userId}`;
             const response = await axios.get(endpoint, { headers: authHeader() });
             const pendingUserData = response.data.data;
+
 
             if (
                 pendingUserData.nric_front ||

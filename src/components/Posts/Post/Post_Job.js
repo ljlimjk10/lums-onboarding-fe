@@ -45,7 +45,6 @@ function Post_Job(props) {
         const csvData = [];
         csvData.push([
             "Message",
-            "Image",
             "Type",
             "Location",
             "Destination",
@@ -62,7 +61,6 @@ function Post_Job(props) {
         ]);
         const {
             message,
-            image,
             type,
             location,
             destination,
@@ -77,7 +75,6 @@ function Post_Job(props) {
         const sanitizedMessage = message ? `"${message.replace(/"/g, '""')}"` : "";
         csvData.push([
             sanitizedMessage,
-            image || "",
             type || "",
             location || "",
             destination || "",

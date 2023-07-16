@@ -18,20 +18,34 @@ const API_ENDPOINT = "/api/post/event/";
 function Post_Event(props) {
     const { id } = useParams();
     const [postData, setPostData] = useState(null);
+    const [imageArray, setImageArray] = useState([]);
+
     useEffect(() => {
         fetchPostData(id);
+        fetchImageArray(id);
     }, [id]);
-    const fetchPostData = (postId) => {
+
+    const fetchPostData = async (postId) => {
         const endpoint = `${API_BASE_URL}${API_ENDPOINT}${postId}`;
-        axios
-            .get(endpoint, { headers: authHeader() })
-            .then((response) => {
-                setPostData(response.data.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+        try {
+            const response = await axios.get(endpoint, { headers: authHeader() });
+            setPostData(response.data.data);
+        } catch (error) {
+            console.error(error);
+        }
     };
+
+    const fetchImageArray = async (postId) => {
+        const imageEndpoint = `${API_BASE_URL}/api/post/display/images/${postId}`;
+        try {
+            const response = await axios.get(imageEndpoint, { headers: authHeader() });
+            setImageArray(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
     const convertToSingaporeTime = (dateTimeString) => {
         const dateTime = new Date(dateTimeString);
         if (isNaN(dateTime)) {
@@ -39,6 +53,7 @@ function Post_Event(props) {
         }
         return dateTime.toLocaleString("en-SG", { timeZone: "Asia/Singapore" });
     };
+
     const handleGenerateCSV = (postData) => {
         const csvData = [];
         csvData.push([
@@ -71,27 +86,24 @@ function Post_Event(props) {
         saveAs(blob, "post_event_data.csv");
     }
 
-
     if (!postData) {
         return <div>Loading...</div>;
     }
 
-    const { message, type, status, datetime, scheduledfor } = postData || {};
+    const { message, type, status, datetime } = postData || {};
+
     return (
         <Container>
             <Row>
                 <ViewPostHeading type={type} handleGenerateCSV={handleGenerateCSV} postData={postData} status={status} page="Post" b_name="Back" b_name_two="Generate CSV" />
-                {/* <Col lg={6} md={6} xs={12}>
-                    <TextBox Label="Creation D/T" disabled="true" pholder="" current={createdAt} />
-                </Col> */}
                 <Col lg={6} md={6} xs={12}>
                     <TextBox Label="Posted D/T" disabled="true" pholder="" value={convertToSingaporeTime(datetime)} />
                 </Col>
                 <hr />
-                <Cordion_Event header_1="Message" header_2="Image" header_3="Response Order" source="https://picsum.photos/200/300" r_order={<PostResponses />} message={message} />
+                <Cordion_Event header_1="Message" header_2="Image" header_3="Response Order" source={imageArray[0]} r_order={<PostResponses />} message={message} />
             </Row>
         </Container>
-    )
+    );
 }
 
 export default Post_Event;

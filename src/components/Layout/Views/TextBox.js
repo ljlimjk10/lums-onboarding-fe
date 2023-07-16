@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 
 function TextBox(props) {
     const handleChange = (value) => {
-        props.onChange(value);
+        props.onChange(value,props.Label);
     }
     
     return (

@@ -92,7 +92,6 @@ function QuestionTable() {
       // Implement CSV generation logic using selectedQuestions array
       const csvData = [];
       csvData.push(['"Question"', '"Answer"']);
-
       // Iterate over selectedQuestions array
       selectedQuestions.forEach((questionId) => {
         const question = contacts.find((item) => item.id === questionId);
@@ -105,12 +104,10 @@ function QuestionTable() {
       });
       const csvString = csvData.map((row) => row.join(",")).join("\n");
       const blob = new Blob([csvString], { type: "text/csv;charset=utf-8" });
-
       // Save the CSV file using FileSaver.js
       saveAs(blob, "selected_questions.csv");
     }
 };
-
   return (
     <Col>
       <Container>
@@ -183,9 +180,7 @@ function QuestionTable() {
         <hr />
       </Container>
     </Col>
-
   );
-
 }
 
 export default QuestionTable;

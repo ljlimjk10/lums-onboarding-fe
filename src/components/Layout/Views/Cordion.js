@@ -71,7 +71,7 @@ function Cordion(props) {
                 header="Medical Certificate"
                 disabled={props.disabled}
                 handleImageUpload={props.handleImageUpload}
-                fieldName="Medical Certificate"
+                fieldName="medical_certificate"
               />
             </Col>
             <Col className="d-flex justify-content-center" lg={6} md={6} xs={12}>
@@ -80,7 +80,7 @@ function Cordion(props) {
                 header="Child Safety Certificate"
                 disabled={props.disabled}
                 handleImageUpload={props.handleImageUpload}
-                fieldName="Child Safety Certificate"
+                fieldName="child_safety_certificate"
               />
             </Col>
           </Row>

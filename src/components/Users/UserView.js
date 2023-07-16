@@ -189,31 +189,31 @@ function UserView(props) {
                             Label="Name"
                             disabled={!isEditMode}
                             value={name}
-                            onChange={(value) => handleInputChange('name', value)}
+                            onChange={(value,label) => handleInputChange('name', value)}
                         />
                         <TextBox
                             Label="NRIC"
                             disabled={!isEditMode}
                             value={nricId}
-                            onChange={(value) => handleInputChange('nricId', value)}
+                            onChange={(value,label) => handleInputChange('nricId', value)}
                         />
                         <TextBox
                             Label="Address"
                             disabled={!isEditMode}
                             value={address}
-                            onChange={(value) => handleInputChange('address', value)}
+                            onChange={(value,label) => handleInputChange('address', value)}
                         />
                         <TextBox
                             Label="Make/Model"
                             disabled={!isEditMode}
                             value={car_model}
-                            onChange={(value) => handleInputChange('car_model', value)}
+                            onChange={(value,label) => handleInputChange('car_model', value)}
                         />
                         <TextBox
                             Label="Capacity"
                             disabled={!isEditMode}
                             value={car_capacity}
-                            onChange={(value) => handleInputChange('car_capacity', value)}
+                            onChange={(value,label) => handleInputChange('car_capacity', value)}
                         />
                     </Col>
                     <Col lg={6} md={6} xs={12}>
@@ -221,31 +221,31 @@ function UserView(props) {
                             Label="Location"
                             disabled={!isEditMode}
                             value={region}
-                            onChange={(value) => handleInputChange('region', value)}
+                            onChange={(value,label) => handleInputChange('region', value)}
                         />
                         <TextBox
                             Label="Contact"
                             disabled={!isEditMode}
                             value={contact}
-                            onChange={(value) => handleInputChange('contact', value)}
+                            onChange={(value,label) => handleInputChange('contact', value)}
                         />
                         <TextBox
                             Label="Telegram"
                             disabled={!isEditMode}
                             value={telehandle}
-                            onChange={(value) => handleInputChange('telehandle', value)}
+                            onChange={(value,label) => handleInputChange('telehandle', value)}
                         />
                         <TextBox
                             Label="Entity"
                             disabled={!isEditMode}
                             value={affiliation}
-                            onChange={(value) => handleInputChange('affiliation', value)}
+                            onChange={(value,label) => handleInputChange('affiliation', value)}
                         />
                         <TextBox
                             Label="Car plate"
                             disabled={!isEditMode}
                             value={car_plate}
-                            onChange={(value) => handleInputChange('car_plate', value)}
+                            onChange={(value,label) => handleInputChange('car_plate', value)}
                         />
                     </Col>
                     <Col lg={12} md={12} xs={12}>

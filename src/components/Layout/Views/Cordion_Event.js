@@ -14,7 +14,7 @@ function Cordion_Event(props) {
         <Accordion.Header>{props.header_2}</Accordion.Header>
         <Accordion.Body>
           <div className="d-flex justify-content-center align-items-center h-100">
-            <Image src={props.source} rounded fluid alt="No Image Attached! Click here to upload!" className="img-fluid" />
+            <Image src={`data:image/jpeg;base64,${props.source}`} rounded fluid alt="No Image Attached! Click here to upload!" className="img-fluid" />
           </div>
         </Accordion.Body>
       </Accordion.Item>
