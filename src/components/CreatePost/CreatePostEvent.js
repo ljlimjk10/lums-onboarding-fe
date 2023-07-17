@@ -95,6 +95,9 @@ function CreatePostEvent() {
           <Col lg={6} md={10} xs={12}>
             <DropDownList Label="Job Type" post="1" />
             <Textarea onChange={(e) => setSendMessage(e.target.value)} value={sendMessage} r="true" rows={13} Label="Message" />
+            <Form.Group className="mb-3">
+              <Form.Check label="Include Poll" />
+            </Form.Group>
           </Col>
           <Col lg={6} md={12} xs={12}>
             <BModal handleImageUpload={handleImageUpload} header="Attach Image" Label="Attach Image" fieldName="event_image" source={source}/>
