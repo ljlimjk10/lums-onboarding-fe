@@ -67,6 +67,7 @@ function Cordion(props) {
           <Row>
             <Col className="d-flex justify-content-center" lg={6} md={6} xs={12}>
               <BModal
+                Label="Medical Cerfiticate"
                 source={props.certifications.display_medical}
                 header="Medical Certificate"
                 disabled={props.disabled}
@@ -76,6 +77,7 @@ function Cordion(props) {
             </Col>
             <Col className="d-flex justify-content-center" lg={6} md={6} xs={12}>
               <BModal
+                Label="Child Safety Certificate"
                 source={props.certifications.display_child_safety}
                 header="Child Safety Certificate"
                 disabled={props.disabled}
