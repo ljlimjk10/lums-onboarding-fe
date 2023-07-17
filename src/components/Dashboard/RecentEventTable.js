@@ -9,7 +9,6 @@ import authHeader from "../../services/auth-header";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 
-
 const API_BASE_URL = "http://localhost:3001";
 const API_ENDPOINTS = ["/api/post/allevents"];
 
@@ -61,7 +60,7 @@ function RecentEventTable(props) {
   };
 
   return (
-    <Col>
+    <Col lg={props.lg} md={props.md} xs={props.xs}>
       <Container>
         {isLoading && !isInitialized ? (
           <div className="text-center">Loading...</div>
@@ -82,7 +81,7 @@ function RecentEventTable(props) {
                     .slice(-3)
                     .map((item) => (
                       <tr key={item.id}>
-                        <td style={{ maxWidth: "300px" }}>{item.message}</td>
+                        <td style={{ maxWidth: "200px", wordWrap: "break-word" }}>{item.message}</td>
                         <td>{item.formattedDate}</td>
                         <td align="center">
                           <Button onClick={() => handleViewPost(item.id, item.type)}>View Post</Button>

@@ -85,14 +85,13 @@ function RecentJobTable(props) {
               <tbody>
                 {recentJobs.map((item) => (
                   <tr key={item.id}>
-                    <td style={{ maxWidth: "300px" }}>
+                    <td style={{ maxWidth: "200px" }}>
                       {item.type === "Job" ? (
                         <>
-                          Location: {item.location} | Region: {item.region} | Model: {item.model} | Destination: {item.destination} |
-                          Pickup Date and Time: {new Date(item.pickupTime).toLocaleString("en-SG", { timeZone: "Asia/Singapore" })} |
-                          Price: ${item.price} | Payout: ${item.payout} |
-                          Dropoff Date and Time: {new Date(item.dropoffTime).toLocaleString("en-SG", { timeZone: "Asia/Singapore" })} |
-                          Status: {item.status ? "true" : "false"} |
+                          Location: {item.location} <br /> Region: {item.region} <br /> Model: {item.model} <br /> Destination: {item.destination} <br />
+                          Pickup Date and Time: {new Date(item.pickupTime).toLocaleString("en-SG", { timeZone: "Asia/Singapore" })} <br />
+                          Price: ${item.price} <br /> Payout: ${item.payout} <br />
+                          Dropoff Date Data and Time : {new Date(item.dropoffTime).toLocaleString("en-SG", { timeZone: "Asia/Singapore" })} <br />
                           Posted Date and Time: {new Date(item.createdAt).toLocaleString("en-SG", { timeZone: "Asia/Singapore" })}
                         </>
                       ) : (

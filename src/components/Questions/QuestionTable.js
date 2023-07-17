@@ -50,7 +50,7 @@ function QuestionTable() {
     }
     setShowPopUp(false);
     try {
-      await Promise.all(selectedQuestions.map((questionId) => axios.delete(`http://localhost:3001/api/faq/delete/${questionId}`)));
+      await Promise.all(selectedQuestions.map((questionId) => axios.delete(`http://localhost:3001/api/faq/delete/${questionId}`,{headers:authHeader()})));
       refreshData();
       setSelectedQuestions([]);
     } catch (err) {

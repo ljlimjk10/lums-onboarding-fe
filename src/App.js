@@ -18,9 +18,6 @@ import PendingUserView from "./components/Users/PendingUserView";
 import UserView from "./components/Users/UserView";
 import Post_Event from "./components/Posts/Post/Post_Event";
 import Post_Job from "./components/Posts/Post/Post_Job";
-import RecentEventTable from "./components/Dashboard/RecentEventTable";
-import RecentJobTable from "./components/Dashboard/RecentJobTable";
-
 
 function App() {
 	return (
