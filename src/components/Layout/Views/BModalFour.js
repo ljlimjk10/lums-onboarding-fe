@@ -47,7 +47,7 @@ function BModalFour(props) {
   };
 
   if (changeTo === "Approve" && comments === null) {
-    setComments("You have been approved");
+    setComments("You have been approved. Please join our channel: https://t.me/+NNAOw3xTkIFiMTRl");
   } else if (changeTo === "Reject" && comments === null) {
     setComments("You have been rejected because...");
   }

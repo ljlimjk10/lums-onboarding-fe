@@ -1,17 +1,20 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
-// Create a new context
 export const LoginContext = createContext();
 
-// Create a provider component
 export const LoginProvider = ({ children }) => {
-    const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(() => {
+    const storedLoginStatus = localStorage.getItem("isLoggedIn");
+    return storedLoginStatus ? JSON.parse(storedLoginStatus) : false;
+  });
 
+  useEffect(() => {
+    localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
+  }, [isLoggedIn]);
 
-    // Pass the login state and login/logout functions to the context provider
-    return (
-        <LoginContext.Provider value={{ isLoggedIn, setLoggedIn }}>
-            {children}
-            </LoginContext.Provider>
-    );
+  return (
+    <LoginContext.Provider value={{ isLoggedIn, setLoggedIn }}>
+      {children}
+    </LoginContext.Provider>
+  );
 };

@@ -184,7 +184,11 @@ function PostTable() {
                         timeZone: "Asia/Singapore",
                       });
 
-                      toDisplay = `Location: ${location} | Region: ${region} | Model: ${model} | Destination: ${destination} | Pickup Date and Time: ${pickupDateTime} | Price: $${price} | Payout: $${payout} | Dropoff Date and Time: ${dropoffDateTime} | Status: ${status ? "true" : "false"} | Posted Date and Time: ${createdDateTime}`;
+                      toDisplay = (
+                      <div>
+                        Location: {location} <br /> Region: {region} <br /> Model: {model} <br />  Destination: {destination} <br />  Pickup Date and Time: {pickupDateTime} <br />  Price: ${price} <br />  Payout: ${payout} <br />  Dropoff Date and Time: {dropoffDateTime} <br />   Posted Date and Time: {createdDateTime}
+                      </div>
+                    );
 
                     } else {
                       toDisplay = item.message;
