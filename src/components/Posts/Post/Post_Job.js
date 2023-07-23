@@ -16,10 +16,33 @@ const API_ENDPOINT = "/api/post/job/";
 function Post_Job(props) {
     const { id } = useParams();
     const [postData, setPostData] = useState(null);
+    const [postResponseData, setPostResponseData] = useState([]);
+    const {
+        message,
+        type,
+        location,
+        destination,
+        dropoffTime,
+        price,
+        payout,
+        responses,
+        status,
+        createdAt,
+        scheduledfor,
+        pickupTime,
+        riders,
+        model,
+        region,
+        pollId
+    } = postData || "";
 
     useEffect(() => {
         fetchPostData(id);
+        fetchPollData(pollId)
     }, [id]);
+
+
+
 
     const fetchPostData = (postId) => {
         const endpoint = `${API_BASE_URL}${API_ENDPOINT}${postId}`;
@@ -33,6 +56,17 @@ function Post_Job(props) {
             });
     };
 
+
+    const fetchPollData = async (pollId) => {
+        try {
+            const response = await axios.get(`${API_BASE_URL}/api/postresponses/${pollId}`);
+            setPostResponseData(response.data.data);
+        } catch (error) {
+            console.error("Error fetching poll data:", error);
+        }
+    };
+
+
     const convertToSingaporeTime = (dateTimeString) => {
         const dateTime = new Date(dateTimeString);
         if (isNaN(dateTime)) {
@@ -41,7 +75,20 @@ function Post_Job(props) {
         return dateTime.toLocaleString("en-SG", { timeZone: "Asia/Singapore" });
     };
 
-    const handleGenerateCSV = (postData) => {
+    const handleGenerateCSV = (postData, postResponseData = null) => {
+        let postResponsesString;
+        if (postResponseData === null) {
+
+        } else {
+            const postResponseCSV = postResponseData.map((responseReceived, index) => {
+                const { name, response, responseTime } = responseReceived;
+                const sgtDateTime = convertToSingaporeTime(responseTime);
+                return `Order:${index + 1}\nName:${name}\nResponse Type:${response}\nTime Responded:${sgtDateTime}`;
+            });
+            postResponsesString = postResponseCSV.join("\n\n");
+        }
+        // Join postResponseCSV array elements into a single string
+
         const csvData = [];
         csvData.push([
             "Message",
@@ -56,7 +103,8 @@ function Post_Job(props) {
             "Payout",
             "Status",
             "Created Date",
-            "Created Time"
+            "Created Time",
+            "Post Responses"
             // "Scheduled For"
         ]);
         const {
@@ -83,7 +131,8 @@ function Post_Job(props) {
             price || "",
             payout || "",
             status || "",
-            convertToSingaporeTime(createdAt) || ""
+            convertToSingaporeTime(createdAt) || "",
+            postResponsesString || "",
             // scheduledfor || ""
         ]);
 
@@ -96,23 +145,10 @@ function Post_Job(props) {
         return <div>Loading...</div>;
     }
 
-    const {
-        message,
-        type,
-        location,
-        destination,
-        dropoffTime,
-        price,
-        payout,
-        responses,
-        status,
-        createdAt,
-        scheduledfor,
-        pickupTime,
-        riders,
-        model,
-        region,
-    } = postData;
+
+
+
+
 
     return (
         <Container>
@@ -121,6 +157,7 @@ function Post_Job(props) {
                     type={type}
                     handleGenerateCSV={handleGenerateCSV}
                     postData={postData}
+                    postResponseData={postResponseData}
                     status={status}
                     page="Post"
                     b_name="Back"
@@ -169,13 +206,13 @@ function Post_Job(props) {
                         Label="Price"
                         disabled={true}
                         pholder="$20"
-                        value={"$"+price}
+                        value={"$" + price}
                     />
                     <TextBox
                         Label="Payout"
                         disabled={true}
                         pholder="$15"
-                        value={"$"+payout}
+                        value={"$" + payout}
                     />
                     <TextBox
                         Label="Riders"
@@ -194,7 +231,7 @@ function Post_Job(props) {
                 <Cordion_Two
                     header_1="Message"
                     header_2="Response Order"
-                    r_order={<PostResponses />}
+                    r_order={<PostResponses pollId={pollId} />}
                     message={message}
                 />
             </Row>

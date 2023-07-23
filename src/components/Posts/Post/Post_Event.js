@@ -19,11 +19,24 @@ function Post_Event(props) {
     const { id } = useParams();
     const [postData, setPostData] = useState(null);
     const [imageArray, setImageArray] = useState([]);
+    const [postResponseData, setPostResponseData] = useState([]);
 
     useEffect(() => {
         fetchPostData(id);
         fetchImageArray(id);
+        fetchPollData(id)
     }, [id]);
+
+
+    const fetchPollData = async (pollId) => {
+		try {
+			const response = await axios.get(`${API_BASE_URL}/api/postresponses/${pollId}`);
+			setPostResponseData(response.data.data);
+		} catch (error) {
+			console.error("Error fetching poll data:", error);
+			setPostResponseData([]); // Set an empty array on error to avoid the slice error
+		}
+	};
 
     const fetchPostData = async (postId) => {
         const endpoint = `${API_BASE_URL}${API_ENDPOINT}${postId}`;
@@ -63,6 +76,7 @@ function Post_Event(props) {
             "Date Posted",
             "Time Posted",
             "Status",
+            "Post Responses"
         ]);
         const {
             message,
@@ -79,6 +93,7 @@ function Post_Event(props) {
             type || "",
             convertToSingaporeTime(datetime) || "",
             status || "",
+            postResponseData || ""
         ]);
 
         const csvString = csvData.map((row) => row.join(",")).join("\n");
@@ -90,7 +105,7 @@ function Post_Event(props) {
         return <div>Loading...</div>;
     }
 
-    const { message, type, status, datetime } = postData || {};
+    const { message, type, status, datetime,pollId } = postData || {};
 
     return (
         <Container>
@@ -100,7 +115,7 @@ function Post_Event(props) {
                     <TextBox Label="Posted D/T" disabled="true" pholder="" value={convertToSingaporeTime(datetime)} />
                 </Col>
                 <hr />
-                <Cordion_Event header_1="Message" header_2="Image" header_3="Response Order" source={imageArray[0]} r_order={<PostResponses />} message={message} />
+                <Cordion_Event header_1="Message" header_2="Image" header_3="Response Order" source={imageArray[0]} r_order={<PostResponses pollId={pollId} />} message={message} />
             </Row>
         </Container>
     );

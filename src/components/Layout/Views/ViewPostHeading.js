@@ -23,7 +23,7 @@ function ViewPostHeading(props) {
                 <Button onClick={handleBack} style={{ marginLeft: '3%' }} variant="primary">
                     {props.b_name}
                 </Button>
-                <Button onClick={() => props.handleGenerateCSV(props.postData)} variant="success">
+                <Button onClick={() => props.handleGenerateCSV(props.postData,props.postResponseData)} variant="success">
                     {props.b_name_two}
                 </Button>
             </Col>
