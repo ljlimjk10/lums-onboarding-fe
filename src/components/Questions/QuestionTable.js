@@ -13,7 +13,7 @@ import axios from "axios";
 
 import authHeader from "../../services/auth-header";
 
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = "http://13.239.114.14:3001";
 
 function QuestionTable() {
   const [contacts, setContacts] = useState([]);
@@ -50,7 +50,7 @@ function QuestionTable() {
     }
     setShowPopUp(false);
     try {
-      await Promise.all(selectedQuestions.map((questionId) => axios.delete(`http://localhost:3001/api/faq/delete/${questionId}`,{headers:authHeader()})));
+      await Promise.all(selectedQuestions.map((questionId) => axios.delete(`http://13.239.114.14:3001/api/faq/delete/${questionId}`,{headers:authHeader()})));
       refreshData();
       setSelectedQuestions([]);
     } catch (err) {

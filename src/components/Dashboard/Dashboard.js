@@ -9,7 +9,7 @@ import RecentEventTable from "./RecentEventTable";
 import RecentJobTable from "./RecentJobTable";
 
 
-const API_BASE_URL = "http://localhost:3001";
+const API_BASE_URL = "http://13.239.114.14:3001";
 const API_ENDPOINTS = ["/api/user/all/verified", "/api/user/all/pending", "/api/user/all/rejected", "/api/user/all/new", "/api/post/alljobs"];
 
 function Dashboard() {

@@ -12,7 +12,7 @@ import UserView from "./UserView.js";
 import authHeader from "../../services/auth-header.js";
 
 
-const API_BASE_URL = "http://localhost:3001";
+const API_BASE_URL = "http://13.239.114.14:3001";
 const API_ENDPOINT = "/api/user/all/verified";
 
 function ExistingUsersTable() {
