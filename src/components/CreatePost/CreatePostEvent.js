@@ -41,7 +41,8 @@ function CreatePostEvent() {
       const newData = {
         type: 'Announcement',
         message: sendMessage,
-        datetime: new Date(datetimeString),
+        datetime: currentDate,
+        // datetime: new Date(datetimeString),
         status: 'Posted',
       };
 
@@ -61,7 +62,7 @@ function CreatePostEvent() {
         };
         formData.append('pollData', JSON.stringify(pollData));
       }
-
+      console.log(currentDate);
       console.log(newData);
       let response;
       if (includePoll) {
