@@ -71,6 +71,9 @@ function CreatePostAdHoc() {
         '-' +
         currentDate.getDate();
 
+      console.log(currentDate);
+      console.log(currentTimeString);
+
       const data = {
         type: 'Job',
         message: template,
@@ -86,6 +89,8 @@ function CreatePostAdHoc() {
         status: 'Posted',
         scheduledFor: new Date(`${currentDateString} ${currentTimeString}`),
       };
+
+      
 
       const response = await axios.post(
         `${API_BASE_URL}${API_ENDPOINT}`,
