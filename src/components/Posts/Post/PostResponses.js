@@ -3,7 +3,7 @@ import Table from "react-bootstrap/Table";
 import axios from "axios";
 import PostResponseItem from "./PostResponseItem";
 
-const API_BASE_URL = "http://localhost:3001";
+const API_BASE_URL = "http://13.239.114.14:3002";
 const API_ENDPOINT = "/api/postresponses/";
 const ITEMS_PER_PAGE = 10; // Change this number as per your pagination requirement
 

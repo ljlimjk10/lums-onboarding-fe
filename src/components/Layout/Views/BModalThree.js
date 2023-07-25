@@ -34,7 +34,7 @@ function BModalThree(props) {
     // Handle saving changes logic here
     setIsEditMode(false);
     try {
-      await axios.put(`http://localhost:3001/api/faq/update/${id}`,{question_en:question,answer_en:answer},{headers:authHeader()})
+      await axios.put(`http://13.239.114.14:3002/api/faq/update/${id}`,{question_en:question,answer_en:answer},{headers:authHeader()})
       props.refreshData();
     }catch (error){
       console.error('Error updating FAQ data:', error);
