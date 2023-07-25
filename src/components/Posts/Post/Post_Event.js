@@ -12,7 +12,7 @@ import authHeader from "../../../services/auth-header";
 import { useParams } from "react-router-dom";
 import saveAs from "file-saver";
 
-const API_BASE_URL = "http://13.239.114.14:3001";
+const API_BASE_URL = "http://13.239.114.14:3002";
 const API_ENDPOINT = "/api/post/event/";
 
 function Post_Event(props) {

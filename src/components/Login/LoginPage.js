@@ -34,7 +34,7 @@ function LoginPage() {
                 }
             )
             // const response = await axios.post(
-            //     "http://13.239.114.14:3001/api/auth/admin/login",
+            //     "http://13.239.114.14:3002/api/auth/admin/login",
             //     { username, password }
             // );
             // console.log("Login successful", response.data.access_token);
