@@ -12,7 +12,7 @@ import Post_Job from "./Post_Job";
 import axios from "axios";
 import authHeader from "../../../services/auth-header";
 
-const API_BASE_URL = "http://13.239.114.14:3002";
+const API_BASE_URL = "http://localhost:3001";
 const API_ENDPOINTS = [
   "/api/post/allevents",
   "/api/post/alljobs"

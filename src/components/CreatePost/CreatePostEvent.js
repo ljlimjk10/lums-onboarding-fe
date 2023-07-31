@@ -13,7 +13,7 @@ import BModal from '../Layout/Views/BModal';
 import Heading_Schedule from '../Layout/Views/Heading_Schedule';
 import authHeader from '../../services/auth-header';
 
-const API_BASE_URL = "http://13.239.114.14:3002";
+const API_BASE_URL = "http://localhost:3001";
 const API_ENDPOINT = "/api/post/eventcreate";
 const API_ENDPOINT_WITH_POLL = "/api/post/eventcreatewithpoll";
 
@@ -41,8 +41,7 @@ function CreatePostEvent() {
       const newData = {
         type: 'Announcement',
         message: sendMessage,
-        datetime: currentDate,
-        // datetime: new Date(datetimeString),
+        datetime: new Date(datetimeString),
         status: 'Posted',
       };
 
@@ -62,7 +61,7 @@ function CreatePostEvent() {
         };
         formData.append('pollData', JSON.stringify(pollData));
       }
-      console.log(currentDate);
+
       console.log(newData);
       let response;
       if (includePoll) {
