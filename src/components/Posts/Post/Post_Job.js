@@ -39,10 +39,7 @@ function Post_Job(props) {
     useEffect(() => {
         fetchPostData(id);
         fetchPollData(pollId)
-    }, [id]);
-
-
-
+    }, [id,pollId]);
 
     const fetchPostData = (postId) => {
         const endpoint = `${API_BASE_URL}${API_ENDPOINT}${postId}`;
@@ -59,8 +56,8 @@ function Post_Job(props) {
 
     const fetchPollData = async (pollId) => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/api/postresponses/${pollId}`);
-            setPostResponseData(response.data.data);
+            const response = await axios.get(`${API_BASE_URL}/api/postresponses/jobpost/${pollId}`,{headers:authHeader()});
+            setPostResponseData(response.data.data); // an array
         } catch (error) {
             console.error("Error fetching poll data:", error);
         }
@@ -76,18 +73,16 @@ function Post_Job(props) {
     };
 
     const handleGenerateCSV = (postData, postResponseData = null) => {
-        let postResponsesString;
-        if (postResponseData === null) {
+        let postResponsesString = ""; // Initialize postResponsesString as an empty string
 
-        } else {
+        if (postResponseData !== null) {
             const postResponseCSV = postResponseData.map((responseReceived, index) => {
                 const { name, response, responseTime } = responseReceived;
                 const sgtDateTime = convertToSingaporeTime(responseTime);
-                return `Order:${index + 1}\nName:${name}\nResponse Type:${response}\nTime Responded:${sgtDateTime}`;
+                return `Order:${index + 1}\nName:${name}\nResponse Type:${response}\nDate and Time Responded:${sgtDateTime}`;
             });
             postResponsesString = postResponseCSV.join("\n\n");
         }
-        // Join postResponseCSV array elements into a single string
 
         const csvData = [];
         csvData.push([
@@ -132,7 +127,7 @@ function Post_Job(props) {
             payout || "",
             status || "",
             convertToSingaporeTime(createdAt) || "",
-            postResponsesString || "",
+            `"${postResponsesString.replace(/"/g, '""')}"`, 
             // scheduledfor || ""
         ]);
 
@@ -231,7 +226,7 @@ function Post_Job(props) {
                 <Cordion_Two
                     header_1="Message"
                     header_2="Response Order"
-                    r_order={<PostResponses pollId={pollId} />}
+                    r_order={<PostResponses field= "job" pollId={pollId} />}
                     message={message}
                 />
             </Row>

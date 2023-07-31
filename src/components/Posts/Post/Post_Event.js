@@ -10,7 +10,7 @@ import Cordion_Event from "../../Layout/Views/Cordion_Event";
 import axios from "axios";
 import authHeader from "../../../services/auth-header";
 import { useParams } from "react-router-dom";
-import saveAs from "file-saver";
+import {saveAs} from "file-saver";
 
 const API_BASE_URL = "http://localhost:3001";
 const API_ENDPOINT = "/api/post/event/";
@@ -20,17 +20,19 @@ function Post_Event(props) {
     const [postData, setPostData] = useState(null);
     const [imageArray, setImageArray] = useState([]);
     const [postResponseData, setPostResponseData] = useState([]);
+    const { message, type, status, datetime,pollId } = postData || {};
 
     useEffect(() => {
         fetchPostData(id);
         fetchImageArray(id);
-        fetchPollData(id)
-    }, [id]);
+        fetchPollData(pollId)
+    }, [id,pollId]);
 
 
     const fetchPollData = async (pollId) => {
 		try {
-			const response = await axios.get(`${API_BASE_URL}/api/postresponses/${pollId}`);
+			const response = await axios.get(`${API_BASE_URL}/api/postresponses/event/${pollId}`,{headers:authHeader()});
+            console.log(response);
 			setPostResponseData(response.data.data);
 		} catch (error) {
 			console.error("Error fetching poll data:", error);
@@ -68,6 +70,16 @@ function Post_Event(props) {
     };
 
     const handleGenerateCSV = (postData) => {
+        let postResponsesString = ""; // Initialize postResponsesString as an empty string
+
+        if (postResponseData !== null) {
+            const postResponseCSV = postResponseData.map((responseReceived, index) => {
+                const { name, response, responseTime } = responseReceived;
+                const sgtDateTime = convertToSingaporeTime(responseTime);
+                return `Order:${index + 1}\nName:${name}\nResponse Type:${response}\nDate and Time Responded:${sgtDateTime}`;
+            });
+            postResponsesString = postResponseCSV.join("\n\n");
+        }
         const csvData = [];
         csvData.push([
             "Message",
@@ -93,7 +105,7 @@ function Post_Event(props) {
             type || "",
             convertToSingaporeTime(datetime) || "",
             status || "",
-            postResponseData || ""
+            `"${postResponsesString.replace(/"/g, '""')}"`, 
         ]);
 
         const csvString = csvData.map((row) => row.join(",")).join("\n");
@@ -105,7 +117,6 @@ function Post_Event(props) {
         return <div>Loading...</div>;
     }
 
-    const { message, type, status, datetime,pollId } = postData || {};
 
     return (
         <Container>
@@ -115,7 +126,7 @@ function Post_Event(props) {
                     <TextBox Label="Posted D/T" disabled="true" pholder="" value={convertToSingaporeTime(datetime)} />
                 </Col>
                 <hr />
-                <Cordion_Event header_1="Message" header_2="Image" header_3="Response Order" source={imageArray[0]} r_order={<PostResponses pollId={pollId} />} message={message} />
+                <Cordion_Event header_1="Message" header_2="Image" header_3="Response Order" source={imageArray[0]} r_order={<PostResponses field="event" pollId={pollId} />} message={message} />
             </Row>
         </Container>
     );

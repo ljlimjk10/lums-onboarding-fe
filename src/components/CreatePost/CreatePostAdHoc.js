@@ -84,7 +84,7 @@ function CreatePostAdHoc() {
         payout,
         dropoffDateTime: new Date(`${dropoffDate} ${dropoffTime}`),
         status: 'Posted',
-        scheduledFor: new Date(`${currentDateString} ${currentTimeString}`),
+        createdAt: new Date(`${currentDateString} ${currentTimeString}`),
       };
 
       const response = await axios.post(

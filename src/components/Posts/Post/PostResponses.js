@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import axios from "axios";
 import PostResponseItem from "./PostResponseItem";
+import authHeader from "../../../services/auth-header";
 
 const API_BASE_URL = "http://localhost:3001";
 const API_ENDPOINT = "/api/postresponses/";
@@ -12,18 +13,32 @@ const PostResponses = (props) => {
 	const [currentPage, setCurrentPage] = useState(1);
 
 	const pollId = props.pollId;
+	const field = props.field;
+	// if === "job" -> /api/postresponses/jobpost/:pollid 
+	// if === "event" -> /api/postresponses/event/:pollid 
 
 	useEffect(() => {
 		fetchPollData(pollId);
 	}, [pollId]);
 
 	const fetchPollData = async (pollId) => {
-		try {
-			const response = await axios.get(`${API_BASE_URL}${API_ENDPOINT}${pollId}`);
-			setPostResponseData(response.data.data);
-		} catch (error) {
-			console.error("Error fetching poll data:", error);
-			setPostResponseData([]); // Set an empty array on error to avoid the slice error
+		if (field === "job") {
+			try {
+				const response = await axios.get(`${API_BASE_URL}${API_ENDPOINT}jobpost/${pollId}`,{headers:authHeader()});
+				setPostResponseData(response.data.data);
+			} catch (error) {
+				console.error("Error fetching poll data:", error);
+				setPostResponseData([]); // Set an empty array on error to avoid the slice error
+			}
+		} else if (field === "event") {
+			try {
+				const response = await axios.get(`${API_BASE_URL}${API_ENDPOINT}event/${pollId}`,{headers:authHeader()});
+				setPostResponseData(response.data.data);
+			} catch (error) {
+				console.error("Error fetching poll data:", error);
+				setPostResponseData([]); // Set an empty array on error to avoid the slice error
+			}
+
 		}
 	};
 
@@ -37,14 +52,13 @@ const PostResponses = (props) => {
 		: [];
 
 	// Conditional rendering check for data presence and array type
-	console.log(postResponseData);
 	let postResponseItemComponents = null;
 	if (postResponseData && Array.isArray(postResponseData)) {
-		postResponseItemComponents = currentItems.map((item,index) => {
+		postResponseItemComponents = currentItems.map((item, index) => {
 			const utcDateStr = item.responseTime;
-			const sgtDateTime = new Date(utcDateStr).toLocaleString("en-sg",{timeZone:"Asia/Singapore"});
-			return <PostResponseItem key={item.id} order={index+1} name={item.name} date={sgtDateTime} />
-	});
+			const sgtDateTime = new Date(utcDateStr).toLocaleString("en-sg", { timeZone: "Asia/Singapore" });
+			return <PostResponseItem key={item.id} order={index + 1} name={item.name} date={sgtDateTime} />
+		});
 	}
 
 	return (

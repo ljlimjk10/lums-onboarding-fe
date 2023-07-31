@@ -55,14 +55,13 @@ function CreatePostEvent() {
         formData.append('event_image', data.event_image);
       }
 
-      if (includePoll) {
-        const pollData = {
-          // Add your poll data here
-        };
-        formData.append('pollData', JSON.stringify(pollData));
-      }
+      // if (includePoll) {
+      //   const pollData = {
+      //     // Add your poll data here
+      //   };
+      //   formData.append('pollData', JSON.stringify(pollData));
+      // }
 
-      console.log(newData);
       let response;
       if (includePoll) {
         response = await axios.post(`${API_BASE_URL}${API_ENDPOINT_WITH_POLL}`, formData, { headers: authHeader() });
