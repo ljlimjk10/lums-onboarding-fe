@@ -41,6 +41,9 @@ function Post_Job(props) {
         fetchPollData(pollId)
     }, [id]);
 
+
+
+
     const fetchPostData = (postId) => {
         const endpoint = `${API_BASE_URL}${API_ENDPOINT}${postId}`;
         axios
@@ -53,15 +56,16 @@ function Post_Job(props) {
             });
     };
 
+
     const fetchPollData = async (pollId) => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/api/postresponses/${pollId}`, { headers: authHeader() });
-            console.log(response.data);
+            const response = await axios.get(`${API_BASE_URL}/api/postresponses/${pollId}`);
             setPostResponseData(response.data.data);
         } catch (error) {
             console.error("Error fetching poll data:", error);
         }
     };
+
 
     const convertToSingaporeTime = (dateTimeString) => {
         const dateTime = new Date(dateTimeString);
