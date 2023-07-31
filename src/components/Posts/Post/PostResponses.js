@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Table from "react-bootstrap/Table";
 import axios from "axios";
 import PostResponseItem from "./PostResponseItem";
+import authHeader from "../../../services/auth-header";
 
 const API_BASE_URL = "http://localhost:3001";
 const API_ENDPOINT = "/api/postresponses/";
@@ -19,7 +20,7 @@ const PostResponses = (props) => {
 
 	const fetchPollData = async (pollId) => {
 		try {
-			const response = await axios.get(`${API_BASE_URL}${API_ENDPOINT}${pollId}`);
+			const response = await axios.get(`${API_BASE_URL}${API_ENDPOINT}${pollId}`,{headers:authHeader()});
 			setPostResponseData(response.data.data);
 		} catch (error) {
 			console.error("Error fetching poll data:", error);

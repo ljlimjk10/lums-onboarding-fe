@@ -64,6 +64,39 @@ function PostTable() {
     setSearch("");
     setSelectedType("");
   };
+  function convertToSGT(utcTimestamp) {
+    // Parse the UTC timestamp to a Date object
+    const date = new Date(utcTimestamp);
+
+    // Get the UTC time in milliseconds
+    const utcTime = date.getTime();
+
+    // Calculate the time difference between UTC and SGT in milliseconds
+    const sgtTimeDifference = 8 * 60 * 60 * 1000; // 8 hours in milliseconds
+
+    // Calculate the Singapore Time (SGT) in milliseconds
+    const sgtTime = utcTime + sgtTimeDifference;
+
+    // Create a new Date object for the Singapore Time
+    const sgtDate = new Date(sgtTime);
+
+    // Extract the individual components of Singapore Date and Time
+    const day = String(sgtDate.getDate()).padStart(2, '0');
+    const month = String(sgtDate.getMonth() + 1).padStart(2, '0');
+    const year = sgtDate.getFullYear();
+    let hours = sgtDate.getHours();
+    const minutes = String(sgtDate.getMinutes()).padStart(2, '0');
+    const seconds = String(sgtDate.getSeconds()).padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+
+    // Convert hours to 12-hour format
+    hours = hours % 12 || 12;
+
+    // Create the formatted Singapore Date and Time string
+    const singaporeDateTime = `${day}/${month}/${year}, ${hours}:${minutes}:${seconds} ${ampm}`;
+
+    return singaporeDateTime;
+  }
 
   return (
     <Col>
@@ -122,20 +155,16 @@ function PostTable() {
                       let displayDateTime = "";
 
                       if (item.createdAt) {
-                      const createdAtDate = new Date(item.createdAt);
-                      if (createdAtDate instanceof Date && !isNaN(createdAtDate)) {
-                        displayCreated = createdAtDate.toLocaleString("en-SG", {
-                          timeZone: "Asia/Singapore",
-                        });
+                        const createdAtDate = new Date(item.createdAt);
+                        if (createdAtDate instanceof Date && !isNaN(createdAtDate)) {
+                          displayCreated = convertToSGT(item.createdAt)
+                        }
+                      } else if (item.datetime) {
+                        const datetimeDate = new Date(item.datetime);
+                        if (datetimeDate instanceof Date && !isNaN(datetimeDate)) {
+                          displayDateTime = convertToSGT(item.datetime)
+                        }
                       }
-                    } else if (item.datetime) {
-                      const datetimeDate = new Date(item.datetime);
-                      if (datetimeDate instanceof Date && !isNaN(datetimeDate)) {
-                        displayDateTime = datetimeDate.toLocaleString("en-SG", {
-                          timeZone: "Asia/Singapore",
-                        });
-                      }
-                    }
 
 
                       const Message = item.message;
@@ -185,10 +214,10 @@ function PostTable() {
                       });
 
                       toDisplay = (
-                      <div>
-                        Location: {location} <br /> Region: {region} <br /> Model: {model} <br />  Destination: {destination} <br />  Pickup Date and Time: {pickupDateTime} <br />  Price: ${price} <br />  Payout: ${payout} <br />  Dropoff Date and Time: {dropoffDateTime} <br />   Posted Date and Time: {createdDateTime}
-                      </div>
-                    );
+                        <div>
+                          Location: {location} <br /> Region: {region} <br /> Model: {model} <br />  Destination: {destination} <br />  Pickup Date and Time: {pickupDateTime} <br />  Price: ${price} <br />  Payout: ${payout} <br />  Dropoff Date and Time: {dropoffDateTime} <br />   Posted Date and Time: {createdDateTime}
+                        </div>
+                      );
 
                     } else {
                       toDisplay = item.message;
