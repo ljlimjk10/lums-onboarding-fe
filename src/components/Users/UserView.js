@@ -8,7 +8,7 @@ import Cordion from '../Layout/Views/Cordion';
 import authHeader from '../../services/auth-header.js';
 import { useParams } from 'react-router-dom';
 
-const API_BASE_URL = 'http://localhost:3001';
+const API_BASE_URL = 'http://13.239.114.14:3002';
 const API_ENDPOINT = '/api/user/profile/';
 
 function UserView(props) {
