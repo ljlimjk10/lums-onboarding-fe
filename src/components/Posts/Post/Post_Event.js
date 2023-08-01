@@ -14,7 +14,7 @@ import { saveAs } from "file-saver";
 import XLSX from "xlsx/dist/xlsx.full.min";
 
 
-const API_BASE_URL = "http://13.239.114.14:3002";
+const API_BASE_URL = "http://13.215.50.140:3002";
 const API_ENDPOINT = "/api/post/event/";
 
 function Post_Event(props) {

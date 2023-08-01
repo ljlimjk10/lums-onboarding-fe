@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://13.239.114.14:3002/api/auth/admin";
+const API_URL = "http://13.215.50.140:3002/api/auth/admin";
 
 const login = (username,password) => {
     return axios

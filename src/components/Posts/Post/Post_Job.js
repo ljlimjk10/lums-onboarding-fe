@@ -12,7 +12,7 @@ import ViewPostHeading from "../../Layout/Views/ViewPostHeading";
 import Cordion_Two from "../../Layout/Views/Cordion_Two";
 import authHeader from "../../../services/auth-header";
 
-const API_BASE_URL = "http://13.239.114.14:3002";
+const API_BASE_URL = "http://13.215.50.140:3002";
 const API_ENDPOINT = "/api/post/job/";
 
 function Post_Job(props) {

@@ -9,7 +9,7 @@ import authHeader from "../../services/auth-header";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 
-const API_BASE_URL = "http://13.239.114.14:3002";
+const API_BASE_URL = "http://13.215.50.140:3002";
 const API_ENDPOINTS = ["/api/post/alljobs"];
 
 function RecentJobTable(props) {

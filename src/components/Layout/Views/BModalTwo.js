@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Textarea from './Textarea';
@@ -10,6 +11,7 @@ function BModalTwo(props) {
   const [show, setShow] = useState(false);
   const [question,setQuestion] = useState("");
   const [answer,setAnswer] = useState("");
+  const navigate = useNavigate()
   
   const handleAddQuestionClick = () => {
     createQuestionAndAnswer({question,answer});
@@ -28,10 +30,13 @@ function BModalTwo(props) {
 
   }
   const createQuestionAndAnswer = () => {
-    axios.post('http://13.239.114.14:3002/api/faq/create',{question_en:question,answer_en:answer},{headers:authHeader()})
+    axios.post('http://13.215.50.140:3002/api/faq/create',{question_en:question,answer_en:answer},{headers:authHeader()})
     .then(response=>{
       console.log('Question and answer created successfully');
       onRefreshData();
+      navigate("/support");
+      
+
     })
     .catch(error=>{
       console.log("Error:",error);

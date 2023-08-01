@@ -4,7 +4,7 @@ import axios from "axios";
 import PostResponseItem from "./PostResponseItem";
 import authHeader from "../../../services/auth-header";
 
-const API_BASE_URL = "http://13.239.114.14:3002";
+const API_BASE_URL = "http://13.215.50.140:3002";
 const API_ENDPOINT = "/api/postresponses/";
 const ITEMS_PER_PAGE = 10; // Change this number as per your pagination requirement
 
