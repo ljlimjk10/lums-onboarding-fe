@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { saveAs } from "file-saver";
+import XLSX from "xlsx/dist/xlsx.full.min";
+
 
 import { Container, Row, Col } from "react-bootstrap";
 import TextBox from "../../Layout/Views/TextBox";
@@ -39,7 +41,7 @@ function Post_Job(props) {
     useEffect(() => {
         fetchPostData(id);
         fetchPollData(pollId)
-    }, [id,pollId]);
+    }, [id, pollId]);
 
     const fetchPostData = (postId) => {
         const endpoint = `${API_BASE_URL}${API_ENDPOINT}${postId}`;
@@ -56,7 +58,7 @@ function Post_Job(props) {
 
     const fetchPollData = async (pollId) => {
         try {
-            const response = await axios.get(`${API_BASE_URL}/api/postresponses/jobpost/${pollId}`,{headers:authHeader()});
+            const response = await axios.get(`${API_BASE_URL}/api/postresponses/jobpost/${pollId}`, { headers: authHeader() });
             setPostResponseData(response.data.data); // an array
         } catch (error) {
             console.error("Error fetching poll data:", error);
@@ -72,7 +74,7 @@ function Post_Job(props) {
         return dateTime.toLocaleString("en-SG", { timeZone: "Asia/Singapore" });
     };
 
-    const handleGenerateCSV = (postData, postResponseData = null) => {
+    const handleGenerateExcel = (postData, postResponseData = null) => {
         let postResponsesString = ""; // Initialize postResponsesString as an empty string
 
         if (postResponseData !== null) {
@@ -84,57 +86,55 @@ function Post_Job(props) {
             postResponsesString = postResponseCSV.join("\n\n");
         }
 
-        const csvData = [];
-        csvData.push([
-            "Message",
-            "Type",
-            "Location",
-            "Destination",
-            "Pickup Date",
-            "Pickup Time",
-            "Drop-off Date",
-            "Drop-off Time",
-            "Price",
-            "Payout",
-            "Status",
-            "Created Date",
-            "Created Time",
-            "Post Responses"
-            // "Scheduled For"
-        ]);
-        const {
-            message,
-            type,
-            location,
-            destination,
-            pickupTime,
-            dropoffTime,
-            price,
-            payout,
-            status,
-            createdAt,
-            // scheduledfor
-        } = postData;
-        const sanitizedMessage = message ? `"${message.replace(/"/g, '""')}"` : "";
-        csvData.push([
-            sanitizedMessage,
-            type || "",
-            location || "",
-            destination || "",
-            convertToSingaporeTime(pickupTime) || "",
-            convertToSingaporeTime(dropoffTime) || "",
-            price || "",
-            payout || "",
-            status || "",
-            convertToSingaporeTime(createdAt) || "",
-            `"${postResponsesString.replace(/"/g, '""')}"`, 
-            // scheduledfor || ""
-        ]);
+        const excelData = [
+            [
+                "Message",
+                "Type",
+                "Location",
+                "Destination",
+                "Pickup Date and Time",
+                "Drop-off Date and Time",
+                "Price",
+                "Payout",
+                "Status",
+                "Created Date and Time",
+                "Post Responses",
+            ],
+            [
+                postData.message || "",
+                postData.type || "",
+                postData.location || "",
+                postData.destination || "",
+                convertToSingaporeTime(postData.pickupTime) || "",
+                convertToSingaporeTime(postData.dropoffTime) || "",
+                postData.price ? "$" + postData.price : "",
+                postData.payout ? "$" + postData.payout : "",
+                postData.status || "",
+                convertToSingaporeTime(postData.createdAt) || "",
+                postResponsesString || "",
+            ],
+        ];
 
-        const csvString = csvData.map((row) => row.join(",")).join("\n");
-        const blob = new Blob([csvString], { type: "text/csv;charset=utf-8" });
-        saveAs(blob, "post_job_data.csv");
-    }
+        const worksheet = XLSX.utils.aoa_to_sheet(excelData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+        const excelBuffer = XLSX.write(workbook, {
+            type: "array",
+        });
+
+        const blob = new Blob([excelBuffer], {
+            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        });
+        saveAs(blob, "post_job_data.xlsx");
+    };
+
+    const handleGenerateCSV = (postData, postResponseData = null) => {
+        // The rest of your existing code for generating CSV goes here
+        // To generate Excel instead of CSV, just call handleGenerateExcel
+        handleGenerateExcel(postData, postResponseData);
+    };
+
+
 
     if (!postData) {
         return <div>Loading...</div>;
@@ -226,7 +226,7 @@ function Post_Job(props) {
                 <Cordion_Two
                     header_1="Message"
                     header_2="Response Order"
-                    r_order={<PostResponses field= "job" pollId={pollId} />}
+                    r_order={<PostResponses field="job" pollId={pollId} />}
                     message={message}
                 />
             </Row>
