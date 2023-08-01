@@ -12,7 +12,7 @@ import axios from 'axios';
 import authHeader from '../../services/auth-header';
 import { useNavigate } from 'react-router-dom';
 
-const API_BASE_URL = 'http://localhost:3001';
+const API_BASE_URL = 'http://13.239.114.14:3002';
 const API_ENDPOINT = '/api/post/jobcreate';
 
 function CreatePostAdHoc() {

@@ -12,7 +12,7 @@ import PendingUserView from "./PendingUserView.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate, Link,useLocation } from "react-router-dom";
 
-const API_BASE_URL = "http://localhost:3001";
+const API_BASE_URL = "http://13.239.114.14:3002";
 const API_ENDPOINTS = [
   "/api/user/all/pending",
   "/api/user/all/new",

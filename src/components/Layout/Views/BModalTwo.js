@@ -28,7 +28,7 @@ function BModalTwo(props) {
 
   }
   const createQuestionAndAnswer = () => {
-    axios.post('http://localhost:3001/api/faq/create',{question_en:question,answer_en:answer},{headers:authHeader()})
+    axios.post('http://13.239.114.14:3002/api/faq/create',{question_en:question,answer_en:answer},{headers:authHeader()})
     .then(response=>{
       console.log('Question and answer created successfully');
       onRefreshData();
