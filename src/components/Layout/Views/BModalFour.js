@@ -47,7 +47,7 @@ function BModalFour(props) {
   };
 
   if (changeTo === "Approve" && comments === null) {
-    setComments("You have been approved. Please join our channel: https://t.me/+NNAOw3xTkIFiMTRl");
+    setComments("You have been approved. Please join our channel: https://t.me/+NNAOw3xTkIFiMTRl. Click here for our FAQ bot: https://t.me/testFunctionalityFAQbot");
   } else if (changeTo === "Reject" && comments === null) {
     setComments("You have been rejected because...");
   }

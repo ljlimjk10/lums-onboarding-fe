@@ -11,6 +11,7 @@ function BModalTwo(props) {
   const [show, setShow] = useState(false);
   const [question,setQuestion] = useState("");
   const [answer,setAnswer] = useState("");
+  const [isLoading,setIsLoading] = useState(false)
   const navigate = useNavigate()
   
   const handleAddQuestionClick = () => {
@@ -29,18 +30,18 @@ function BModalTwo(props) {
     // console.log(answer);
 
   }
-  const createQuestionAndAnswer = () => {
-    axios.post('http://13.215.50.140:3002/api/faq/create',{question_en:question,answer_en:answer},{headers:authHeader()})
-    .then(response=>{
+  const createQuestionAndAnswer = async () => {
+    try{
+      setIsLoading(true);
+      const response = await axios.post('http://13.215.50.140:3002/api/faq/create',{question_en:question,answer_en:answer},{headers:authHeader()})
       console.log('Question and answer created successfully');
       onRefreshData();
-      navigate("/support");
-      
-
-    })
-    .catch(error=>{
+    }
+    catch(error){
       console.log("Error:",error);
-    })
+    }finally{
+    setIsLoading(false)
+}
   }
 
   return (
