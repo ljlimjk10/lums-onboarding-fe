@@ -103,7 +103,7 @@ const Pagination = ({ currentPage, itemsPerPage, totalItems, onPageChange }) => 
 							onClick={() => onPageChange(number)}
 							href="#!"
 							className={`page-link ${currentPage === number ? "active" : ""}`}
-							style={{"zIndex":0"}}
+							style={{"zIndex":0}}
 						>
 							{number}
 						</a>
