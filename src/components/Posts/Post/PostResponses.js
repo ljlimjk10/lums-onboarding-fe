@@ -58,7 +58,8 @@ const PostResponses = (props) => {
 			const utcDateStr = item.responseTime;
 			const sgtDateTime = new Date(utcDateStr).toLocaleString("en-sg", { timeZone: "Asia/Singapore" });
 			const contact = item.mobile;
-			return <PostResponseItem key={item.id} order={index + 1} name={item.name} date={sgtDateTime} contact={contact} />
+			const telehandle = item.telehandle;
+			return <PostResponseItem key={item.id} order={index + 1} name={item.name} date={sgtDateTime} contact={contact} telehandle={telehandle} />
 		});
 	}
 
@@ -69,6 +70,7 @@ const PostResponses = (props) => {
 					<tr>
 						<th>Order</th>
 						<th>Name</th>
+						<th>Telegram</th>
 						<th>Contact</th>
 						<th>Date</th>
 					</tr>
