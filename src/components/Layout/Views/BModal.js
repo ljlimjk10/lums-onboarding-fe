@@ -10,10 +10,8 @@ function BModal(props) {
   const [show, setShow] = useState(false);
   const [selectedImg, setSelectedImg] = useState(null);
   const [file, setFile] = useState(null); // New state to store the file
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const handleImgSelect = (event) => {
     const selectedFile = event.target.files[0];
     setSelectedImg(URL.createObjectURL(selectedFile));

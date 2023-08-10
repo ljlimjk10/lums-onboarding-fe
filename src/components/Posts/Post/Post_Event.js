@@ -76,9 +76,9 @@ function Post_Event(props) {
 
         if (postResponseData !== null) {
             const postResponseCSV = postResponseData.map((responseReceived, index) => {
-                const { name, response, responseTime } = responseReceived;
+                const { name, response, responseTime,mobile } = responseReceived;
                 const sgtDateTime = convertToSingaporeTime(responseTime);
-                return `Order:${index + 1}\nName:${name}\nResponse Type:${response}\nDate and Time Responded:${sgtDateTime}`;
+                return `Order:${index + 1}\nName:${name}\nResponse Type:${response}\nDate and Time Responded:${sgtDateTime}\nContact:${mobile}`;
             });
             postResponsesString = postResponseCSV.join("\n\n");
         }

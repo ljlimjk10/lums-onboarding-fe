@@ -9,7 +9,7 @@ import RecentEventTable from "./RecentEventTable";
 import RecentJobTable from "./RecentJobTable";
 
 
-const API_BASE_URL = "http://13.215.50.140:3002";
+const API_BASE_URL = "http://13.215.50.140:3002"; // Actual AWS backend: 13.215.50.140:3002
 const API_ENDPOINTS = ["/api/user/all/verified", "/api/user/all/pending", "/api/user/all/rejected", "/api/user/all/new", "/api/post/alljobs"];
 
 function Dashboard() {

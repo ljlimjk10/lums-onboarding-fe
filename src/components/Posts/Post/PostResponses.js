@@ -57,7 +57,8 @@ const PostResponses = (props) => {
 		postResponseItemComponents = currentItems.map((item, index) => {
 			const utcDateStr = item.responseTime;
 			const sgtDateTime = new Date(utcDateStr).toLocaleString("en-sg", { timeZone: "Asia/Singapore" });
-			return <PostResponseItem key={item.id} order={index + 1} name={item.name} date={sgtDateTime} />
+			const contact = item.mobile;
+			return <PostResponseItem key={item.id} order={index + 1} name={item.name} date={sgtDateTime} contact={contact} />
 		});
 	}
 
@@ -68,6 +69,7 @@ const PostResponses = (props) => {
 					<tr>
 						<th>Order</th>
 						<th>Name</th>
+						<th>Contact</th>
 						<th>Date</th>
 					</tr>
 				</thead>
