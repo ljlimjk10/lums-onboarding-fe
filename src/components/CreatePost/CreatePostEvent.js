@@ -12,7 +12,6 @@ import BModal_Post from '../Layout/Views/BModal_Post';
 import BModal from '../Layout/Views/BModal';
 import Heading_Schedule from '../Layout/Views/Heading_Schedule';
 import authHeader from '../../services/auth-header';
-import TextBox from '../Layout/Views/TextBox';
 
 const API_BASE_URL = "http://13.215.50.140:3002";
 const API_ENDPOINT = "/api/post/eventcreate";
@@ -24,7 +23,6 @@ function CreatePostEvent() {
   const [sendMessage, setSendMessage] = useState('');
   const [uploadedImage, setUploadedImage] = useState(null);
   const [includePoll, setIncludePoll] = useState(false);
-  const [modalCount, setModalCount] = useState(0);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -119,32 +117,9 @@ function CreatePostEvent() {
               <Form.Check label="Include Poll" onChange={handleIncludePollChange} />
             </Form.Group>
           </Col>
-          <Col lg={6} md={12} xs={12}>  
-          <TextBox
-              Label="Images"
-              type="number"
-              value={modalCount} // Bind the input value to the modalCount state
-              onChange={(value, label) => {
-                // Parse the input value as an integer
-                const displayModalCount = parseInt(value, 10);
-
-                // Update the modalCount state
-                setModalCount(displayModalCount);
-              }}
-            />
-            {[...Array(modalCount)].map((_, index) => (
-              <BModal
-                key={index}
-                handleImageUpload={handleImageUpload}
-                header="Attach Image"
-                fieldName={`event_image_${index}`}
-                source={source}
-                includePoll={includePoll}
-              />
-            ))}
+          <Col lg={6} md={12} xs={12}>
+            <BModal handleImageUpload={handleImageUpload} header="Attach Image" Label="Attach Image" fieldName="event_image" source={source} includePoll={includePoll} />
           </Col>
-
-
         </Row>
       </Container>
     </Form>
